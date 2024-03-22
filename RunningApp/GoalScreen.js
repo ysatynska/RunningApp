@@ -1,99 +1,46 @@
-import React, { useState, useRef } from 'react';
-import { View, Text, Pressable, StyleSheet, TextInput, Animated } from 'react-native';
+import React, {useState} from 'react';
+import {View, Switch, StyleSheet, Text} from 'react-native';
+import DistancePage from './DistancePage';
+import TimePage from './TimePage';
 
 const ChooseOptionPage = () => {
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [inputVisible, setInputVisible] = useState(false);
-  const [inputValue, setInputValue] = useState('');
-  const inputOpacity = useRef(new Animated.Value(0)).current;
-
-  const handleOptionSelect = (option) => {
-    setSelectedOption(option);
-    setInputVisible(true);
-    Animated.timing(inputOpacity, {
-      toValue: 1,
-      duration: 500,
-      useNativeDriver: true,
-    }).start();
-  };
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Wharrt would you like to improve?</Text>
-      <Pressable
-        style={({ pressed }) => [
-          styles.optionButton,
-          pressed && styles.optionPressed,
-          selectedOption === 'Time' && styles.selectedOption,
-        ]}
-        onPress={() => handleOptionSelect('Time')}
-      >
-        <Text style={styles.optionText}>
-            {'Time'}
-          </Text>
-      </Pressable>
-      <Pressable
-        style={({ pressed }) => [
-          styles.optionButton,
-          pressed && styles.optionPressed,
-          selectedOption === 'Distance' && styles.selectedOption,
-        ]}
-        onPress={() => handleOptionSelect('Distance')}
-      >
-        <Text style={styles.optionText}>
-            {'Distance'}
-          </Text>
-      </Pressable>
-      {inputVisible && (
-        <Animated.View style={{ opacity: inputOpacity }}>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter value"
-            onChangeText={(text) => setInputValue(text)}
-          />
-        </Animated.View>
-      )}
+      <Text style={styles.text}>Choose What you would like to improve</Text>
+      <View style={styles.switchContainer}>
+        <Switch
+          trackColor={{false: '#767577', true: '#81b0ff'}}
+          thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleSwitch}
+          value={isEnabled}
+        />
+      </View>
+      
+      {isEnabled && <DistancePage/>}
+      {!isEnabled && <TimePage/>}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    flexDirection: 'column',
     alignItems: 'center',
+    justifyContent: 'flex-start',
+    paddingTop: 50,
   },
-  title: {
-    fontSize: 24,
+  switchContainer: {
+    marginTop: 20,
     marginBottom: 20,
   },
-  optionButton: {
-    backgroundColor: '#e0e0e0',
-    padding: 15,
-    borderRadius: 10,
-    marginBottom: 10,
-  },
-  optionPressed: {
-    backgroundColor: '#b0b0b0',
-  },
-  optionText: {
-    fontSize: 18,
-  },
-  selectedOption: {
-    backgroundColor: '#b0b0b0',
-  },
-  selectionText: {
-    marginTop: 20,
-    fontSize: 18,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    padding: 10,
-    marginTop: 10,
-    width: 200,
-  },
+  text: {
+    fontSize: 20,
+  }
 });
 
 export default ChooseOptionPage;
