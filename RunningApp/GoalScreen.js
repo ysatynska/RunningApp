@@ -1,6 +1,26 @@
 import React, { useState, useRef } from 'react';
 import { View, Text, Pressable, StyleSheet, TextInput, Animated } from 'react-native';
 
+function SkillLevel () {
+  const [selected, changeSelected] = useState(null);
+  const skillLevels = ['beginner', 'intermediate', 'advanced'];
+
+  const radioButtons = skillLevels.map(function (level) {
+    return (
+      <label>
+        <input type="radio" name="skill_level" value="{level}"></input>
+        {level}
+      </label>
+    );
+  });
+
+  return (
+    <>
+      {radioButtons}
+    </>
+  );
+}
+
 const ChooseOptionPage = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [inputVisible, setInputVisible] = useState(false);
