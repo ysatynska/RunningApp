@@ -11,19 +11,21 @@ const DistancePage = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Distance</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter goal distance"
-        keyboardType="numeric"
-        value={goalDistance}
-        onChangeText={text => setGoalDistance(text)}
-      />
-      <TouchableOpacity style={styles.button} onPress={handleSaveGoalDistance}>
-        <Text style={styles.buttonText}>Save Goal</Text>
-      </TouchableOpacity>
-    </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Distance</Text>
+        <TextInput 
+          style={styles.input}
+          placeholder="Enter goal distance"
+          keyboardType="numeric"
+          value={goalDistance}
+          onChangeText={text => setGoalDistance(text)}
+        />
+        <TouchableOpacity style={styles.button} onPress={handleSaveGoalDistance}>
+          <Text style={styles.buttonText}>Save Goal</Text>
+        </TouchableOpacity>
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
