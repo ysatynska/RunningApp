@@ -1,122 +1,57 @@
-// import React, {useState, useEffect, useRef} from 'react';
-// import {StyleSheet, Text, View, TextInput, Button, Pressable, TouchableWithoutFeedback, Keyboard, Animated} from 'react-native';
-// import { createNativeStackNavigator } from '@react-navigation/native-stack';
-// import { NavigationContainer } from '@react-navigation/native';
-// import SkillLevel from './SkillLevel.js';
+import React, {useState} from 'react';
+import {View, Switch, StyleSheet, Text, TouchableWithoutFeedback, Keyboard} from 'react-native';
+import DistancePage from './DistancePage';
+import TimePage from './TimePage';
 
-// const ChooseOptionPage = () => {
-//   const [selectedOption, setSelectedOption] = useState(null);
-//   const [inputVisible, setInputVisible] = useState(false);
-//   const [inputValue, setInputValue] = useState('');
-//   const inputOpacity = useRef(new Animated.Value(0)).current;
+const ChooseOptionPage = () => {
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
-//   const handleOptionSelect = (option) => {
-//     setSelectedOption(option);
-//     setInputVisible(true);
-//     Animated.timing(inputOpacity, {
-//       toValue: 1,
-//       duration: 500,
-//       useNativeDriver: true,
-//     }).start();
-//   };
+  return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accesible={false}>
+      <View style={isEnabled ? styles.distanceContainer : styles.timeContainer}>
+        <Text style={styles.text}>Choose What you would like to improve</Text>
+        <View style={styles.switchContainer}>
+          <Switch
+            trackColor={{false: '#767577', true: '#81b0ff'}}
+            thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={toggleSwitch}
+            value={isEnabled}
+          />
+        </View>
+        
+        {isEnabled && <DistancePage/>}
+        {!isEnabled && <TimePage/>}
+      </View>
+    </TouchableWithoutFeedback>
+  );
+}
 
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.title}>Wharrt would you like to improve?</Text>
-//       <Pressable
-//         style={({ pressed }) => [
-//           styles.optionButton,
-//           pressed && styles.optionPressed,
-//           selectedOption === 'Time' && styles.selectedOption,
-//         ]}
-//         onPress={() => handleOptionSelect('Time')}
-//       >
-//         <Text style={styles.optionText}>
-//             {'Time'}
-//           </Text>
-//       </Pressable>
-//       <Pressable
-//         style={({ pressed }) => [
-//           styles.optionButton,
-//           pressed && styles.optionPressed,
-//           selectedOption === 'Distance' && styles.selectedOption,
-//         ]}
-//         onPress={() => handleOptionSelect('Distance')}
-//       >
-//         <Text style={styles.optionText}>
-//             {'Distance'}
-//           </Text>
-//       </Pressable>
-//       {inputVisible && (
-//         <Animated.View style={{ opacity: inputOpacity }}>
-//           <TextInput
-//             style={styles.input}
-//             placeholder="Enter value"
-//             onChangeText={(text) => setInputValue(text)}
-//           />
-//         </Animated.View>
-//       )}
-//     </View>
-//   );
-// };
+const styles = StyleSheet.create({
+  distanceContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    paddingTop: 50,
+    backgroundColor: 'white'
+  },
+  timeContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    paddingTop: 50,
+    backgroundColor: 'white'
+  },
+  switchContainer: {
+    marginTop: 20,
+    marginBottom: 20,
+  },
+  text: {
+    fontSize: 20,
+  }
+});
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-//   title: {
-//     fontSize: 24,
-//     marginBottom: 20,
-//   },
-//   optionButton: {
-//     backgroundColor: '#e0e0e0',
-//     padding: 15,
-//     borderRadius: 10,
-//     marginBottom: 10,
-//   },
-//   optionPressed: {
-//     backgroundColor: '#b0b0b0',
-//   },
-//   optionText: {
-//     fontSize: 18,
-//   },
-//   selectedOption: {
-//     backgroundColor: '#b0b0b0',
-//   },
-//   selectionText: {
-//     marginTop: 20,
-//     fontSize: 18,
-//   },
-//   radioButton: {
-//     height: 20,
-//     width: 20,
-//     backgroundColor: '#FFF',
-//     borderRadius: 10,
-//     borderWidth: 1,
-//     borderColor: '#000',
-//     marginRight: 10,
-//     padding: 2,
-//   },
-//   radioButtonText: {
-//     fontSize: 16,
-//     color: '#000',
-//   },
-//   radioButtonContainer: {
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//     marginBottom: 5,
-//   },
-//   radioButtonSelected: {
-//     backgroundColor: 'blue',
-//   },
-//   input: {
-//     borderWidth: 1,
-//     borderColor: '#ccc',
-//     borderRadius: 5,
-//     padding: 10,
-//     marginTop: 10,
-//     width: 200,
-//   },
-// });
+export default ChooseOptionPage;
