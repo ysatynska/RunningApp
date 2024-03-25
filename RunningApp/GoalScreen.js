@@ -1,5 +1,32 @@
-import React, { useState, useRef } from 'react';
-import { View, Text, Pressable, StyleSheet, TextInput, Animated } from 'react-native';
+import React, {useState, useEffect, useRef} from 'react';
+import {StyleSheet, Text, View, TextInput, Button, Pressable, TouchableWithoutFeedback, Keyboard, Animated} from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+
+function SkillLevel () {
+  const [selected, setSelected] = useState(null);
+  const skillLevels = ['beginner', 'intermediate', 'advanced'];
+
+  const radioButtons = skillLevels.map(function (level, index) {
+    return (
+      <Pressable key={index} style={styles.radioButtonContainer} onPress={() => setSelected(level)}>
+        <View style={[
+          styles.radioButton,
+          selected === level ? styles.radioButtonSelected : null
+        ]} />
+        <Text style={styles.radioButtonText}>
+          {level}
+        </Text>
+      </Pressable>
+    );
+  });
+
+  return (
+    <>
+      {radioButtons}
+    </>
+  );
+}
 
 const ChooseOptionPage = () => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -53,6 +80,7 @@ const ChooseOptionPage = () => {
           />
         </Animated.View>
       )}
+      <SkillLevel/>
     </View>
   );
 };
@@ -86,6 +114,28 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 18,
   },
+  radioButton: {
+    height: 20,
+    width: 20,
+    backgroundColor: '#FFF',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#000',
+    marginRight: 10,
+    padding: 2,
+  },
+  radioButtonText: {
+    fontSize: 16,
+    color: '#000',
+  },
+  radioButtonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 5,
+  },
+  radioButtonSelected: {
+    backgroundColor: 'blue',
+  },
   input: {
     borderWidth: 1,
     borderColor: '#ccc',
@@ -96,4 +146,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ChooseOptionPage;
+const Stack = createNativeStackNavigator();
+export default function App () {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="goalScreen">
+        <Stack.Screen name="goalScreen" options={{ title: 'Enter Details' }} component={ChooseOptionPage} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
