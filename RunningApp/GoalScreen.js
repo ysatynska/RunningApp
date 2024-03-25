@@ -8,7 +8,7 @@ const ChooseOptionPage = () => {
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   return (
-    <View style={styles.container}>
+    <View style={isEnabled ? styles.distanceContainer : styles.timeContainer}>
       <Text style={styles.text}>Choose What you would like to improve</Text>
       <View style={styles.switchContainer}>
         <Switch
@@ -27,12 +27,21 @@ const ChooseOptionPage = () => {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  distanceContainer: {
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'flex-start',
     paddingTop: 50,
+    backgroundColor: 'white'
+  },
+  timeContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    paddingTop: 50,
+    backgroundColor: 'white'
   },
   switchContainer: {
     marginTop: 20,
