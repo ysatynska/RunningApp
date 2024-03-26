@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {View, Switch, StyleSheet, Text, TouchableWithoutFeedback, Keyboard} from 'react-native';
+import {View, Switch, StyleSheet, Text, Pressable, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import DistancePage from './DistancePage';
 import TimePage from './TimePage';
 
-const ChooseOptionPage = () => {
+const ChooseOptionPage = ({ navigation }) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
@@ -23,6 +23,9 @@ const ChooseOptionPage = () => {
         
         {isEnabled && <DistancePage/>}
         {!isEnabled && <TimePage/>}
+        <Pressable onPress={() => navigation.navigate('skillLevel')}>
+            <Text> Next </Text>
+        </Pressable>
       </View>
     </TouchableWithoutFeedback>
   );
