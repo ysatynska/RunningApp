@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {StyleSheet, Text, View, TextInput, Button, Pressable, TouchableWithoutFeedback, Keyboard, Animated} from 'react-native';
 
-export default function SkillLevel () {
+export default function SkillLevel ({ navigation }) {
     const [selected, setSelected] = useState(null);
     const skillLevels = ['beginner', 'intermediate', 'advanced'];
   
@@ -22,6 +22,9 @@ export default function SkillLevel () {
     return (
       <>
         {radioButtons}
+          <Pressable onPress={() => navigation.navigate('skillLevel')}>
+              <Text> Next </Text>
+          </Pressable>
       </>
     );
   }
