@@ -1,9 +1,10 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {StyleSheet, Text, View, TextInput, Button, Pressable, TouchableWithoutFeedback, Keyboard, Animated} from 'react-native';
+import StepIndicator from "./StepIndicator";
 
 export default function SkillLevel ({ navigation }) {
     const [selected, setSelected] = useState(null);
-    const skillLevels = ['beginner', 'intermediate', 'advanced'];
+    const skillLevels = ['Beginner', 'Intermediate', 'Advanced'];
   
     const radioButtons = skillLevels.map(function (level, index) {
       return (
@@ -20,24 +21,61 @@ export default function SkillLevel ({ navigation }) {
     });
   
     return (
-      <>
+      <View style={styles.container}>
+        <Text style={styles.title}> My Skill Level is: </Text>
         {radioButtons}
-          <Pressable onPress={() => navigation.navigate('skillLevel')}>
-              <Text> Next </Text>
+        <View style={styles.footer}>
+          <StepIndicator currentStep = {2}/>
+          <Pressable onPress={() => navigation.navigate('skillLevel')} style={styles.button}>
+              <Text style={styles.buttonText}> Next </Text>
           </Pressable>
-      </>
+        </View>
+      </View>
     );
   }
 
   const styles = StyleSheet.create({
+    welcomeText: {
+      fontSize: 32,
+      color: '#01CFEE'
+    },
+    button: {
+      backgroundColor: '#FF5953',
+      padding: 10,
+      borderRadius: 5,
+      margin: 20
+    },
+    buttonText: {
+      color: 'white', 
+      fontSize: 20
+    },
+    image: {
+      width: 300,
+      height: 300,
+      padding: 10,
+      margin: 20
+    },
+    paragraph: {
+      textAlign: 'center',
+      color: "#A6A6A6",
+      padding: 20,
+      fontSize: 17
+    },
     container: {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
+      backgroundColor: 'white',
+    },
+    footer: {
+      position: 'absolute',
+      bottom: 0,
+      padding: 10,
     },
     title: {
-      fontSize: 24,
+      fontSize: 35,
       marginBottom: 20,
+      color: '#747474'
     },
     optionButton: {
       backgroundColor: '#e0e0e0',
@@ -65,12 +103,12 @@ export default function SkillLevel ({ navigation }) {
       borderRadius: 10,
       borderWidth: 1,
       borderColor: '#000',
-      marginRight: 10,
+      margin: 10,
       padding: 2,
     },
     radioButtonText: {
-      fontSize: 16,
-      color: '#000',
+      fontSize: 30,
+      color: '#747474'
     },
     radioButtonContainer: {
       flexDirection: 'row',
@@ -78,7 +116,7 @@ export default function SkillLevel ({ navigation }) {
       marginBottom: 5,
     },
     radioButtonSelected: {
-      backgroundColor: 'blue',
+      backgroundColor: '#01CFEE',
     },
     input: {
       borderWidth: 1,

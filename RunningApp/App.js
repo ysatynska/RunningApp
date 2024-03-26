@@ -12,7 +12,7 @@ export default function App () {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="welcome">
         <Stack.Screen name="welcome" options={{...styles.headerStyle, title: 'Welcome'}} component={Welcome} />
-        <Stack.Screen name="goalScreen" options={{...styles.headerStyle, title: 'What is Your Goal?'}} component={ChooseOptionPage} />
+        <Stack.Screen name="goalScreen" options={{...styles.headerStyle, title: 'Goal'}} component={ChooseOptionPage} />
         <Stack.Screen name="skillLevel" options={{...styles.headerStyle, title: 'Skill Level'}} component={SkillLevel} />
       </Stack.Navigator>
     </NavigationContainer>
@@ -22,11 +22,8 @@ export default function App () {
 const styles = StyleSheet.create({
   headerStyle: {
     headerStyle: {
-      backgroundColor: '#01CFEE'
+      backgroundColor: '#69A297'
     },
-    headerTintColor: 'white',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    }, 
+    headerTintColor: 'white'
   }
 });
