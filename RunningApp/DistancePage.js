@@ -4,11 +4,7 @@ import { View, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyb
 const DistancePage = () => {
   const [goalDistance, setGoalDistance] = useState('');
 
-  const handleSaveGoalDistance = () => {
-    // You can implement logic to save the goal distance here
-    console.log('Goal distance saved:', goalDistance);
-    // For example, you can send it to a server or save it locally
-  };
+
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -21,9 +17,6 @@ const DistancePage = () => {
           value={goalDistance}
           onChangeText={text => setGoalDistance(text)}
         />
-        <TouchableOpacity style={styles.button} onPress={handleSaveGoalDistance}>
-          <Text style={styles.buttonText}>Save Goal</Text>
-        </TouchableOpacity>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -48,19 +41,7 @@ const styles = StyleSheet.create({
     padding: 10,
     width: '100%',
     marginBottom: 20,
-  },
-  button: {
-    backgroundColor: 'blue',
-    padding: 10,
-    borderRadius: 5,
-    width: '100%',
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
+  }
 });
 
 export default DistancePage;
