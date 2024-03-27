@@ -13,8 +13,8 @@ const ChooseOptionPage = ({ navigation }) => {
         <Text style={styles.text}>Choose What you would like to improve</Text>
         <View style={styles.switchContainer}>
           <Switch
-            trackColor={{false: '#767577', true: '#81b0ff'}}
-            thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+            trackColor={{false: '#767577', true: '#f4f3f4'}}
+            thumbColor={isEnabled ? '#767577' : '#f4f3f4'}
             ios_backgroundColor="#3e3e3e"
             onValueChange={toggleSwitch}
             value={isEnabled}
@@ -23,8 +23,8 @@ const ChooseOptionPage = ({ navigation }) => {
         
         {isEnabled && <DistancePage/>}
         {!isEnabled && <TimePage/>}
-        <Pressable onPress={() => navigation.navigate('skillLevel')}>
-            <Text> Next </Text>
+        <Pressable style={styles.button} onPress={() => navigation.navigate('skillLevel')}>
+          <Text style={styles.buttonText}>Save Goal</Text>
         </Pressable>
       </View>
     </TouchableWithoutFeedback>
@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     paddingTop: 50,
-    backgroundColor: 'white'
+    paddingBottom: 20,
+    backgroundColor: '#D1DEDE'
   },
   timeContainer: {
     flex: 1,
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     paddingTop: 50,
-    backgroundColor: 'white'
+    backgroundColor: '#D1DEDE'
   },
   switchContainer: {
     marginTop: 20,
@@ -54,6 +55,22 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
+  },
+  button: {
+    backgroundColor: '#1c5253',
+    padding: 10,
+    borderRadius: 5,
+    width: '100%',
+//    height: 30,
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 0,
+    marginBottom: 20,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
   }
 });
 

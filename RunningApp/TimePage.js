@@ -4,14 +4,9 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-nativ
 const TimePage = () => {
     const [minutes, setMinutes] = useState('');
     const [seconds, setSeconds] = useState('');
-    const [selectedOption, setSelectedOption] = useState(null); //the goal distance in miles
+    const [distance, setDistance] = useState(''); //the goal distance in miles
 
-    const options = [
-        { label: '1/2 mile', value: .5 },
-        { label: '1 mile', value: 1 },
-        { label: '5 K', value: 3.1 },
-        { label: '10 K', value: 6.2 },
-    ];
+
 
     const handleSelectOption = (value) => {
         setSelectedOption(value);
@@ -40,18 +35,16 @@ const TimePage = () => {
                 />
                 <Text style={styles.label}>Seconds</Text>
             </View>
-            <View style={styles.container}>
-                {options.map((option, index) => (
-                    <TouchableOpacity
-                        key={index}
-                        style={styles.option}
-                        onPress={() => handleSelectOption(option.value)}
-                    >
-                        <Text>{option.label}</Text>
-                        {selectedOption === option.value && <View style={styles.selectedIndicator} />}
-                    </TouchableOpacity>
-                ))}
-            </View>  
+            <View style={styles.inputContainer}>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={text => setMinutes(text)}
+                    value={minutes}
+                    keyboardType="numeric"
+                    placeholder="Distance (miles)"
+                />
+                <Text style={styles.label}>Distance</Text>
+            </View> 
         </View>
 
     );
@@ -73,6 +66,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'flex-start',
         marginBottom: 20,
+
       },
       input: {
         borderWidth: 1,

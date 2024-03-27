@@ -22,7 +22,7 @@ export default function App () {
 const styles = StyleSheet.create({
   headerStyle: {
     headerStyle: {
-      backgroundColor: '#69A297'
+      backgroundColor: '#01CFEE'
     },
     headerTintColor: 'white'
   }
