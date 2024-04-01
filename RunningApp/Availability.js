@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         color: '#1c5253',
-        marginBottom: 50,
     },
     item: {
         flexDirection: 'row',
