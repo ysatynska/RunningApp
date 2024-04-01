@@ -30,6 +30,9 @@ export default function Availability() {
             <Text style={styles.instructions}>
                 Tell us what days you're able to train.
             </Text>
+            <Text style={[styles.instructions, { fontSize: 12 }]}>
+                (Tap day to select/deselect as available)
+            </Text>
             <View style={styles.list}>
                 {availability.map((item, index) => (
                     <View key={index} style={styles.item}>
