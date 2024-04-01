@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import ChooseOptionPage from './GoalScreen.js';
 import Welcome from './Welcome.js';
 import SkillLevel from './SkillLevel.js';
+import Availability from './Availability.js':
 import {StyleSheet} from 'react-native';
 
 const Stack = createNativeStackNavigator();
@@ -14,6 +15,7 @@ export default function App () {
         <Stack.Screen name="welcome" options={{...styles.headerStyle, title: 'Welcome'}} component={Welcome} />
         <Stack.Screen name="goalScreen" options={{...styles.headerStyle, title: 'What is Your Goal?'}} component={ChooseOptionPage} />
         <Stack.Screen name="skillLevel" options={{...styles.headerStyle, title: 'Skill Level'}} component={SkillLevel} />
+        <Stack.Screen name="availability" options={{...styles.headerStyle, title: 'Select Availability'}} component={Availability} />
       </Stack.Navigator>
     </NavigationContainer>
   );
