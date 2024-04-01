@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, TextInput, Text, View, StyleSheet } from 'react-native';
+import { TouchableOpacity, TextInput, Text, View, StyleSheet, Pressable } from 'react-native';
 import InputSpinner from 'react-native-input-spinner';
 
-export default function Availability() {
+export default function Availability({navigation}) {
     const [availability, setAvailability] = useState([
         { day: 'Sunday', available: false, hours: 0 },
         { day: 'Monday', available: false, hours: 0 },
@@ -56,6 +56,9 @@ export default function Availability() {
                     </View>
                 ))}
             </View>
+            <Pressable onPress={() => navigation.navigate('schedule')} style={styles.button}>
+              <Text style={styles.buttonText}> Get Schedule! </Text>
+          </Pressable>
         </View>
     );
 };
@@ -93,5 +96,15 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         color: '#1c5253',
+    },
+    button: {
+      backgroundColor: '#FF5953',
+      padding: 10,
+      borderRadius: 5,
+      margin: 20
+    },
+    buttonText: {
+      color: 'white', 
+      fontSize: 20
     },
 });
