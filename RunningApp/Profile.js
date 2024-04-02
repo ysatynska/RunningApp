@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Dimensions, Button, Alert, Text } from 'react-native';
+import { View, StyleSheet, Dimensions, Button, Alert, Text, FlatList } from 'react-native';
 import {sampleOutput} from './Algorithm.js';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import * as Progress from 'react-native-progress';
@@ -11,7 +11,7 @@ export class Schedule extends Component {
     this.data = sampleOutput.map((day, index) => ({
       id: index,
       title: day.title,
-      description: 'run ' + day.distance + ' miles at ' + day.pace + ' miles/hour ' + day.times + ' times',
+      task: 'run ' + day.distance + ' miles at ' + day.pace + ' miles/hour ' + day.times + ' times',
       icon: require('./assets/running.png')
     }));
   } 
@@ -25,18 +25,18 @@ export class Schedule extends Component {
       </View>
       <BouncyCheckbox
         size={25}
-        fillColor="red"
+        fillColor="#01CFEE"
         unfillColor="#FFFFFF"
-        text="Done"
+        text={this.data[sectionID].task}
         iconStyle={{borderColor: 'red'}}
-        textStyle={{textDecorationLine: 'none'}}
-        onPress={(isChecked) => {}}
+        // textStyle={{textDecorationLine: 'none'}}
+        onPress={this.handlePress}
       />
     </View>
   );
 
-    handlePress = (event) => {
-      console.log(event)
+    handlePress = (isChecked) => {
+      console.log(isChecked)
     }
 
   render() {
@@ -52,11 +52,74 @@ export class Schedule extends Component {
           showTime={false}
           innerCircle={'dot'}
           onEventPress={this.handlePress}
-          renderDetail={renderDetail}
+          renderDetail={this.renderDetail}
         />
     );
   }
 }
+
+export default function Profile ({user}) {
+  data = sampleOutput.map((day, index) => ({
+    id: index,
+    title: day.title,
+    task: 'run ' + day.distance + ' miles at ' + day.pace + ' miles/hour ' + day.times + ' times'
+  }));
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.progressContainer}>
+        <Text style={styles.totalDistanceText}>Progress this week</Text>
+        <Progress.Bar
+          style={styles.progressBar}
+          width={Dimensions.get('screen').width - 70}
+          progress={.2}
+          height={20}
+          borderWidth={0}
+          unfilledColor="#ECECEC"
+          color="#01CFEE"
+          borderRadius={10}
+        />
+      </View>
+      <FlatList 
+        data={DATA}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+      />
+    </View>
+  );
+}
+
+const DATA = [
+  { id: '1', title: 'Item 1' },
+  { id: '2', title: 'Item 2' },
+  { id: '3', title: 'Item 3' },
+  // Add more items here
+];
+const [selectedIds, setSelectedIds] = useState([]);
+const handleCheckboxChange = (itemId, isChecked) => {
+  setSelectedIds(prevIds => {
+    if (isChecked) {
+      // Add to selected list
+      return [...prevIds, itemId];
+    } else {
+      // Remove from selected list
+      return prevIds.filter(id => id !== itemId);
+    }
+  });
+};
+
+const renderItem = ({ item }) => (
+  <View style={styles.itemContainer}>
+    <BouncyCheckbox
+      isChecked={selectedIds.includes(item.id)}
+      onPress={(isChecked) => handleCheckboxChange(item.id, isChecked)}
+      text={item.title}
+      iconStyle={{ borderColor: 'lightgray' }}
+      fillColor="green"
+      textStyle={{ textDecorationLine: "none" }}
+    />
+  </View>
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -100,60 +163,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 10
   },
+  itemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+  },
 });
-
-export default function Profile ({user}) {
-  return (
-    <View style={styles.container}>
-      <View style={styles.progressContainer}>
-        <Text style={styles.totalDistanceText}>Progress this week</Text>
-        <Progress.Bar
-          style={styles.progressBar}
-          width={Dimensions.get('screen').width - 70}
-          progress={.2}
-          height={20}
-          borderWidth={0}
-          unfilledColor="#ECECEC"
-          color="#FF3B30"
-          borderRadius={10}
-        />
-      </View>
-        <Schedule/>
-    </View>
-  );
-}
-
-// const styles = StyleSheet.create({
-//     container: {
-//       flex: 1,
-//       alignItems: 'center',
-//       justifyContent: 'center',
-//       backgroundColor: 'white',
-//     },
-//     welcomeText: {
-//       fontSize: 32,
-//       color: '#01CFEE'
-//     },
-//     button: {
-//       backgroundColor: '#FF5953',
-//       padding: 10,
-//       borderRadius: 5,
-//       margin: 20
-//     },
-//     buttonText: {
-//       color: 'white', 
-//       fontSize: 20
-//     },
-//     image: {
-//       width: 300,
-//       height: 300,
-//       padding: 10,
-//       margin: 20
-//     },
-//     paragraph: {
-//       textAlign: 'center',
-//       color: "#A6A6A6",
-//       padding: 20,
-//       fontSize: 17
-//     }
-//   });
