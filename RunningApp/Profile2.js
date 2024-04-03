@@ -3,31 +3,60 @@ import { View, StyleSheet, Dimensions, Button, Alert, Text, FlatList, TouchableO
 import {sampleOutput} from './Algorithm.js';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import * as Progress from 'react-native-progress';
-import { PopoverView } from "react-native-ios-popover";
+import {
+    HapticModeEnum,
+    Slider,
+  } from 'react-native-awesome-slider';
 
-export function PopoverViewExample() {
-    const popoverRef = useRef();
+export function ProgressBar ({progress}) {
     return (
-      <PopoverView
-        ref={popoverRef}
-        renderPopoverContent={() => (
-          <View style={{padding: 20}}>
-            <Text>
-              {'Popover Content'}
-            </Text>
-          </View>
-        )}
-      >
-        <TouchableOpacity onPress={() => {
-          popoverRef.current.toggleVisibility();
-        }}>
-          <Text>
-            {'Toggle Popover Visibility'}
-          </Text>
-        </TouchableOpacity>
-      </PopoverView>
+        <View style={styles.progressContainer}>
+            <Text style={styles.totalDistanceText}>Progress this week</Text>
+            <Progress.Bar
+                style={styles.progressBar}
+                width={Dimensions.get('screen').width - 70}
+                progress={progress}
+                height={20}
+                borderWidth={0}
+                unfilledColor="#ECECEC"
+                color="#01CFEE"
+                borderRadius={10}
+            />
+        </View>
     );
-};
+}
+
+export function RenderItem ({ item, onSelect, isSelected }) {
+    return (
+        <View style={styles.itemContainer}>
+            <Text style={styles.weekday}>{item.title}</Text>
+            <BouncyCheckbox
+                isChecked={isSelected}
+                onPress={() => onSelect(item.id)}
+                text={item.task}
+                iconStyle={{ borderColor: 'lightgray' }}
+                fillColor="#01CFEE"
+            />
+            {/* <View style={[styles.card]}>
+                <Text tx="Range & Haptic step-mode" />
+                <Slider
+                    progress={.3}
+                    minimumValue={0}
+                    style={styles.slider}
+                    maximumValue={10}
+                    step={1}
+                    // onHapticFeedback={() => {
+                    //     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+                    // }}
+                    sliderHeight={8}
+                    thumbWidth={24}
+                    // hapticMode={HapticModeEnum.STEP}
+                />
+            </View> */}
+        </View>
+    );
+}
+
 
 export default function Profile2 ({user}) {
     const [selectedIds, setSelectedIds] = useState([]);
@@ -37,57 +66,31 @@ export default function Profile2 ({user}) {
         task: 'run ' + day.distance + ' miles at ' + day.pace + ' miles/hour ' + day.times + ' times'
     }));
 
-    function handleCheckboxChange (itemId, isChecked) {
-        setSelectedIds(prevIds => {
-            if (isChecked) {
-                // Add to selected list
-                return [...prevIds, itemId];
-            } else {
-                // Remove from selected list
-                return prevIds.filter(id => id !== itemId);
-            }
-        });
-        <PopoverViewExample/>
+    function handleCheckboxChange (isChecked, item) {
+        setSelectedIds(prevIds =>
+            prevIds.includes(id) ? prevIds.filter(prevId => prevId !== id) : [...prevIds, id]
+        );
     };
-
-    const renderItem = ({ item }) => (
-        <View style={styles.itemContainer}>
-            <Text style={styles.weekday}>{item.title}</Text>
-            <BouncyCheckbox
-                isChecked={selectedIds.includes(item.id)}
-                onPress={(isChecked) => handleCheckboxChange(item.id, isChecked)}
-                text={item.task}
-                iconStyle={{ borderColor: 'lightgray' }}
-                fillColor="#01CFEE"
-            />
-        </View>
-    );
 
     return (
         <View style={styles.container}>
-            <View style={styles.progressContainer}>
-                <Text style={styles.totalDistanceText}>Progress this week</Text>
-                <Progress.Bar
-                    style={styles.progressBar}
-                    width={Dimensions.get('screen').width - 70}
-                    progress={selectedIds.length/data.length}
-                    height={20}
-                    borderWidth={0}
-                    unfilledColor="#ECECEC"
-                    color="#01CFEE"
-                    borderRadius={10}
-                />
-            </View>
+            <ProgressBar progress={selectedIds.length/data.length}/>
             <FlatList 
                 ItemSeparatorComponent={
-                (({highlighted}) => (
-                <View
-                    style={[styles.separator, highlighted && {marginLeft: 0}]}
-                />
+                    (({highlighted}) => (
+                    <View
+                        style={[styles.separator, highlighted && {marginLeft: 0}]}
+                    />
                 ))}
                 data={data}
-                renderItem={renderItem}
-                keyExtractor={item => item.id}
+                renderItem={({ item }) => (
+                    <RenderItem
+                        item={item}
+                        onSelect={handleCheckboxChange}
+                        isSelected={selectedIds.includes(item.id)}
+                    />
+                )}
+                keyExtractor={item => item.id.toString()}
             />
         </View>
     );
@@ -142,7 +145,7 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     flexDirection: 'column',
-    alignItems: 'start',
+    // alignItems: 'start',
     padding: 10,
     justifyContent: 'center',
     height: 100
@@ -150,5 +153,23 @@ const styles = StyleSheet.create({
   weekday: {
     fontSize: 18,
     marginBottom: 10
-  }
+  },
+  card: {
+    borderRadius: 16,
+    padding: 12,
+    marginTop: 20,
+    shadowColor: '#000',
+    backgroundColor: '#fff',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.1,
+    elevation: 1,
+    marginBottom: 12,
+  },
+  slider: {
+    marginBottom: 20,
+    marginTop: 12,
+  },
 });

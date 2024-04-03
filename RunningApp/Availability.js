@@ -58,7 +58,7 @@ export default function Availability({navigation}) {
             </View>
             <Pressable onPress={() => navigation.navigate('schedule')} style={styles.button}>
               <Text style={styles.buttonText}> Get Schedule! </Text>
-          </Pressable>
+            </Pressable>
         </View>
     );
 };
