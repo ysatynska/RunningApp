@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, TextInput, Text, View, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
 import InputSpinner from 'react-native-input-spinner';
 
 export default function Availability() {

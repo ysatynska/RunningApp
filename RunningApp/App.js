@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import ChooseOptionPage from './GoalScreen.js';
 import Welcome from './Welcome.js';
 import SkillLevel from './SkillLevel.js';
-import Availability from './Availability.js':
+import Availability from './Availability.js';
 import {StyleSheet} from 'react-native';
 import {CreateAccount, LoginScreen, WelcomeBack} from './LoginScreen.js';
 
