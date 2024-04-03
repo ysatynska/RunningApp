@@ -1,8 +1,33 @@
-import React, { Component, useState } from 'react';
-import { View, StyleSheet, Dimensions, Button, Alert, Text, FlatList } from 'react-native';
+import React, { Component, useState, useRef } from 'react';
+import { View, StyleSheet, Dimensions, Button, Alert, Text, FlatList, TouchableOpacity } from 'react-native';
 import {sampleOutput} from './Algorithm.js';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import * as Progress from 'react-native-progress';
+import { PopoverView } from "react-native-ios-popover";
+
+export function PopoverViewExample() {
+    const popoverRef = useRef();
+    return (
+      <PopoverView
+        ref={popoverRef}
+        renderPopoverContent={() => (
+          <View style={{padding: 20}}>
+            <Text>
+              {'Popover Content'}
+            </Text>
+          </View>
+        )}
+      >
+        <TouchableOpacity onPress={() => {
+          popoverRef.current.toggleVisibility();
+        }}>
+          <Text>
+            {'Toggle Popover Visibility'}
+          </Text>
+        </TouchableOpacity>
+      </PopoverView>
+    );
+};
 
 export default function Profile2 ({user}) {
     const [selectedIds, setSelectedIds] = useState([]);
@@ -12,17 +37,17 @@ export default function Profile2 ({user}) {
         task: 'run ' + day.distance + ' miles at ' + day.pace + ' miles/hour ' + day.times + ' times'
     }));
 
-
     function handleCheckboxChange (itemId, isChecked) {
         setSelectedIds(prevIds => {
-        if (isChecked) {
-            // Add to selected list
-            return [...prevIds, itemId];
-        } else {
-            // Remove from selected list
-            return prevIds.filter(id => id !== itemId);
-        }
+            if (isChecked) {
+                // Add to selected list
+                return [...prevIds, itemId];
+            } else {
+                // Remove from selected list
+                return prevIds.filter(id => id !== itemId);
+            }
         });
+        <PopoverViewExample/>
     };
 
     const renderItem = ({ item }) => (
@@ -119,6 +144,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'start',
     padding: 10,
+    justifyContent: 'center',
+    height: 100
   },
   weekday: {
     fontSize: 18,
