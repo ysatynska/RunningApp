@@ -26,7 +26,7 @@ export default function SkillLevel ({ navigation }) {
         {radioButtons}
         <View style={styles.footer}>
           <StepIndicator currentStep = {2}/>
-          <Pressable onPress={() => navigation.navigate('skillLevel')} style={styles.button}>
+          <Pressable onPress={() => navigation.navigate('availability')} style={styles.button}>
               <Text style={styles.buttonText}> Next </Text>
           </Pressable>
         </View>

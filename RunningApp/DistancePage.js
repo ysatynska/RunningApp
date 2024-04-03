@@ -7,7 +7,7 @@ const DistancePage = () => {
 
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
         <Text style={styles.title}>Distance</Text>
         <TextInput 
