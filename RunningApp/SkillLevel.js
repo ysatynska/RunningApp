@@ -29,7 +29,36 @@ export default function SkillLevel ({ navigation }) {
       </View>
     );
   }
-
+  export function Profile ({user}) {
+    const data = sampleOutput.map((day, index) => ({
+      id: index,
+      title: day.title,
+      task: 'run ' + day.distance + ' miles at ' + day.pace + ' miles/hour ' + day.times + ' times'
+    }));
+  
+    return (
+      <View style={styles.container}>
+        <View style={styles.progressContainer}>
+          <Text style={styles.totalDistanceText}>Progress this week</Text>
+          <Progress.Bar
+            style={styles.progressBar}
+            width={Dimensions.get('screen').width - 70}
+            progress={.2}
+            height={20}
+            borderWidth={0}
+            unfilledColor="#ECECEC"
+            color="#01CFEE"
+            borderRadius={10}
+          />
+        </View>
+        <FlatList 
+          data={DATA}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+        />
+      </View>
+    );
+  }
   const styles = StyleSheet.create({
     welcomeText: {
       fontSize: 32,
