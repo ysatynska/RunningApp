@@ -88,7 +88,8 @@ export default function SkillLevel ({ navigation }) {
       borderRadius: 10,
       borderWidth: 1,
       borderColor: '#000',
-      margin: 20,
+      marginVertical: 20,
+      marginHorizontal: 10,
       padding: 2,
     },
     radioButtonText: {

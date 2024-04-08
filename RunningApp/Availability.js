@@ -40,7 +40,8 @@ export default function Availability() {
                 {availability.map((item, index) => (
                     <View key={index} style={styles.item}>
                         <TouchableOpacity onPress={() => handleDaySelection(index)}>
-                            <Text style={[styles.weekday, { textDecorationLine: item.available ? 'none' : 'line-through' }]}>
+                            <Text style={[styles.weekday, { textDecorationLine: item.available ? 'none' : 'line-through' }, 
+                        { color: item.available ? null : 'red' }]}>
                                 {item.day}
                             </Text>
                         </TouchableOpacity>
