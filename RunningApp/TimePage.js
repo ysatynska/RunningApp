@@ -38,7 +38,7 @@ const TimePage = () => {
             <View style={styles.inputContainer}>
                 <TextInput
                     style={styles.input}
-                    onChangeText={text => setMinutes(text)}
+                    onChangeText={text => setDistance(text)}
                     value={minutes}
                     keyboardType="numeric"
                     placeholder="Distance (miles)"
@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
         paddingLeft: 80,
         paddingBottom: 50,
         fontWeight: 'bold',
+        color: '#1c5253',
     },
     container: {
         flex: 1,

@@ -11,7 +11,8 @@ const ChooseOptionPage = ({ navigation }) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accesible={false}>
       <View style={isEnabled ? styles.distanceContainer : styles.timeContainer}>
-        <Text style={styles.text}>Choose What you would like to improve</Text>
+        <Text style={styles.text}>What would you like to train for?</Text>
+        <Text style={{ fontSize: 14, color: '#1c5253' }}>(Time or Distance)</Text>
         <View style={styles.switchContainer}>
           <Switch
             trackColor={{false: '#767577', true: '#f4f3f4'}}
@@ -24,9 +25,7 @@ const ChooseOptionPage = ({ navigation }) => {
         
         {isEnabled && <DistancePage/>}
         {!isEnabled && <TimePage/>}
-        {/* <Pressable style={styles.button} onPress={() => navigation.navigate('skillLevel')}>
-          <Text style={styles.buttonText}>Save Goal</Text>
-        </Pressable> */}
+
         <View style={styles.footer}>
           <StepIndicator currentStep = {1}/>
           <Pressable onPress={() => navigation.navigate('skillLevel')} style={styles.nextButton}>
@@ -60,6 +59,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
+    fontWeight: 'bold',
+    color: '#1c5253',
   },
   button: {
     backgroundColor: '#1c5253',
