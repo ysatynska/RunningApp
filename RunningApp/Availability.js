@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, View, StyleSheet, Pressable } from 'react-native';
 import InputSpinner from 'react-native-input-spinner';
+import StepIndicator from "./StepIndicator";
 
 export default function Availability() {
     const [availability, setAvailability] = useState([
@@ -13,12 +14,14 @@ export default function Availability() {
         { day: 'Saturday', available: false, hours: 0 },
     ]);
 
+    // Function to update 'available' state of a weekday
     function handleDaySelection(index) {
         const updatedAvailability = [...availability];
         updatedAvailability[index].available = !updatedAvailability[index].available;
         setAvailability(updatedAvailability);
     };
 
+    // Function to update 'hours' state of a weekday when the InputSpinner is incremented
     function handleHoursChange(index, hours) {
         const updatedAvailability = [...availability];
         updatedAvailability[index].hours = isNaN(hours) ? 0 : parseInt(hours);
@@ -56,6 +59,12 @@ export default function Availability() {
                     </View>
                 ))}
             </View>
+            <View style={styles.footer}>
+                <StepIndicator currentStep = {3}/>
+                <Pressable onPress={() => navigation.navigate('availability')} style={styles.button}>
+                    <Text style={styles.buttonText}> Next </Text>
+                </Pressable>
+            </View>
         </View>
     );
 };
@@ -66,7 +75,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         paddingTop: 20,
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
     },
     instructions: {
         fontSize: 20,
@@ -93,5 +102,20 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         color: '#1c5253',
+    },
+    footer: {
+        position: 'absolute',
+        bottom: 0,
+        padding: 10,
+    },
+    button: {
+        backgroundColor: '#FF5953',
+        padding: 10,
+        borderRadius: 5,
+        margin: 20
+    },
+    buttonText: {
+        color: 'white', 
+        fontSize: 20
     },
 });
