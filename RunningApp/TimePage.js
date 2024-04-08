@@ -67,7 +67,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'flex-start',
         marginBottom: 20,
-
       },
       input: {
         borderWidth: 1,
@@ -77,8 +76,10 @@ const styles = StyleSheet.create({
         width: 150,
       },
       label: {
+        marginTop: 5,
         marginLeft: 10,
-        fontSize: 18,
+        fontSize: 22,
+        color: '#1c5253',
       },
       option: {
         flexDirection: 'row',

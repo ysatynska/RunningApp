@@ -3,7 +3,7 @@ import { TouchableOpacity, Text, View, StyleSheet, Pressable } from 'react-nativ
 import InputSpinner from 'react-native-input-spinner';
 import StepIndicator from "./StepIndicator";
 
-export default function Availability() {
+export default function Availability({ navigation }) {
     const [availability, setAvailability] = useState([
         { day: 'Sunday', available: false, hours: 0 },
         { day: 'Monday', available: false, hours: 0 },
