@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, Text, View, Pressable, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, View, Pressable, StyleSheet, Pressable } from 'react-native';
 import InputSpinner from 'react-native-input-spinner';
+import StepIndicator from "./StepIndicator";
 
 export default function Availability({navigation}) {
     const [availability, setAvailability] = useState([
@@ -13,12 +14,14 @@ export default function Availability({navigation}) {
         { day: 'Saturday', available: false, hours: 0 },
     ]);
 
+    // Function to update 'available' state of a weekday
     function handleDaySelection(index) {
         const updatedAvailability = [...availability];
         updatedAvailability[index].available = !updatedAvailability[index].available;
         setAvailability(updatedAvailability);
     };
 
+    // Function to update 'hours' state of a weekday when the InputSpinner is incremented
     function handleHoursChange(index, hours) {
         const updatedAvailability = [...availability];
         updatedAvailability[index].hours = isNaN(hours) ? 0 : parseInt(hours);
@@ -30,14 +33,15 @@ export default function Availability({navigation}) {
             <Text style={styles.instructions}>
                 Tell us what days you're able to train.
             </Text>
-            <Text style={[styles.instructions, { fontSize: 12 }]}>
+            <Text style={[styles.instructions, { fontSize: 12, marginBottom: 30 }]}>
                 (Tap day to select/deselect as available)
             </Text>
             <View style={styles.list}>
                 {availability.map((item, index) => (
                     <View key={index} style={styles.item}>
                         <TouchableOpacity onPress={() => handleDaySelection(index)}>
-                            <Text style={[styles.weekday, { textDecorationLine: item.available ? 'none' : 'line-through' }]}>
+                            <Text style={[styles.weekday, { textDecorationLine: item.available ? 'none' : 'line-through' }, 
+                        { color: item.available ? null : 'red' }]}>
                                 {item.day}
                             </Text>
                         </TouchableOpacity>
@@ -56,9 +60,12 @@ export default function Availability({navigation}) {
                     </View>
                 ))}
             </View>
-            <Pressable onPress={() => navigation.navigate('createAccount')} style={styles.button}>
-              <Text style={styles.buttonText}> Create Account! </Text>
-            </Pressable>
+            <View style={styles.footer}>
+                <StepIndicator currentStep = {3}/>
+                <Pressable onPress={() => navigation.navigate('availability')} style={styles.button}>
+                    <Text style={styles.buttonText}> Next </Text>
+                </Pressable>
+            </View>
         </View>
     );
 };
@@ -69,7 +76,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         paddingTop: 20,
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
     },
     instructions: {
         fontSize: 20,
@@ -96,5 +103,20 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         color: '#1c5253',
+    },
+    footer: {
+        position: 'absolute',
+        bottom: 0,
+        padding: 10,
+    },
+    button: {
+        backgroundColor: '#FF5953',
+        padding: 10,
+        borderRadius: 5,
+        margin: 20
+    },
+    buttonText: {
+        color: 'white', 
+        fontSize: 20
     },
 });

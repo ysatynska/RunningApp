@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {View, Switch, StyleSheet, Text, Pressable, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import DistancePage from './DistancePage';
 import TimePage from './TimePage';
+import StepIndicator from "./StepIndicator";
 
 const ChooseOptionPage = ({ navigation }) => {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -10,7 +11,8 @@ const ChooseOptionPage = ({ navigation }) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accesible={false}>
       <View style={isEnabled ? styles.distanceContainer : styles.timeContainer}>
-        <Text style={styles.text}>Choose What you would like to improve</Text>
+        <Text style={styles.text}>What would you like to train for?</Text>
+        <Text style={{ fontSize: 14, color: '#1c5253' }}>(Time or Distance)</Text>
         <View style={styles.switchContainer}>
           <Switch
             trackColor={{false: '#767577', true: '#f4f3f4'}}
@@ -23,9 +25,13 @@ const ChooseOptionPage = ({ navigation }) => {
         
         {isEnabled && <DistancePage/>}
         {!isEnabled && <TimePage/>}
-        <Pressable style={styles.button} onPress={() => navigation.navigate('skillLevel')}>
-          <Text style={styles.buttonText}>Save Goal</Text>
-        </Pressable>
+
+        <View style={styles.footer}>
+          <StepIndicator currentStep = {1}/>
+          <Pressable onPress={() => navigation.navigate('skillLevel')} style={styles.nextButton}>
+              <Text style={styles.buttonText}> Next </Text>
+          </Pressable>
+        </View>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -39,7 +45,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingTop: 50,
     paddingBottom: 20,
-    backgroundColor: '#D1DEDE'
   },
   timeContainer: {
     flex: 1,
@@ -47,7 +52,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     paddingTop: 50,
-    backgroundColor: '#D1DEDE'
   },
   switchContainer: {
     marginTop: 20,
@@ -55,6 +59,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
+    fontWeight: 'bold',
+    color: '#1c5253',
   },
   button: {
     backgroundColor: '#1c5253',
@@ -71,7 +77,18 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     fontWeight: 'bold',
-  }
+  },
+  footer: {
+    position: 'absolute',
+    bottom: 0,
+    padding: 10,
+  },
+  nextButton: {
+    backgroundColor: '#FF5953',
+    padding: 10,
+    borderRadius: 5,
+    margin: 20
+  },
 });
 
 export default ChooseOptionPage;

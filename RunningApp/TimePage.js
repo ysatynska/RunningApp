@@ -38,7 +38,7 @@ const TimePage = () => {
             <View style={styles.inputContainer}>
                 <TextInput
                     style={styles.input}
-                    onChangeText={text => setMinutes(text)}
+                    onChangeText={text => setDistance(text)}
                     value={minutes}
                     keyboardType="numeric"
                     placeholder="Distance (miles)"
@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
         paddingLeft: 80,
         paddingBottom: 50,
         fontWeight: 'bold',
+        color: '#1c5253',
     },
     container: {
         flex: 1,
@@ -66,7 +67,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'flex-start',
         marginBottom: 20,
-
       },
       input: {
         borderWidth: 1,
@@ -76,8 +76,10 @@ const styles = StyleSheet.create({
         width: 150,
       },
       label: {
+        marginTop: 5,
         marginLeft: 10,
-        fontSize: 18,
+        fontSize: 22,
+        color: '#1c5253',
       },
       option: {
         flexDirection: 'row',

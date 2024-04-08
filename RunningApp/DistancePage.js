@@ -7,7 +7,7 @@ const DistancePage = () => {
 
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
         <Text style={styles.title}>Distance</Text>
         <TextInput 
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: '#1c5253',
   },
   input: {
     borderWidth: 1,
