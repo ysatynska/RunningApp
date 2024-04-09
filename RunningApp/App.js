@@ -7,12 +7,14 @@ import SkillLevel from './SkillLevel.js';
 import Availability from './Availability.js';
 import {StyleSheet} from 'react-native';
 import {CreateAccount, LoginScreen, WelcomeBack} from './LoginScreen.js';
+import Profile from './Profile3.js';
 
 const Stack = createNativeStackNavigator();
 export default function App () {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="welcome">
+      <Stack.Navigator initialRouteName="profile">
+        <Stack.Screen name="profile" options={{...styles.headerStyle, title: 'Welcome back, Liz!'}} component={Profile} />
         <Stack.Screen name="login" options={{...styles.headerStyle, title: 'Login'}} component={LoginScreen} />
         <Stack.Screen name="createAccount" options={{...styles.headerStyle, title: 'Create Account'}} component={CreateAccount} />
         <Stack.Screen name="welcomeBack" options={{...styles.headerStyle, title: 'Welcome Back'}} component={WelcomeBack} />

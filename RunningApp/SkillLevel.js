@@ -1,39 +1,38 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useMemo, useState, useEffect, useRef} from 'react';
 import {StyleSheet, Text, View, TextInput, Button, Pressable, TouchableWithoutFeedback, Keyboard, Animated} from 'react-native';
 import StepIndicator from "./StepIndicator";
+import RadioGroup from 'react-native-radio-buttons-group';
 
 export default function SkillLevel ({ navigation }) {
     const [selected, setSelected] = useState(null);
     const skillLevels = ['Beginner', 'Intermediate', 'Advanced'];
   
-    const radioButtons = skillLevels.map(function (level, index) {
-      return (
-        <Pressable key={index} style={styles.radioButtonContainer} onPress={() => setSelected(level)}>
-          <View style={[
-            styles.radioButton,
-            selected === level ? styles.radioButtonSelected : null
-          ]} />
-          <Text style={styles.radioButtonText}>
-            {level}
-          </Text>
-        </Pressable>
-      );
-    });
+    const radioButtons = skillLevels.map((level, index) => (
+      {
+        id: index,
+        label: skillLevels[index],
+        value: skillLevels[index]
+      }
+    ));
   
     return (
       <View style={styles.container}>
-        <Text style={styles.title}> What is your current skill level? </Text>
+        <Text style={styles.title}> My Skill Level is: </Text>
         {radioButtons}
         <View style={styles.footer}>
           <StepIndicator currentStep = {2}/>
-          <Pressable onPress={() => navigation.navigate('availability')} style={styles.button}>
+          <Pressable onPress={() => navigation.navigate('skillLevel')} style={styles.button}>
               <Text style={styles.buttonText}> Next </Text>
           </Pressable>
         </View>
+        <FlatList 
+          data={DATA}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+        />
       </View>
     );
   }
-
   const styles = StyleSheet.create({
     button: {
       backgroundColor: '#FF5953',
