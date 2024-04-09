@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, Text, View, Pressable, StyleSheet, Pressable } from 'react-native';
+import { TouchableOpacity, Text, View, Pressable, StyleSheet } from 'react-native';
 import InputSpinner from 'react-native-input-spinner';
 import StepIndicator from "./StepIndicator";
 
