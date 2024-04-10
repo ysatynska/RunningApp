@@ -4,7 +4,7 @@ function generateDistanceSchedule(schedule) {
     let isTempo = false;
     let totalRuns = 0;
     if (user.currentBest.distance < 1) {
-        user.currentBest.distance = 1;
+        user.currentBest.distance = .5;
     }
 
     for (let i = 0; i < 7; i++) {
