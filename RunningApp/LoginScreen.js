@@ -30,14 +30,14 @@ export function LoginScreen ({navigation}) {
   // Function to check if login is valid
   const handleLogin = async () => {
     try {
-      const jsonUser = await AsyncStorage.getItem(username);
+      const jsonUser = await AsyncStorage.getItem(username); // username is the key
       console.log(jsonUser);
       if (jsonUser == null) { // Throw error if username not found
         throw new Error();
       }
       const user = JSON.parse(jsonUser); 
       if (user.password == password) { // If password matches username, login
-        navigation.navigate('welcomeBack', { firstName: firstName });
+        navigation.navigate('welcomeBack', { firstName: user.name });
       } else { // Otherwise, password doesn't match
         setInvalidPassword(true);
       }
@@ -160,7 +160,7 @@ export function CreateAccount ({navigation}) {
           <Text style={styles.buttonText}>Create Account</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("login")}>
-          <Text style={styles.link}>Login</Text>
+          <Text style={styles.link}>Return to Login Screen</Text>
         </TouchableOpacity>
       </View>
     </TouchableWithoutFeedback>

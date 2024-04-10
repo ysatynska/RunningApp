@@ -18,18 +18,17 @@ export default function SkillLevel ({ navigation }) {
     return (
       <View style={styles.container}>
         <Text style={styles.title}> My Skill Level is: </Text>
-        {radioButtons}
+        <RadioGroup 
+            radioButtons={radioButtons} 
+            onPress={setSelected}
+            selectedId={selected}
+        />
         <View style={styles.footer}>
           <StepIndicator currentStep = {2}/>
-          <Pressable onPress={() => navigation.navigate('skillLevel')} style={styles.button}>
+          <Pressable onPress={() => navigation.navigate('availability')} style={styles.nextButton}>
               <Text style={styles.buttonText}> Next </Text>
           </Pressable>
         </View>
-        <FlatList 
-          data={DATA}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
-        />
       </View>
     );
   }
@@ -110,5 +109,11 @@ export default function SkillLevel ({ navigation }) {
       padding: 10,
       marginTop: 10,
       width: 200,
+    },
+    nextButton: {
+      backgroundColor: '#FF5953',
+      padding: 10,
+      borderRadius: 5,
+      margin: 20
     },
   });
