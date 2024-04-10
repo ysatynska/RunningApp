@@ -1,5 +1,3 @@
-
-
 export let user = {
     firstName: '',
     lastName: '',
@@ -22,5 +20,4 @@ export let user = {
         distance: 0,
         time: 0,
     },
-
-}
+};
