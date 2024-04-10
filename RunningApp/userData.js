@@ -17,7 +17,7 @@ export let user = {
         distance: 0,
         time: 0
     },
-    rateOfImprovement: 0.2,
+    rateOfImprovement: 1.2,
     currentBest: {
         distance: 0,
         time: 0,
