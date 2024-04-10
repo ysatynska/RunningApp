@@ -1,6 +1,6 @@
 export let user = {
     firstName: '',
-    lastName: '',
+    password: '',
     skillLevel: 0,
     availability: [
         { day: 'Sunday', available: false, hours: 0 },
