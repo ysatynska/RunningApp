@@ -3,10 +3,12 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Keyboard, T
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export function WelcomeBack ({name}) {
+export function WelcomeBack ({ route }) {
+  const { firstName } = route.params; // Extract first name prop from params
+
   return (
     <View style={styles.container}>
-      <Text> Hello, {name} </Text>
+      <Text> Hello, {firstName} </Text>
     </View>
   );
 }
@@ -25,17 +27,18 @@ export function LoginScreen ({navigation}) {
   const [invalidUsername, setInvalidUsername] = useState(false);
   const [invalidPassword, setInvalidPassword] = useState(false);
 
+  // Function to check if login is valid
   const handleLogin = async () => {
     try {
       const jsonUser = await AsyncStorage.getItem(username);
       console.log(jsonUser);
-      if (jsonUser == null) {
+      if (jsonUser == null) { // Throw error if username not found
         throw new Error();
       }
-      const user = JSON.parse(jsonUser);
-      if (user.password == password) {
-        navigation.navigate('welcomeBack');
-      } else {
+      const user = JSON.parse(jsonUser); 
+      if (user.password == password) { // If password matches username, login
+        navigation.navigate('welcomeBack', { firstName: firstName });
+      } else { // Otherwise, password doesn't match
         setInvalidPassword(true);
       }
     } catch (e) {
@@ -62,7 +65,7 @@ export function LoginScreen ({navigation}) {
           value={username}
           onChangeText={setUsername}
         />
-        {invalidUsername && <Error message={"Invalid Username"}/>}
+        {invalidUsername && <Error message={"Username not found"}/>}
         <TextInput
           style={styles.input}
           placeholder="Password"
@@ -90,25 +93,28 @@ export function CreateAccount ({navigation}) {
   const [invalidPassword, setInvalidPassword] = useState(false);
   const [invalidName, setInvalidName] = useState(false);
 
+  // Function to check if conditions are met for the firstName, username, 
+  //   and password entered by the user
   const handleCreate = async () => {
     try {
-      if (firstName.length > 30) {
+      if (firstName.length > 30) { // Check if firstName is short enough
         setInvalidName(true);
         throw new Error("invalid name");
       }
-      const sameUsername = await AsyncStorage.getItem(username);
-      if (sameUsername != null) {
+      const sameUsername = await AsyncStorage.getItem(username); // See if username is already taken
+      if (sameUsername != null) { // If username is taken, throw an error
         setInvalidUsername(true);
         throw new Error("invalid username");
       }
-      if (password.length < 8) {
+      if (password.length < 8) { // Check password length
         setInvalidPassword(true);
         throw new Error("invalid password");
       }
-      const newUser = JSON.stringify({name: firstName, password: password});
+      // If everything's ok, create new user
+      const newUser = JSON.stringify({name: firstName, password: password}); 
 
-      await AsyncStorage.setItem(username, newUser);
-      navigation.navigate('welcomeBack');
+      await AsyncStorage.setItem(username, newUser); // Set new user using AsyncStorage
+      navigation.navigate('welcomeBack', { firstName: firstName }); // Pass firstName as prop to welcomeBack screen
     } catch (e) {
       console.log(e);
     }
@@ -130,7 +136,7 @@ export function CreateAccount ({navigation}) {
         <Text style={styles.title}>Account Details</Text>
         <TextInput
           style={styles.input}
-          placeholder="FirstName"
+          placeholder="First Name"
           value={firstName}
           onChangeText={setFirstName}
         />
@@ -163,6 +169,7 @@ export function CreateAccount ({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#fff',
     flex: 1,
     justifyContent: 'center',
     padding: 20,
@@ -188,7 +195,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: '#FF3B30',
     padding: 15,
     borderRadius: 4,
     alignItems: 'center',
@@ -197,6 +204,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
+    fontSize: 18,
   },
   image: {
     width: 300,
@@ -209,6 +217,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'none',
     margin: 12,
     alignSelf: 'center',
+    fontSize: 18,
   },
   error: {
     fontSize: 16,
