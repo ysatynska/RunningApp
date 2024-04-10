@@ -1,11 +1,23 @@
 import React, { Component, useState, useRef } from 'react';
-import { View, StyleSheet, Dimensions, Button, Alert, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Dimensions, Button, Alert, Text, FlatList, TouchableOpacity, Pressable } from 'react-native';
 import {sampleOutput} from './Algorithm.js';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import * as Progress from 'react-native-progress';
 import {Slider} from '@miblanchard/react-native-slider';
 
-export function ProgressBar ({progress}) {
+export function UpdateButton ({ratings}) {
+  const average = ratings.reduce((accumulator, currentValue) => accumulator + currentValue, 0)/ratings.length;
+  
+  return (
+    <View>
+      <Pressable onPress={() => console.log("fires")} style={styles.button}>
+        <Text style={styles.buttonText}> Get Next Schedule! </Text>
+      </Pressable>
+    </View>
+  );
+} 
+
+export function ProgressBar ({progress, isComplete, ratings}) {
     return (
         <View style={styles.progressContainer}>
             <Text style={styles.totalDistanceText}>Progress this week</Text>
@@ -19,6 +31,7 @@ export function ProgressBar ({progress}) {
                 color="#01CFEE"
                 borderRadius={10}
             />
+            {isComplete && <UpdateButton ratings={ratings}/>}
         </View>
     );
 }
@@ -31,8 +44,7 @@ export function TrackMark ({index}) {
 
 export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings }) {
     function changeRatings (value) {
-      const newRatings = ratings.map((rating, index) => (index === item.id) ? value : rating);
-      console.log(newRatings);
+      const newRatings = ratings.map((rating, index) => (index === item.id) ? value[0] : rating);
       updateRatings(newRatings);
     }
 
@@ -42,13 +54,13 @@ export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings
           <Text style={styles.weekday}>{item.title}</Text>
           {isSelected && (
             <View style={{
-              width: 30, // Set the diameter of the circle
-              height: 30, // Same as the width to make it a circle
-              borderRadius: 15, // Half of the width/height to make the edges fully rounded
-              backgroundColor: '#01CFEE', // Background color of the circle
-              justifyContent: 'center', // Centers the child vertically
-              alignItems: 'center', // Centers the child horizontally
-              marginLeft: 10, // Adds some space between the text and the circle
+              width: 30,
+              height: 30,
+              borderRadius: 15,
+              backgroundColor: '#01CFEE',
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginLeft: 10
             }}>
               <Text style={{ color: 'white', fontSize: 15, fontWeight: 'bold' }}>
                 {ratings[item.id]}
@@ -58,7 +70,7 @@ export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings
         </View>
         <BouncyCheckbox
             isChecked={isSelected}
-            onPress={() => onSelect(item.id)}
+            onPress={(isChecked) => onSelect(isChecked, item.id)}
             text={item.task}
             iconStyle={{ borderColor: 'lightgray' }}
             fillColor="#01CFEE"
@@ -91,6 +103,7 @@ export default function Profile ({user}) {
     const [selectedIds, setSelectedIds] = useState([]);
     const defaultRatings = sampleOutput.map(() => 1);
     const [ratings, setRatings] = useState(defaultRatings);
+    const [complete, setComplete] = useState(false);
 
     const data = sampleOutput.map((day, index) => ({
         id: index,
@@ -102,11 +115,18 @@ export default function Profile ({user}) {
         setSelectedIds(prevIds =>
             prevIds.includes(id) ? prevIds.filter(prevId => prevId !== id) : [...prevIds, id]
         );
+        
+        const length = isChecked ? selectedIds.length + 1 : selectedIds.length - 1;
+        if (length/data.length == 1) {
+          setComplete(true);
+        } else {
+          setComplete(false);
+        }
     };
 
     return (
         <View style={styles.container}>
-            <ProgressBar progress={selectedIds.length/data.length}/>
+            <ProgressBar progress={selectedIds.length/data.length} isComplete={complete} ratings={ratings}/>
             <FlatList 
                 ItemSeparatorComponent={
                     (({highlighted}) => (
@@ -120,7 +140,7 @@ export default function Profile ({user}) {
                         item={item}
                         onSelect={(isChecked) => handleCheckboxChange(isChecked, item.id)}
                         isSelected={selectedIds.includes(item.id)}
-                        ratings={defaultRatings}
+                        ratings={ratings}
                         updateRatings={setRatings}
                     />
                 )}
@@ -210,5 +230,17 @@ const styles = StyleSheet.create({
   },
   minimumTrackStyle: {
     backgroundColor: '#01CFEA'
+  },
+  button: {
+      backgroundColor: '#FF7B76',
+      padding: 5,
+      margin: 5,
+      borderRadius: 5,
+      textAlign: 'center'
+  },
+  buttonText: {
+      color: 'white', 
+      fontSize: 20,
+      textAlign: 'center'
   }
 });
