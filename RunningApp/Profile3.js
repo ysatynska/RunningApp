@@ -32,6 +32,7 @@ export function TrackMark ({index}) {
 export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings }) {
     function changeRatings (value) {
       const newRatings = ratings.map((rating, index) => (index === item.id) ? value : rating);
+      console.log(newRatings);
       updateRatings(newRatings);
     }
 
@@ -101,7 +102,6 @@ export default function Profile ({user}) {
         setSelectedIds(prevIds =>
             prevIds.includes(id) ? prevIds.filter(prevId => prevId !== id) : [...prevIds, id]
         );
-        
     };
 
     return (
