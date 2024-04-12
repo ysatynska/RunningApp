@@ -4,7 +4,7 @@ import DistancePage from '../helperComponents/DistancePage';
 import TimePage from '../helperComponents/TimePage';
 import StepIndicator from "../helperComponents/StepIndicator";
 
-export function ChooseGoal ({ navigation }) {
+export default function ChooseGoal ({ navigation }) {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
@@ -90,5 +90,3 @@ const styles = StyleSheet.create({
     margin: 20
   },
 });
-
-export default ChooseOptionPage;

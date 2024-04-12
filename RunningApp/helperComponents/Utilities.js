@@ -22,7 +22,7 @@ export function Error ({message}) {
 export function LoginImage ({invalidUsername, invalidPassword, invalidName = false}) {
     return (
         <View style={styles.header}>
-            <Image source={invalidUsername || invalidPassword || invalidName ? require('./assets/loginError.png') : require('./assets/login.png')} style={styles.image}></Image>
+            <Image source={invalidUsername || invalidPassword || invalidName ? require('../images/loginFail.png') : require('../images/loginSuccess.png')} style={styles.image}></Image>
         </View>
     );
 }

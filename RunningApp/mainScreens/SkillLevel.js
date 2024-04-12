@@ -8,17 +8,6 @@ export default function SkillLevel ({ navigation }) {
     const skillLevels = ['Beginner', 'Intermediate', 'Advanced'];
   
     const radioButtons = skillLevels.map((level, index) => (
-      // return (
-      //   <Pressable key={index} style={styles.radioButtonContainer} onPress={() => setSelected(level)}>
-      //     <View style={[
-      //       styles.radioButton,
-      //       selected === level ? styles.radioButtonSelected : null
-      //     ]} />
-      //     <Text style={styles.radioButtonText}>
-      //       {level}
-      //     </Text>
-      //   </Pressable>
-      // );
       {
         id: index,
         label: skillLevels[index],
@@ -29,19 +18,12 @@ export default function SkillLevel ({ navigation }) {
     return (
       <View style={styles.container}>
         <Text style={styles.title}> My Skill Level is: </Text>
-        {/* {radioButtons}
-        <View style={styles.footer}>
-          <StepIndicator currentStep = {2}/>
-          <Pressable onPress={() => navigation.navigate('availability')} style={styles.button}>
-              <Text style={styles.buttonText}> Next </Text>
-          </Pressable>
-        </View> */}
-
         <RadioGroup 
             radioButtons={radioButtons} 
             onPress={setSelected}
             selectedId={selected}
         />
+        
       </View>
     );
   }
