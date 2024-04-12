@@ -25,7 +25,8 @@ const styles = StyleSheet.create({
   },
   welcomeText: {
     fontSize: 32,
-    color: '#01CFEE'
+    color: '#01CFEE',
+    fontWeight: 'bold',
   },
   button: {
     backgroundColor: '#FF5953',
