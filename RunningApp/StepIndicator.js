@@ -24,14 +24,14 @@ const StepIndicator = ({ currentStep }) => {
       justifyContent: 'center',
     },
     circle: {
-      width: 20,
-      height: 20,
-      borderRadius: 10,
+      width: 18,
+      height: 18,
+      borderRadius: 9,
       backgroundColor: '#ccc',
       margin: 5,
     },
     highlightedCircle: {
-      backgroundColor: '#FFBAB8',
+      backgroundColor: '#FF5953',
     },
   });
   

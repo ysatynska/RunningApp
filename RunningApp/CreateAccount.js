@@ -1,36 +1,46 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableWithoutFeedback, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, TouchableWithoutFeedback, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as InputFields from './InputFields.js';
 import * as Utilities from './Utilities.js';
 
-export default function LoginScreen ({navigation}) {
+export default function CreateAccount ({navigation}) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
   const [invalidUsername, setInvalidUsername] = useState(false);
   const [invalidPassword, setInvalidPassword] = useState(false);
+  const [invalidName, setInvalidName] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const handleLogin = async () => {
+  const handleCreate = async () => {
+    handlePress();
     try {
-      const jsonUser = await AsyncStorage.getItem(username);
-      if (jsonUser == null) {
+      if (firstName.length > 30 || firstName.length == 0) {
+        setInvalidName(true);
+        throw new Error("invalid name");
+      }
+      const sameUsername = await AsyncStorage.getItem(username);
+      if (sameUsername != null || username.length < 3) {
+        setInvalidUsername(true);
         throw new Error("invalid username");
       }
-      const user = JSON.parse(jsonUser);
-      if (user.password == password) {
-        navigation.navigate('profile');
-      } else {
+      if (password.length < 8) {
         setInvalidPassword(true);
+        throw new Error("invalid password");
       }
+      const newUser = JSON.stringify({name: firstName, password: password});
+
+      await AsyncStorage.setItem(username, newUser);
+      navigation.navigate('goalScreen');
     } catch (e) {
-      setInvalidUsername(true);
     }
   };
 
   function handlePress () {
     setInvalidPassword(false);
     setInvalidUsername(false);
+    setInvalidName(false);
   }
 
   const togglePasswordVisibility = () => {
@@ -46,24 +56,35 @@ export default function LoginScreen ({navigation}) {
       >
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
           <View style={styles.container}>
-            <Utilities.LoginImage invalidUsername={invalidUsername} invalidPassword={invalidPassword}/>
-            <Text style={styles.createAccount}>Login Details</Text>
-
-            <InputFields.Username username={username} setUsername={setUsername}/>
-            {invalidUsername && <Utilities.Error message={"Invalid Username"}/>}
-
-            <InputFields.Password isPasswordVisible={isPasswordVisible} togglePasswordVisibility={togglePasswordVisibility} password={password} setPassword={setPassword}/>
-            {invalidPassword && <Utilities.Error message={"Invalid Password"}/>}
+            <Utilities.LoginImage invalidUsername={invalidUsername} invalidPassword={invalidPassword} invalidName={invalidName}/>
+            <Text style={styles.createAccount}>Create Account</Text>
             
-            <Utilities.Button onPress={handleLogin} title="Sign In"/>
+            <InputFields.FirstName firstName={firstName} setFirstName={setFirstName}/>
+            {invalidName && <Utilities.Error message={"Must be between 1 and 30 characters"}/>}
+            
+            <InputFields.Username username={username} setUsername={setUsername}/>
+            {invalidUsername && <Utilities.Error message={username.length < 3 ? "Must be at least 3 characters" : "Username already taken"}/>}
+            
+            <InputFields.Password isPasswordVisible={isPasswordVisible} togglePasswordVisibility={togglePasswordVisibility} password={password} setPassword={setPassword}/>
+            {invalidPassword && <Utilities.Error message={"Must be at least 8 characters"}/>}
+            
+            <Utilities.Button onPress={handleCreate} title="Sign Up"/>
+            
+            <View style={{marginTop: 10}}>
+                <Text style={styles.text}>
+                  Already have an account?{' '}
+                  <TouchableOpacity onPress={() => navigation.navigate('login')}>
+                      <Text style={styles.link}>Sign in</Text>
+                  </TouchableOpacity>
+                </Text>
+            </View>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
-};
+}
 
-// this styles is the exact (!) same as in CreateAccount.js, no need to double check.
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -119,5 +140,13 @@ const styles = StyleSheet.create({
   },
   linkContainer: {
     marginTop: 8
+  },
+  icon: {
+    position: 'absolute',
+    right: 10,
+    top: 6,
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

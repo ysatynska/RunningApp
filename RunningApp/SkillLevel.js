@@ -8,6 +8,17 @@ export default function SkillLevel ({ navigation }) {
     const skillLevels = ['Beginner', 'Intermediate', 'Advanced'];
   
     const radioButtons = skillLevels.map((level, index) => (
+      // return (
+      //   <Pressable key={index} style={styles.radioButtonContainer} onPress={() => setSelected(level)}>
+      //     <View style={[
+      //       styles.radioButton,
+      //       selected === level ? styles.radioButtonSelected : null
+      //     ]} />
+      //     <Text style={styles.radioButtonText}>
+      //       {level}
+      //     </Text>
+      //   </Pressable>
+      // );
       {
         id: index,
         label: skillLevels[index],
@@ -18,22 +29,28 @@ export default function SkillLevel ({ navigation }) {
     return (
       <View style={styles.container}>
         <Text style={styles.title}> My Skill Level is: </Text>
-        {radioButtons}
+        {/* {radioButtons}
         <View style={styles.footer}>
           <StepIndicator currentStep = {2}/>
-          <Pressable onPress={() => navigation.navigate('skillLevel')} style={styles.button}>
+          <Pressable onPress={() => navigation.navigate('availability')} style={styles.button}>
               <Text style={styles.buttonText}> Next </Text>
           </Pressable>
-        </View>
-        <FlatList 
-          data={DATA}
-          renderItem={renderItem}
-          keyExtractor={item => item.id}
+        </View> */}
+
+        <RadioGroup 
+            radioButtons={radioButtons} 
+            onPress={setSelected}
+            selectedId={selected}
         />
       </View>
     );
   }
+
   const styles = StyleSheet.create({
+    welcomeText: {
+      fontSize: 32,
+      color: '#01CFEE'
+    },
     button: {
       backgroundColor: '#FF5953',
       padding: 10,
@@ -44,9 +61,21 @@ export default function SkillLevel ({ navigation }) {
       color: 'white', 
       fontSize: 20
     },
+    image: {
+      width: 300,
+      height: 300,
+      padding: 10,
+      margin: 20
+    },
+    paragraph: {
+      textAlign: 'center',
+      color: "#A6A6A6",
+      padding: 20,
+      fontSize: 17
+    },
     container: {
       flex: 1,
-      justifyContent: 'flex-start',
+      justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: 'white',
     },
@@ -56,10 +85,9 @@ export default function SkillLevel ({ navigation }) {
       padding: 10,
     },
     title: {
-      fontSize: 22,
-      fontWeight: 'bold',
-      marginVertical: 50,
-      color: '#1c5253'
+      fontSize: 35,
+      marginBottom: 20,
+      color: '#747474'
     },
     optionButton: {
       backgroundColor: '#e0e0e0',
@@ -87,13 +115,12 @@ export default function SkillLevel ({ navigation }) {
       borderRadius: 10,
       borderWidth: 1,
       borderColor: '#000',
-      marginVertical: 20,
-      marginHorizontal: 10,
+      margin: 10,
       padding: 2,
     },
     radioButtonText: {
-      fontSize: 28,
-      color: '#1c5253'
+      fontSize: 30,
+      color: '#747474'
     },
     radioButtonContainer: {
       flexDirection: 'row',
