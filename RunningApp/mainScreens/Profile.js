@@ -1,6 +1,6 @@
 import React, { Component, useState, useRef } from 'react';
 import { View, StyleSheet, Dimensions, Button, Alert, Text, FlatList, TouchableOpacity, Pressable } from 'react-native';
-import {sampleOutput} from './Algorithm.js';
+import {sampleOutput} from '../Algorithm.js';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import * as Progress from 'react-native-progress';
 import {Slider} from '@miblanchard/react-native-slider';

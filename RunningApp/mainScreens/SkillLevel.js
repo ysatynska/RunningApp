@@ -1,6 +1,6 @@
 import React, {useMemo, useState, useEffect, useRef} from 'react';
 import {StyleSheet, Text, View, TextInput, Button, Pressable, TouchableWithoutFeedback, Keyboard, Animated} from 'react-native';
-import StepIndicator from "./StepIndicator";
+import StepIndicator from "../helperComponents/StepIndicator";
 import RadioGroup from 'react-native-radio-buttons-group';
 
 export default function SkillLevel ({ navigation }) {

@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {View, Switch, StyleSheet, Text, Pressable, TouchableWithoutFeedback, Keyboard} from 'react-native';
-import DistancePage from './DistancePage';
-import TimePage from './TimePage';
-import StepIndicator from "./StepIndicator";
+import DistancePage from '../helperComponents/DistancePage';
+import TimePage from '../helperComponents/TimePage';
+import StepIndicator from "../helperComponents/StepIndicator";
 
-const ChooseOptionPage = ({ navigation }) => {
+export function ChooseGoal ({ navigation }) {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 

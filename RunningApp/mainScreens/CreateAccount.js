@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, TouchableWithoutFeedback, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as InputFields from './InputFields.js';
-import * as Utilities from './Utilities.js';
+import * as InputFields from '../helperComponents/InputFields.js';
+import * as Utilities from '../helperComponents/Utilities.js';
 
 export default function CreateAccount ({navigation}) {
   const [username, setUsername] = useState('');
