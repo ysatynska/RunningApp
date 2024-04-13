@@ -7,11 +7,11 @@ export default function ChooseGoal ({ route, navigation }) {
   const [isDistance, setIsDistance] = useState(false);
   const [minutes, setMinutes] = useState('');
   const [miles, setMiles] = useState('');
-  const [areValidParameters, setAreValidParameters] = useState(true);
+  const [error, setError] = useState('');
   const { user } = route.params;
 
   function handleDistChange (value) {
-    setAreValidParameters(true);
+    setError('');
     if (value < 0) {
       // disallowing negative values for distance.
       value = '0';
@@ -23,7 +23,7 @@ export default function ChooseGoal ({ route, navigation }) {
   }
 
   function handleMinsChange (value) {
-    setAreValidParameters(true);
+    setError('');
     if (value < 0) {
       // disallowing negative values for minutes.
       value = '0';
@@ -35,26 +35,30 @@ export default function ChooseGoal ({ route, navigation }) {
   }
 
   function handleNext () {
-    if (!isDistance && Number(miles)/Number(minutes) > .5
-        || Number(miles)/Number(minutes) < .05) {
-        // .5 miles/minute is the fastest a person ever ran.
-        // .05 is the walking distance.
-        setAreValidParameters(false);
-    } else {
+    if (!isDistance && Number(miles)/Number(minutes) >= .5) {
+      setError("With the given parameters, you speed would exceed the fastest someone ever ran ("  + (Number(miles)/Number(minutes)).toFixed(2) + " miles/minute vs fastest 0.463 miles/minute).");
+    } else if (Number(miles)/Number(minutes) < .05) {
+      // .5 miles/minute is the fastest a person ever ran.
+      // .05 is the walking distance.
+      setError("With the given parameters, you speed would be below walking distance (" + (Number(miles)/Number(minutes)).toFixed(3) + " miles/minute vs walking 0.05 miles/minute).");
+    } else if (miles != '' && (!isDistance ? minutes != '' : true)) {
       user.goal.miles = miles;
       user.goal.minutes = minutes;
       navigation.navigate('skillLevel', {user: user});
+    } else {
+      setError("Please fill out all of the fields.");
     }
   }
   function toggleSwitch () {
     setIsDistance(previousState => !previousState);
     setMiles('');
     setMinutes('');
+    setError('');
   }
 
   function handlePress () {
     Keyboard.dismiss();
-    setAreValidParameters(true);
+    setError('');
   }
     
   return (
@@ -96,8 +100,8 @@ export default function ChooseGoal ({ route, navigation }) {
           onChangeText={value => handleDistChange(value)}
         />
 
-        {!areValidParameters && 
-          <Error message="With the given parameters, you speed would either exceed the fastest someone ever ran or be below walking distance."/>
+        {error != '' && 
+          <Error message={error}/>
         }
 
         <View style={styles.footer}>
