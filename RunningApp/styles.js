@@ -8,7 +8,8 @@ const button_color = '#FF5953';
 const neutral_color = '#FFFFFF';
 const error_color = '#CC0000';
 
-const styles = StyleSheet.create({
+// Basic shared stylesheet across all screens
+const sharedStyles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: neutral_color,
@@ -19,7 +20,48 @@ const styles = StyleSheet.create({
     instructions: {
         fontSize: 20,
         fontWeight: 'bold',
-        color: '#1c5253',
+        color: primary_color,
+    },
+    nextButton: {
+        backgroundColor: secondary_color,
+        padding: 10,
+        borderRadius: 5,
+        margin: 20
+    },
+    nextButtonText: {
+        color: neutral_color, 
+        fontSize: 20
+    },
+});
+
+// Stylesheet for availability screen
+const availabilityStyle = StyleSheet.create({
+    button: {
+        backgroundColor: button_color,
+        padding: 10,
+        borderRadius: 5,
+        margin: 20
+    },
+    buttonText: {
+        color: neutral_color, 
+        fontSize: 20
+    },
+    container: {
+        flex: 1,
+        backgroundColor: neutral_color,
+        alignItems: 'center',
+        paddingTop: 20,
+        justifyContent: 'flex-start',
+    },
+    footer: {
+        position: 'absolute',
+        bottom: 0,
+        padding: 10,
+    },
+    instructions: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: secondary_color,
     },
     item: {
         flexDirection: 'row',
@@ -30,34 +72,73 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: 'dimgrey',
     },
-    availabilityList: {
-        backgroundColor: neutral_color,
-    },
-    availabilityListWeekday: {
-        fontSize: 25,
-        color: '#1c5253',
+    list: {
+        backgroundColor: neutral_color
     },
     spinnerText: {
         fontSize: 20,
         fontWeight: 'bold',
-        color: '#1c5253',
+        color: secondary_color,
     },
+    weekday: {
+        fontSize: 25,
+        color: secondary_color,
+    },
+});
+
+// Stylesheet for GoalScreen screen
+const goalScreenStyle = StyleSheet.create({
+    button: {
+        backgroundColor: secondary_color,
+        padding: 10,
+        borderRadius: 5,
+        width: '100%',
+        alignItems: 'center',
+        position: 'absolute',
+        bottom: 0,
+        marginBottom: 20,
+    },
+    buttonText: {
+        color: neutral_color,
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    distanceContainer: {
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        paddingTop: 50,
+        paddingBottom: 20,
+      },
     footer: {
         position: 'absolute',
         bottom: 0,
         padding: 10,
     },
     nextButton: {
-        backgroundColor: secondary_color,
+        backgroundColor: button_color,
         padding: 10,
         borderRadius: 5,
         margin: 20
     },
-    nextButtonText: {
-        color: 'white', 
-        fontSize: 20
+    switchContainer: {
+        marginTop: 20,
+        marginBottom: 20,
     },
-});
+    text: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: secondary_color,
+    },
+    timeContainer: {
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        paddingTop: 50,
+    },
+})
 
 export default sharedStyles;
 
@@ -69,4 +150,11 @@ export {
   button_color,
   neutral_color,
   error_color,
+
+  availabilityStyle,
+  goalScreenStyle,
+  loginStyle,
+  skillLevelStyle,
+  timePageStyle,
+  welcomePageStyle,
 }
