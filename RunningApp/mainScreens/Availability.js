@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, Text, View, Pressable, StyleSheet } from 'react-native';
 import InputSpinner from 'react-native-input-spinner';
-import StepIndicator from "./StepIndicator";
+import StepIndicator from "../helperComponents/StepIndicator";
 
 export default function Availability({navigation}) {
     const [availability, setAvailability] = useState([

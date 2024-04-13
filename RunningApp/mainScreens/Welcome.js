@@ -1,15 +1,13 @@
-import React, {useState} from 'react';
-import {View, Switch, StyleSheet, Text, Pressable, TouchableWithoutFeedback, Keyboard, Image} from 'react-native';
-import DistancePage from './DistancePage';
-import TimePage from './TimePage';
+import React from 'react';
+import {View, StyleSheet, Text, Pressable, Image} from 'react-native';
 
 export default function Welcome ({navigation}) {
   return (
       <View style={styles.container}>
-        <Image source={require('./assets/image.png')} style={styles.image}/>
+        <Image source={require('../images/welcome.png')} style={styles.image}/>
         <Text style={styles.welcomeText}> Welcome! </Text>
         <Text style={styles.paragraph}> Discover the joy of movement with running, a simple step towards a healthy life. </Text>
-        <Pressable onPress={() => navigation.navigate('goalScreen')} style={styles.button}>
+        <Pressable onPress={() => navigation.navigate('createAccount')} style={styles.button}>
             <Text style={styles.buttonText}> Start </Text>
         </Pressable>
       </View>

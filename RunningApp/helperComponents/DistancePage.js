@@ -4,8 +4,6 @@ import { View, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, Keyb
 const DistancePage = () => {
   const [goalDistance, setGoalDistance] = useState('');
 
-
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
