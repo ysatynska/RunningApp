@@ -41,7 +41,7 @@ export default function Availability({navigation}) {
                     <View key={index} style={styles.item}>
                         <TouchableOpacity onPress={() => handleDaySelection(index)}>
                             <Text style={[styles.weekday, { textDecorationLine: item.available ? 'none' : 'line-through' }, 
-                        { color: item.available ? null : 'red' }]}>
+                        { color: item.available ? null : '#CC0000' }]}>
                                 {item.day}
                             </Text>
                         </TouchableOpacity>
