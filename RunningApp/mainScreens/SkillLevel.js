@@ -23,7 +23,12 @@ export default function SkillLevel ({ navigation }) {
             onPress={setSelected}
             selectedId={selected}
         />
-        
+        <View style={styles.footer}>
+            <StepIndicator currentStep = {2}/>
+            <Pressable onPress={() => navigation.navigate('availability')} style={styles.button}>
+                <Text style={styles.buttonText}> Next </Text>
+            </Pressable>
+        </View>
       </View>
     );
   }
