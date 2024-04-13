@@ -74,7 +74,7 @@ export default function generateSchedule() {
     return schedule;
 }
 
-// distance in miles, pace in miles/hour?
+// distance in miles, pace in minutes/mile?
 export const sampleOutput = [
     {title: 'Monday', distance: 5, pace: 6, times: 1},
     {title: 'Tuesday', distance: 1, pace: 10, times: 3},

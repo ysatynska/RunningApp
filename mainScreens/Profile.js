@@ -3,6 +3,7 @@ import { View, StyleSheet, Dimensions, Button, Alert, Text, FlatList, TouchableO
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import * as Progress from 'react-native-progress';
 import {Slider} from '@miblanchard/react-native-slider';
+import {sampleOutput} from '../Schedule.js';
 
 export function UpdateButton ({ratings}) {
   const average = ratings.reduce((accumulator, currentValue) => accumulator + currentValue, 0)/ratings.length;

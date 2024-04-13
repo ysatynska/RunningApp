@@ -26,6 +26,7 @@ export function LoginImage ({invalidUsername, invalidPassword, invalidName = fal
         </View>
     );
 }
+
 // these styls are the exact (!) copy of styles in CreateAccount and LoginScreent!
 
 const styles = StyleSheet.create({

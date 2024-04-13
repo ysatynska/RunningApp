@@ -3,7 +3,7 @@ import {StyleSheet, Text, View, TextInput, Button, Pressable, TouchableWithoutFe
 import StepIndicator from "../helperComponents/StepIndicator";
 import RadioGroup from 'react-native-radio-buttons-group';
 
-export default function SkillLevel ({ navigation }) {
+export default function SkillLevel ({ route, navigation }) {
     const [selected, setSelected] = useState(null);
     const skillLevels = ['Beginner', 'Intermediate', 'Advanced'];
   
