@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {View, Switch, StyleSheet, TextInput, Text, Pressable, TouchableWithoutFeedback, Keyboard} from 'react-native';
+import {View, Switch, StyleSheet, TextInput, Text, Pressable, KeyboardAvoidingView, Platform, ScrollView, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import StepIndicator from "../helperComponents/StepIndicator";
 import { Error } from "../helperComponents/Utilities";
 
@@ -42,7 +42,7 @@ export default function ChooseGoal ({ route, navigation }) {
       // .05 is the walking distance.
       setError("With the given parameters, you speed would be below walking distance (" + (Number(miles)/Number(minutes)).toFixed(3) + " miles/minute vs walking 0.05 miles/minute).");
     } else if (miles != '0' && miles != '' && (!isDistance ? minutes != '' : true)) {
-      user.goal = {miles: miles, minutes: minutes};
+      user.goal = {miles: Number(miles), minutes: (minutes == '' ? 0 : Number(minutes))};
       navigation.navigate('skillLevel', {user: user});
     } else {
       setError("Please fill out all of the fields. Miles cannot be 0.");
@@ -62,46 +62,54 @@ export default function ChooseGoal ({ route, navigation }) {
     
   return (
     <TouchableWithoutFeedback onPress={handlePress} accesible={false}>
-      <View style={styles.container}>
-        <Text style={styles.text}>What would you like to train for?</Text>
-        <Text style={{ fontSize: 14, color: '#1c5253' }}>(Time or Distance)</Text>
-        <View style={styles.switchContainer}>
-          <Switch
-            trackColor={{true: '#01CFEE'}}
-            thumbColor={'#f4f3f4'}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch}
-            value={isDistance}
-          />
-        </View>
+      <View style={[styles.container, {flex: 1}]}>
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
+        >
+          <ScrollView contentContainerStyle={[{ flexGrow: 1 }, styles.container]} showsVerticalScrollIndicator={false}>
+            <Text style={styles.text}>What would you like to train for?</Text>
+            <Text style={{ fontSize: 14, color: '#1c5253' }}>(Time or Distance)</Text>
+            <View style={styles.switchContainer}>
+              <Switch
+                trackColor={{true: '#01CFEE'}}
+                thumbColor={'#f4f3f4'}
+                ios_backgroundColor="#3e3e3e"
+                onValueChange={toggleSwitch}
+                value={isDistance}
+              />
+            </View>
 
-        <Text style={styles.title}>{isDistance ? 'Distance' : 'Time'}</Text>
+            <Text style={styles.title}>{isDistance ? 'Distance' : 'Time'}</Text>
 
-        {!isDistance && 
-          <>
-            <Text style={styles.subtitle}>Minutes</Text>
-            <TextInput
+            {!isDistance && 
+              <>
+                <Text style={styles.subtitle}>Minutes</Text>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={value => handleMinsChange(value)}
+                  value={minutes}
+                  keyboardType="numeric"
+                  placeholder="Minutes"
+                />
+              </>
+            }
+
+            <Text style={styles.subtitle}>Miles</Text>
+            <TextInput 
               style={styles.input}
-              onChangeText={value => handleMinsChange(value)}
-              value={minutes}
+              placeholder="Miles"
               keyboardType="numeric"
-              placeholder="Minutes"
+              value={miles}
+              onChangeText={value => handleDistChange(value)}
             />
-          </>
-        }
 
-        <Text style={styles.subtitle}>Miles</Text>
-        <TextInput 
-          style={styles.input}
-          placeholder="Miles"
-          keyboardType="numeric"
-          value={miles}
-          onChangeText={value => handleDistChange(value)}
-        />
-
-        {error != '' && 
-          <Error message={error}/>
-        }
+            {error != '' && 
+              <Error message={error}/>
+            }
+          </ScrollView>
+        </KeyboardAvoidingView>
 
         <View style={styles.footer}>
           <StepIndicator currentStep = {1}/>
@@ -116,10 +124,8 @@ export default function ChooseGoal ({ route, navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: 'center',
-    paddingTop: 50,
-    paddingBottom: 20,
+    paddingTop: 25,
   },
   switchContainer: {
     marginTop: 20,

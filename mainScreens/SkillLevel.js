@@ -21,6 +21,15 @@ export default function SkillLevel ({ route, navigation }) {
     function handleNext () {
       if (selected != null) {
         user.skillLevel = selected;
+        if (user.goal.minutes == 0) {
+          //training for distance
+          const miles = selected == 0 ? 1 : (selected == 1 ? 3 : 5);
+          user.currentBest = {miles: miles, minutes: 0};
+        } else {
+          // training for time
+          const minutes = selected == 0 ? 15 : (selected == 1 ? 13 : 10);
+          user.currentBest = {miles: 1, minutes: minutes};
+        }
         navigation.navigate('availability', {user: user});
       } else {
         setError("Please choose one of the options.")

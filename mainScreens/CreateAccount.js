@@ -34,10 +34,6 @@ export default function CreateAccount ({navigation}) {
         username: username,
         password: password, 
         rateOfImprovement: 1.2,
-        currentBest: {
-          miles: 0,
-          minutes: 0,
-        },
         // skillLevel: 0,
         // availability: [
         //   { day: 'Sunday', available: false, hours: 0 },

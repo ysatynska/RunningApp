@@ -40,6 +40,8 @@ export default function Availability({ route, navigation }) {
             setError('Please select at least 1 hour when you are available.')
         } else {
             user.schedule = generateSchedule(user, availability);
+            console.log("schedule after: ", JSON.stringify(user, null, 2));
+            console.log("schedule after: ", JSON.stringify(user.schedule, null, 2));
             navigation.navigate('profile', {user: user});
         }
     }

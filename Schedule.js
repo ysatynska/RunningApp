@@ -1,15 +1,11 @@
 function generateDistanceSchedule(schedule, user) {
     let isTempo = false;
     let totalRuns = 0;
-    if (user.currentBest.miles < 1) {
-        user.currentBest.miles = .5;
-    }
-
     for (let i = 0; i < 7; i++) {
         if (schedule[i].available && totalRuns < 5) {
             if (isTempo) {
                 schedule[i].miles = user.currentBest.miles/2;
-                schedule[i].reps = 3;
+                schedule[i].reps = schedule[i].hours < 3 ? 'three' : 'six';
                 schedule[i].minsPerMile = 10;
             } else {
                 schedule[i].miles = user.currentBest.miles*user.rateOfImprovement;
@@ -25,22 +21,16 @@ function generateDistanceSchedule(schedule, user) {
 function generateTimeScedule(schedule, user) {
     let isTempo = false;
     let totalRuns = 0;
-    if (user.currentBest.miles < 1) {
-        user.currentBest.miles = .5;
-    }
-    if (user.currentBest.minutes < 1) {
-        user.currentBest.minutes = 13;
-    }
     for (let i = 0; i < 7; i++) {
         if (schedule[i].available && totalRuns < 5) {
             if (isTempo) {
                 schedule[i].miles = user.goal.distance;
                 schedule[i].minsPerMile = (user.currentBest.miles/user.currentBest.minutes)*user.rateOfImprovement;
-                schedule[i].reps = 3;
+                schedule[i].reps = schedule[i].hours < 3 ? 3 : 6;
                 user.currentBest.minutes = schedule[i].pace*user.currentBest.miles;
             } else {
                 schedule[i].miles = user.goal.distance*2;
-                schedule[i].reps = 1;
+                schedule[i].reps = schedule[i].hours < 3 ? 'once' : (schedule[i] < 5 ? 'twice' : 'three times');
                 schedule[i].pace = (user.currentBest.minutes/user.currentBest.miles)*1.75;
             }
             isTempo = !isTempo;
@@ -60,7 +50,8 @@ export default function generateSchedule (user, availability) {
             reps: 0
         }
     })
-    console.log("schedule before: ", schedule);
+    console.log("user: ", JSON.stringify(user, null, 2))
+    console.log("schedule before: ", JSON.stringify(schedule, null, 2));
     // let schedule = [
     //     {day: "Monday", distance: 0, pace: 0, reps: 0},
     //     {day: "Tuesday", distance: 0, pace: 0, reps: 0},
@@ -70,12 +61,13 @@ export default function generateSchedule (user, availability) {
     //     {day: "Saturday", distance: 0, pace: 0, reps: 0},
     //     {day: "Sunday", distance: 0, pace: 0, reps: 0},
     // ];
-    if (user.goal.minutes === 0){
+    if (user.goal.minutes === ''){
+        console.log('doing distance');
         generateDistanceSchedule(schedule, user);
     } else {
+        console.log('doing time')
         generateTimeScedule(schedule, user);
     }
-    console.log("schedule after: ", schedule);
     return schedule;
 }
 

@@ -104,10 +104,10 @@ export default function Profile ({ route }) {
     const defaultRatings = schedule.map(() => 1);
     const [ratings, setRatings] = useState(defaultRatings);
 
-    const data = schedule.filter(oneDay => oneDay.availability).map((oneDay, index) => ({
+    const data = schedule.filter(oneDay => oneDay.available).map((oneDay, index) => ({
         id: index,
         title: oneDay.day,
-        task: 'run ' + oneDay.miles + ' miles at ' + oneDay.minsPerMile + ' minutes/mile ' + oneDay.reps + ' times'
+        task: oneDay.miles + ((oneDay.minsPerMile == 0) ? (' miles non-stop') : (' miles at ' + oneDay.minsPerMile + ' minutes/mile ' + oneDay.reps + ' times'))
     }));
 
     function handleCheckboxChange (isChecked, id) {
@@ -123,7 +123,8 @@ export default function Profile ({ route }) {
         // }
     };
     useEffect (() =>{
-  console.log(schedule);
+  console.log(JSON.stringify(schedule.filter(oneDay => oneDay.available), null, 2));
+  console.log(data);
   console.log("here")
     }, [])
 
