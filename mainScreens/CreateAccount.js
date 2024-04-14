@@ -29,7 +29,7 @@ export default function CreateAccount ({navigation}) {
         setInvalidPassword(true);
         throw new Error("invalid password");
       }
-      const newUser = {
+      let newUser = {
         name: firstName, 
         username: username,
         password: password, 

@@ -24,12 +24,12 @@ function generateTimeScedule(schedule, user) {
     for (let i = 0; i < 7; i++) {
         if (schedule[i].available && totalRuns < 5) {
             if (isTempo) {
-                schedule[i].miles = user.goal.distance;
-                schedule[i].minsPerMile = (user.currentBest.miles/user.currentBest.minutes)*user.rateOfImprovement;
+                schedule[i].miles = user.goal.miles;
+                schedule[i].minsPerMile = (user.currentBest.minutes/user.currentBest.miles)*user.rateOfImprovement;
                 schedule[i].reps = schedule[i].hours < 3 ? 'three' : 'six';
                 user.currentBest.minutes = schedule[i].pace*user.currentBest.miles;
             } else {
-                schedule[i].miles = user.goal.distance*2;
+                schedule[i].miles = user.goal.miles*2;
                 schedule[i].reps = schedule[i].hours < 3 ? 'once' : (schedule[i] < 5 ? 'twice' : 'three times');
                 schedule[i].pace = (user.currentBest.minutes/user.currentBest.miles)*1.75;
             }
@@ -51,7 +51,6 @@ export default function generateSchedule (user, availability) {
         }
     })
     console.log("user: ", JSON.stringify(user, null, 2))
-    console.log("schedule before: ", JSON.stringify(schedule, null, 2));
     // let schedule = [
     //     {day: "Monday", distance: 0, pace: 0, reps: 0},
     //     {day: "Tuesday", distance: 0, pace: 0, reps: 0},
@@ -61,7 +60,7 @@ export default function generateSchedule (user, availability) {
     //     {day: "Saturday", distance: 0, pace: 0, reps: 0},
     //     {day: "Sunday", distance: 0, pace: 0, reps: 0},
     // ];
-    if (user.goal.minutes === ''){
+    if (user.goal.minutes === 0){
         console.log('doing distance');
         generateDistanceSchedule(schedule, user);
     } else {
