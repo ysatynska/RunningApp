@@ -98,8 +98,9 @@ export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings
     );
 }
 
-export default function Profile ({ route }) {
+export default function Profile ({ route, navigation }) {
     const [selectedIds, setSelectedIds] = useState([]);
+    const { username } = route.params.user;
     const { schedule } = route.params.user;
     const defaultRatings = schedule.map(() => 1);
     const [ratings, setRatings] = useState(defaultRatings);
@@ -115,6 +116,12 @@ export default function Profile ({ route }) {
             prevIds.includes(id) ? prevIds.filter(prevId => prevId !== id) : [...prevIds, id]
         );
     };
+
+    React.useEffect(() => {
+      navigation.setOptions({
+        title: `Welcome back, ${username}!`, // Set dynamic title
+      });
+    }, [username, navigation]);
 
     return (
         <View style={styles.container}>

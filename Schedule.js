@@ -30,7 +30,7 @@ function generateTimeScedule(schedule, user) {
                 user.currentBest.minutes = schedule[i].pace*user.currentBest.miles;
             } else {
                 schedule[i].miles = user.goal.miles*2;
-                schedule[i].reps = schedule[i].hours < 3 ? 'once' : (schedule[i] < 5 ? 'twice' : 'three times');
+                schedule[i].reps = 'once';
                 schedule[i].pace = (user.currentBest.minutes/user.currentBest.miles)*1.75;
             }
             isTempo = !isTempo;
