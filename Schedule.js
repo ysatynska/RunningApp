@@ -47,19 +47,11 @@ export default function generateSchedule (user, availability) {
             ...oneDay,
             miles: 0,
             minsPerMile: 0,
-            reps: 0
+            reps: 0,
+            complete: false
         }
     })
     console.log("user: ", JSON.stringify(user, null, 2))
-    // let schedule = [
-    //     {day: "Monday", distance: 0, pace: 0, reps: 0},
-    //     {day: "Tuesday", distance: 0, pace: 0, reps: 0},
-    //     {day: "Wednesday", distance: 0, pace: 0, reps: 0},
-    //     {day: "Thursday", distance: 0, pace: 0, reps: 0},
-    //     {day: "Friday", distance: 0, pace: 0, reps: 0},
-    //     {day: "Saturday", distance: 0, pace: 0, reps: 0},
-    //     {day: "Sunday", distance: 0, pace: 0, reps: 0},
-    // ];
     if (user.goal.minutes === 0){
         console.log('doing distance');
         generateDistanceSchedule(schedule, user);

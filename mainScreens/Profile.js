@@ -4,19 +4,24 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import * as Progress from 'react-native-progress';
 import {Slider} from '@miblanchard/react-native-slider';
 
-export function UpdateButton ({ratings}) {
+export function UpdateButton ({ratings, }) {
+  // 1 = .5, 10 = 2
   const average = ratings.reduce((accumulator, currentValue) => accumulator + currentValue, 0)/ratings.length;
+  
+  function handleUpdate () {
+
+  }
   
   return (
     <View>
-      <Pressable onPress={() => console.log("fires")} style={styles.button}>
+      <Pressable onPress={handleUpdate} style={styles.button}>
         <Text style={styles.buttonText}> Get Next Schedule! </Text>
       </Pressable>
     </View>
   );
 } 
 
-export function ProgressBar ({progress, ratings}) {
+export function ProgressBar ({progress, ratings, user}) {
     return (
         <View style={styles.progressContainer}>
             <Text style={styles.totalDistanceText}>Progress this week</Text>
@@ -30,7 +35,7 @@ export function ProgressBar ({progress, ratings}) {
                 color="#01CFEE"
                 borderRadius={10}
             />
-            {progress == 1 && <UpdateButton ratings={ratings}/>}
+            {progress == 1 && <UpdateButton ratings={ratings} user={user}/>}
         </View>
     );
 }
@@ -100,7 +105,7 @@ export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings
 
 export default function Profile ({ route, navigation }) {
     const [selectedIds, setSelectedIds] = useState([]);
-    const { username } = route.params.user;
+    const [user, setUser] = useState(route.params.user);
     const { schedule } = route.params.user;
     const defaultRatings = schedule.map(() => 1);
     const [ratings, setRatings] = useState(defaultRatings);
@@ -119,13 +124,25 @@ export default function Profile ({ route, navigation }) {
 
     React.useEffect(() => {
       navigation.setOptions({
-        title: `Welcome back, ${username}!`, // Set dynamic title
+        title: `Welcome back, ${user.username}!`,
       });
-    }, [username, navigation]);
+    }, [user.username, navigation]);
+
+
+    useEffect(() => {
+      const storeData = async () => {
+        try {
+          const jsonValue = JSON.stringify(user);
+          await AsyncStorage.setItem(user.username, jsonValue);
+        } catch (e) {
+        }
+      };
+      storeData(); 
+    }, [user]);
 
     return (
         <View style={styles.container}>
-            <ProgressBar progress={selectedIds.length/data.length} ratings={ratings}/>
+            <ProgressBar progress={selectedIds.length/data.length} ratings={ratings} user={user}/>
             <FlatList 
                 ItemSeparatorComponent={
                     (({highlighted}) => (

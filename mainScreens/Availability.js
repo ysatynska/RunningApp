@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TouchableOpacity, Text, View, ScrollView, TouchableWithoutFeedback, Pressable, StyleSheet } from 'react-native';
 import InputSpinner from 'react-native-input-spinner';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import StepIndicator from "../helperComponents/StepIndicator";
 import { Error } from "../helperComponents/Utilities";
 import generateSchedule from "../Schedule";
@@ -34,14 +35,22 @@ export default function Availability({ route, navigation }) {
         setAvailability(updatedAvailability);
     };
 
+    const saveUserAsync = async () => {
+        try {
+            const jsonValue = JSON.stringify(user);
+            await AsyncStorage.setItem(user.username, jsonValue);
+        } catch (e) {
+            setError('Error storing data.');
+        }
+      };
+
     function handleNext () {
         const totalHours = availability.reduce((total, current) => total + current.hours, 0);
         if (totalHours == 0) {
             setError('Please select at least 1 hour when you are available.')
         } else {
             user.schedule = generateSchedule(user, availability);
-            console.log("schedule after: ", JSON.stringify(user, null, 2));
-            console.log("schedule after: ", JSON.stringify(user.schedule, null, 2));
+            saveUserAsync();
             navigation.navigate('profile', {user: user});
         }
     }
