@@ -20,7 +20,7 @@ export default function App () {
         <Stack.Screen name="login" options={{...styles.headerStyle, title: 'Sign In'}} component={LoginScreen} />
         <Stack.Screen name="goalScreen" options={{...styles.headerStyle, title: 'Choose Goal'}} component={ChooseGoal} />
         <Stack.Screen name="skillLevel" options={{...styles.headerStyle, title: 'Skill Level'}} component={SkillLevel} />
-        <Stack.Screen name="availability" options={{...styles.headerStyle, title: 'Select Availability'}} component={Availability} />
+        <Stack.Screen name="availability" options={{...styles.headerStyle, title: 'Availability'}} component={Availability} />
         <Stack.Screen name="profile" options={{...styles.headerStyle, title: 'Profile'}} component={Profile} />
       </Stack.Navigator>
     </NavigationContainer>

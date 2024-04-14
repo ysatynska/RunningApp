@@ -39,7 +39,7 @@ export function Username ({username, setUsername}) {
 
 export function FirstName ({firstName, setFirstName}) {
     return (
-        <InputField value={firstName} onChange={setFirstName} placeholder='Username' autocap='none'/>
+        <InputField value={firstName} onChange={setFirstName} placeholder='First Name'/>
     );
 }
 

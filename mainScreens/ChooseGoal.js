@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {View, Switch, StyleSheet, TextInput, Text, Pressable, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import StepIndicator from "../helperComponents/StepIndicator";
 import { Error } from "../helperComponents/Utilities";
@@ -37,16 +37,15 @@ export default function ChooseGoal ({ route, navigation }) {
   function handleNext () {
     if (!isDistance && Number(miles)/Number(minutes) >= .5) {
       setError("With the given parameters, you speed would exceed the fastest someone ever ran ("  + (Number(miles)/Number(minutes)).toFixed(2) + " miles/minute vs fastest 0.463 miles/minute).");
-    } else if (Number(miles)/Number(minutes) < .05) {
+    } else if (!isDistance && Number(miles)/Number(minutes) < .05) {
       // .5 miles/minute is the fastest a person ever ran.
       // .05 is the walking distance.
       setError("With the given parameters, you speed would be below walking distance (" + (Number(miles)/Number(minutes)).toFixed(3) + " miles/minute vs walking 0.05 miles/minute).");
-    } else if (miles != '' && (!isDistance ? minutes != '' : true)) {
-      user.goal.miles = miles;
-      user.goal.minutes = minutes;
+    } else if (miles != '0' && miles != '' && (!isDistance ? minutes != '' : true)) {
+      user.goal = {miles: miles, minutes: minutes};
       navigation.navigate('skillLevel', {user: user});
     } else {
-      setError("Please fill out all of the fields.");
+      setError("Please fill out all of the fields. Miles cannot be 0.");
     }
   }
   function toggleSwitch () {
