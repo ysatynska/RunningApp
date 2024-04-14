@@ -1,4 +1,4 @@
-import React, { Component, useState, useRef } from 'react';
+import React, { Component, useState, useRef, useEffect } from 'react';
 import { View, StyleSheet, Dimensions, Button, Alert, Text, FlatList, TouchableOpacity, Pressable } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import * as Progress from 'react-native-progress';
@@ -16,7 +16,7 @@ export function UpdateButton ({ratings}) {
   );
 } 
 
-export function ProgressBar ({progress, isComplete, ratings}) {
+export function ProgressBar ({progress, ratings}) {
     return (
         <View style={styles.progressContainer}>
             <Text style={styles.totalDistanceText}>Progress this week</Text>
@@ -30,7 +30,7 @@ export function ProgressBar ({progress, isComplete, ratings}) {
                 color="#01CFEE"
                 borderRadius={10}
             />
-            {isComplete && <UpdateButton ratings={ratings}/>}
+            {progress == 1 && <UpdateButton ratings={ratings}/>}
         </View>
     );
 }
@@ -98,34 +98,34 @@ export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings
     );
 }
 
-export default function Profile ({user}) {
+export default function Profile ({ route, navigation }) {
     const [selectedIds, setSelectedIds] = useState([]);
-    const defaultRatings = sampleOutput.map(() => 1);
+    const { username } = route.params.user;
+    const { schedule } = route.params.user;
+    const defaultRatings = schedule.map(() => 1);
     const [ratings, setRatings] = useState(defaultRatings);
-    const [complete, setComplete] = useState(false);
 
-    const data = sampleOutput.map((day, index) => ({
+    const data = schedule.filter(oneDay => oneDay.available).map((oneDay, index) => ({
         id: index,
-        title: day.title,
-        task: 'run ' + day.distance + ' miles at ' + day.pace + ' miles/hour ' + day.times + ' times'
+        title: oneDay.day,
+        task: oneDay.miles + ((oneDay.minsPerMile == 0) ? (' miles ' + oneDay.reps + ' non-stop') : (' miles at ' + oneDay.minsPerMile + ' mins/mile ' + oneDay.reps + ' times'))
     }));
 
     function handleCheckboxChange (isChecked, id) {
         setSelectedIds(prevIds =>
             prevIds.includes(id) ? prevIds.filter(prevId => prevId !== id) : [...prevIds, id]
         );
-        
-        const length = isChecked ? selectedIds.length + 1 : selectedIds.length - 1;
-        if (length/data.length == 1) {
-          setComplete(true);
-        } else {
-          setComplete(false);
-        }
     };
+
+    React.useEffect(() => {
+      navigation.setOptions({
+        title: `Welcome back, ${username}!`, // Set dynamic title
+      });
+    }, [username, navigation]);
 
     return (
         <View style={styles.container}>
-            <ProgressBar progress={selectedIds.length/data.length} isComplete={complete} ratings={ratings}/>
+            <ProgressBar progress={selectedIds.length/data.length} ratings={ratings}/>
             <FlatList 
                 ItemSeparatorComponent={
                     (({highlighted}) => (

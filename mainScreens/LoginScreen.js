@@ -19,7 +19,7 @@ export default function LoginScreen ({navigation}) {
       }
       const user = JSON.parse(jsonUser);
       if (user.password == password) {
-        navigation.navigate('profile');
+        navigation.navigate('profile', {user: user});
       } else {
         setInvalidPassword(true);
       }

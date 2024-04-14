@@ -19,26 +19,27 @@ export function Password ({isPasswordVisible, togglePasswordVisibility, password
     );
 }
 
-export function Username ({username, setUsername}) {
+export function InputField ({value, onChange, placeholder, autoCap='sentences'}) {
     return (
         <TextInput
             style={styles.input}
-            placeholder="Username"
-            value={username}
-            onChangeText={setUsername}
-            autoCapitalize='none'
+            placeholder={placeholder}
+            value={value}
+            onChangeText={onChange}
+            autoCapitalize={autoCap}
         />
+    );
+}
+
+export function Username ({username, setUsername}) {
+    return (
+        <InputField value={username} onChange={setUsername} placeholder='Username' autoCap='none'/>
     );
 }
 
 export function FirstName ({firstName, setFirstName}) {
     return (
-        <TextInput
-            style={styles.input}
-            placeholder="First Name"
-            value={firstName}
-            onChangeText={setFirstName}
-        />
+        <InputField value={firstName} onChange={setFirstName} placeholder='First Name'/>
     );
 }
 

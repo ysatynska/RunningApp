@@ -1,11 +1,14 @@
-import React, {useMemo, useState, useEffect, useRef} from 'react';
-import {StyleSheet, Text, View, TextInput, Button, Pressable, TouchableWithoutFeedback, Keyboard, Animated} from 'react-native';
+import React, { useState } from 'react';
+import {StyleSheet, Text, View, TouchableWithoutFeedback, Pressable } from 'react-native';
 import StepIndicator from "../helperComponents/StepIndicator";
 import RadioGroup from 'react-native-radio-buttons-group';
+import { Error } from "../helperComponents/Utilities";
 
-export default function SkillLevel ({ navigation }) {
+export default function SkillLevel ({ route, navigation }) {
     const [selected, setSelected] = useState(null);
     const skillLevels = ['Beginner', 'Intermediate', 'Advanced'];
+    const [error, setError] = useState('');
+    const { user } = route.params;
   
     const radioButtons = skillLevels.map((level, index) => (
       {
@@ -14,22 +17,56 @@ export default function SkillLevel ({ navigation }) {
         value: skillLevels[index]
       }
     ));
+
+    function handleNext () {
+      if (selected != null) {
+        user.skillLevel = selected;
+        if (user.goal.minutes == 0) {
+          //training for distance
+          let miles = selected == 0 ? 1 : (selected == 1 ? 3 : 5);
+          if (miles > user.goal.miles) {
+            miles = user.goal.miles;
+          }
+          user.currentBest = {miles: miles, minutes: 0};
+        } else {
+          // training for time
+          let minutes = selected == 0 ? 15 : (selected == 1 ? 13 : 10);
+          if (minutes < user.goal.miles) {
+            minutes = user.goal.miles;
+          }
+          user.currentBest = {miles: 1, minutes: minutes};
+        }
+        navigation.navigate('availability', {user: user});
+      } else {
+        setError("Please choose one of the options.")
+      }
+    }
+
+    function handlePress (index) {
+      setSelected(index);
+      setError('');
+    }
   
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}> My Skill Level is: </Text>
-        <RadioGroup 
-            radioButtons={radioButtons} 
-            onPress={setSelected}
-            selectedId={selected}
-        />
-        <View style={styles.footer}>
+      <TouchableWithoutFeedback onPress={() => setError('')} accesible={false}>
+        <View style={styles.container}>
+          <Text style={styles.title}> What is your skill level? </Text>
+          <RadioGroup 
+              radioButtons={radioButtons} 
+              onPress={(index) => handlePress(index)}
+              selectedId={selected}
+          />
+          {error != '' && 
+            <Error message={error}/>
+          }
+          <View style={styles.footer}>
             <StepIndicator currentStep = {2}/>
-            <Pressable onPress={() => navigation.navigate('availability')} style={styles.button}>
+            <Pressable onPress={handleNext} style={styles.nextButton}>
                 <Text style={styles.buttonText}> Next </Text>
             </Pressable>
+          </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     );
   }
 
@@ -124,6 +161,16 @@ export default function SkillLevel ({ navigation }) {
       padding: 10,
       marginTop: 10,
       width: 200,
+    },
+    buttonText: {
+      color: 'white',
+      fontSize: 18,
+      fontWeight: 'bold',
+    },
+    footer: {
+      position: 'absolute',
+      bottom: 0,
+      padding: 10,
     },
     nextButton: {
       backgroundColor: '#FF5953',

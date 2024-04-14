@@ -29,10 +29,36 @@ export default function CreateAccount ({navigation}) {
         setInvalidPassword(true);
         throw new Error("invalid password");
       }
-      const newUser = JSON.stringify({name: firstName, password: password});
-
-      await AsyncStorage.setItem(username, newUser);
-      navigation.navigate('goalScreen');
+      let newUser = {
+        name: firstName, 
+        username: username,
+        password: password, 
+        rateOfImprovement: 1.2,
+        // skillLevel: 0,
+        // availability: [
+        //   { day: 'Sunday', available: false, hours: 0 },
+        //   { day: 'Monday', available: false, hours: 0 },
+        //   { day: 'Tuesday', available: false, hours: 0 },
+        //   { day: 'Wednesday', available: false, hours: 0 },
+        //   { day: 'Thursday', available: false, hours: 0 },
+        //   { day: 'Friday', available: false, hours: 0 },
+        //   { day: 'Saturday', available: false, hours: 0 },
+        // ],
+        // goal: {
+        //   miles: '',
+        //   minutes: ''
+        // },
+        // schedule: [
+        //   {day: "monday", distance: 0, pace: 0, reps: 0, feedback: 1},
+        //   {day: "tuesday", distance: 0, pace: 0, reps: 0, feedback: 1},
+        //   {day: "wednesday", distance: 0, pace: 0, reps: 0, feedback: 1},
+        //   {day: "thursday", distance: 0, pace: 0, reps: 0, feedback: 1},
+        //   {day: "friday", distance: 0, pace: 0, reps: 0, feedback: 1},
+        //   {day: "saturday", distance: 0, pace: 0, reps: 0, feedback: 1},
+        //   {day: "sunday", distance: 0, pace: 0, reps: 0, feedback: 1},
+        // ], 
+      };
+      navigation.navigate('goalScreen', {user: newUser});
     } catch (e) {
     }
   };
