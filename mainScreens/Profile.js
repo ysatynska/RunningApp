@@ -4,13 +4,20 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Progress from 'react-native-progress';
 import {Slider} from '@miblanchard/react-native-slider';
+import generateSchedule from "../Schedule";
 
-export function UpdateButton ({ratings, }) {
-  // 1 = .5, 10 = 2
-  const average = ratings.reduce((accumulator, currentValue) => accumulator + currentValue, 0)/ratings.length;
-  
+export function UpdateButton ({ratings, user, updateUser}) {
   function handleUpdate () {
+    const average = ratings.reduce((accumulator, currentValue) => accumulator + currentValue, 0)/ratings.length;
+    // 1 = .5, 10 = 2  
+    const newRateOfImprovement = .5 + ((2 - .5) / (10 - 1)) * (average - 1);
 
+    const newUser = {
+      ...user,
+      rateOfImprovement: newRateOfImprovement,
+      schedule: generateSchedule({...user, rateOfImprovement: newRateOfImprovement}, user.schedule)
+    };
+    updateUser(newUser);
   }
   
   return (
@@ -22,7 +29,7 @@ export function UpdateButton ({ratings, }) {
   );
 } 
 
-export function ProgressBar ({progress, ratings, user}) {
+export function ProgressBar ({progress, ratings, user, updateUser}) {
   return (
       <View style={styles.progressContainer}>
           <Text style={styles.totalDistanceText}>Progress this week</Text>
@@ -36,7 +43,7 @@ export function ProgressBar ({progress, ratings, user}) {
               color="#01CFEE"
               borderRadius={10}
           />
-          {progress == 1 && <UpdateButton ratings={ratings} user={user}/>}
+          {progress == 1 && <UpdateButton ratings={ratings} user={user} updateUser={updateUser}/>}
       </View>
   );
 }
@@ -52,7 +59,6 @@ export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings
     const newRatings = ratings.map((rating, index) => (index === item.id) ? value[0] : rating);
     updateRatings(newRatings);
   }
-
   return (
     <View style={styles.itemContainer}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -147,7 +153,7 @@ export default function Profile ({ route, navigation }) {
 
   return (
       <View style={styles.container}>
-          <ProgressBar progress={selectedIds.length/data.length} ratings={ratings} user={user}/>
+          <ProgressBar progress={selectedIds.length/data.length} ratings={ratings} user={user} updateUser={setUser}/>
           <FlatList 
               ItemSeparatorComponent={
                   (({highlighted}) => (

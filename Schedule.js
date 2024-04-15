@@ -27,11 +27,11 @@ function generateTimeScedule(schedule, user, numDays) {
                 schedule[i].miles = user.goal.miles;
                 schedule[i].minsPerMile = (user.currentBest.minutes/user.currentBest.miles)*user.rateOfImprovement;
                 schedule[i].reps = schedule[i].hours < 3 ? 'three' : 'six';
-                user.currentBest.minutes = schedule[i].pace*user.currentBest.miles;
+                user.currentBest.minutes = schedule[i].minsPerMile*user.currentBest.miles;
             } else {
                 schedule[i].miles = user.goal.miles*2;
                 schedule[i].reps = 'once';
-                schedule[i].pace = (user.currentBest.minutes/user.currentBest.miles)*1.75;
+                schedule[i].minsPerMile = (user.currentBest.minutes/user.currentBest.miles)*1.75;
             }
             isTempo = !isTempo;
             totalRuns++;
@@ -39,6 +39,8 @@ function generateTimeScedule(schedule, user, numDays) {
     }
 }
 
+// restructure this so that it takes only one parameter - user and returns a new schedule.
+// should have nothing to do with availability
 export default function generateSchedule (user, availability) {
     //pace is in minutes/mile
     let schedule = availability.filter(oneDay => oneDay.hours != 0).map((oneDay, index) => {
@@ -59,12 +61,3 @@ export default function generateSchedule (user, availability) {
     }
     return schedule;
 }
-
-// distance in miles, pace in minutes/mile?
-export const sampleOutput = [
-    {title: 'Monday', distance: 5, pace: 6, times: 1},
-    {title: 'Tuesday', distance: 1, pace: 10, times: 3},
-    {title: 'Thursday', distance: 6, pace: 7, times: 1},
-    {title: 'Saturday', distance: 1, pace: 11, times: 4},
-    {title: 'Sunday', distance: 8, pace: 6, times: 1}
-];
