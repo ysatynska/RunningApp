@@ -8,13 +8,13 @@ import generateSchedule from "../Schedule";
 
 export default function Availability({ route, navigation }) {
     const [availability, setAvailability] = useState([
-        { day: 'Sunday', available: false, hours: 0 },
-        { day: 'Monday', available: false, hours: 0 },
-        { day: 'Tuesday', available: false, hours: 0 },
-        { day: 'Wednesday', available: false, hours: 0 },
-        { day: 'Thursday', available: false, hours: 0 },
-        { day: 'Friday', available: false, hours: 0 },
-        { day: 'Saturday', available: false, hours: 0 },
+        { day: 'Sunday', hours: 0 },
+        { day: 'Monday', hours: 0 },
+        { day: 'Tuesday', hours: 0 },
+        { day: 'Wednesday', hours: 0 },
+        { day: 'Thursday', hours: 0 },
+        { day: 'Friday', hours: 0 },
+        { day: 'Saturday', hours: 0 },
     ]);
     const [error, setError] = useState('');
     const { user } = route.params;
@@ -23,8 +23,7 @@ export default function Availability({ route, navigation }) {
     function handleDaySelection(index) {
         setError('')
         const updatedAvailability = [...availability];
-        updatedAvailability[index].available = !updatedAvailability[index].available;
-        updatedAvailability[index].hours = updatedAvailability[index].available ? 1 : 0;
+        updatedAvailability[index].hours = (updatedAvailability[index].hours == 0) ? 1 : 0;
         setAvailability(updatedAvailability);
     };
 
@@ -68,23 +67,23 @@ export default function Availability({ route, navigation }) {
                     {availability.map((item, index) => (
                         <View key={index} style={styles.item}>
                             <TouchableOpacity onPress={() => handleDaySelection(index)}>
-                                <Text style={[styles.weekday, { textDecorationLine: item.available ? 'none' : 'line-through' }, 
-                            { color: item.available ? null : '#01CFEE' }]}>
+                                <Text style={[styles.weekday, { textDecorationLine: (item.hours != 0) ? 'none' : 'line-through' }, 
+                            { color: (item.hours != 0) ? null : '#01CFEE' }]}>
                                     {item.day}
                                 </Text>
                             </TouchableOpacity>
-                            <InputSpinner 
-                                max={9}
-                                min={1}
-                                step={1}
-                                value={item.hours}
-                                onChange={(hours) => handleHoursChange(index, hours)}
-                                width={150}
-                                color={item.available ? '#01CFEE' : '#f0f0f0'}
-                                editable={false}
-                                disabled={item.available ? false : true}
-                                inputStyle={[styles.spinnerText, {color: item.available ? null : '#f0f0f0'}]}
-                            />
+                                <InputSpinner 
+                                    max={9}
+                                    min={1}
+                                    step={1}
+                                    value={item.hours}
+                                    onChange={(hours) => handleHoursChange(index, hours)}
+                                    width={150}
+                                    color={(item.hours != 0) ? '#01CFEE' : '#f0f0f0'}
+                                    editable={false}
+                                    disabled={(item.hours != 0) ? false : true}
+                                    inputStyle={[styles.spinnerText, {color: (item.hours != 0) ? null : '#f0f0f0'}]}
+                                />
                         </View>
                     ))}
                 </View>

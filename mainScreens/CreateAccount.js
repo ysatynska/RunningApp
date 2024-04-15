@@ -35,7 +35,7 @@ export default function CreateAccount ({navigation}) {
         password: password, 
         rateOfImprovement: 1.2,
       };
-      navigation.navigate('goalScreen', {user: newUser});
+      navigation.navigate('chooseGoal', {user: newUser});
     } catch (e) {
     }
   };

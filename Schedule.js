@@ -1,15 +1,15 @@
-function generateDistanceSchedule(schedule, user) {
+function generateDistanceSchedule(schedule, user, numDays) {
     let isTempo = false;
     let totalRuns = 0;
-    for (let i = 0; i < 7; i++) {
-        if (schedule[i].available && totalRuns < 5) {
+    for (let i = 0; i < numDays; i++) {
+        if (totalRuns < 5) {
             if (isTempo) {
                 schedule[i].miles = user.currentBest.miles/2;
                 schedule[i].reps = schedule[i].hours < 3 ? 'three' : 'six';
                 schedule[i].minsPerMile = 10;
             } else {
                 schedule[i].miles = user.currentBest.miles*user.rateOfImprovement;
-                schedule[i].reps = 1;
+                schedule[i].reps = 'once';
                 user.currentBest.miles *= user.rateOfImprovement;
             }
             isTempo = !isTempo;
@@ -18,11 +18,11 @@ function generateDistanceSchedule(schedule, user) {
     }
 }
 
-function generateTimeScedule(schedule, user) {
+function generateTimeScedule(schedule, user, numDays) {
     let isTempo = false;
     let totalRuns = 0;
-    for (let i = 0; i < 7; i++) {
-        if (schedule[i].available && totalRuns < 5) {
+    for (let i = 0; i < numDays; i++) {
+        if (totalRuns < 5) {
             if (isTempo) {
                 schedule[i].miles = user.goal.miles;
                 schedule[i].minsPerMile = (user.currentBest.minutes/user.currentBest.miles)*user.rateOfImprovement;
@@ -40,24 +40,22 @@ function generateTimeScedule(schedule, user) {
 }
 
 export default function generateSchedule (user, availability) {
-    console.log(availability)
     //pace is in minutes/mile
-    let schedule = availability.map((oneDay) => {
+    let schedule = availability.filter(oneDay => oneDay.hours != 0).map((oneDay, index) => {
         return {
             ...oneDay,
+            id: index,
             miles: 0,
             minsPerMile: 0,
             reps: 0,
-            complete: false
+            completed: false,
+            rating: 1
         }
     })
-    console.log("user: ", JSON.stringify(user, null, 2))
     if (user.goal.minutes === 0){
-        console.log('doing distance');
-        generateDistanceSchedule(schedule, user);
+        generateDistanceSchedule(schedule, user, schedule.length);
     } else {
-        console.log('doing time')
-        generateTimeScedule(schedule, user);
+        generateTimeScedule(schedule, user, schedule.length);
     }
     return schedule;
 }

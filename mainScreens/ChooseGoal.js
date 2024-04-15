@@ -45,7 +45,7 @@ export default function ChooseGoal ({ route, navigation }) {
       user.goal = {miles: Number(miles), minutes: (minutes == '' ? 0 : Number(minutes))};
       navigation.navigate('skillLevel', {user: user});
     } else {
-      setError("Please fill out all of the fields. Miles cannot be 0.");
+      setError("Please fill out all fields. Miles cannot be 0.");
     }
   }
   function toggleSwitch () {
@@ -64,11 +64,11 @@ export default function ChooseGoal ({ route, navigation }) {
     <TouchableWithoutFeedback onPress={handlePress} accesible={false}>
       <View style={[styles.container, {flex: 1}]}>
         <KeyboardAvoidingView
-          style={{ flex: 1 }}
+          style={{ flex: 1, alignItems: 'center', flexGrow: 1 }}
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
         >
-          <ScrollView contentContainerStyle={[{ flexGrow: 1 }, styles.container]} showsVerticalScrollIndicator={false}>
+          <ScrollView contentContainerStyle={[{ flexGrow: 1, width: '85%' }, styles.container]} showsVerticalScrollIndicator={false}>
             <Text style={styles.text}>What would you like to train for?</Text>
             <Text style={{ fontSize: 14, color: '#1c5253' }}>(Time or Distance)</Text>
             <View style={styles.switchContainer}>
@@ -182,6 +182,6 @@ const styles = StyleSheet.create({
       padding: 10,
       backgroundColor: 'white',
       borderRadius: 50,
-      width: '50%'
-  },
+      width: 150
+    },
 });
