@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {View, Switch, StyleSheet, TextInput, Text, Pressable, KeyboardAvoidingView, Platform, ScrollView, TouchableWithoutFeedback, Keyboard} from 'react-native';
-import StepIndicator from "../helperComponents/StepIndicator";
+import { StepIndicator } from "../helperComponents/Utilities";
 import { Error } from "../helperComponents/Utilities";
 
 export default function ChooseGoal ({ route, navigation }) {

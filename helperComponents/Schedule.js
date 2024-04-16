@@ -1,4 +1,4 @@
-import { roundToTwoDecimals } from "./helperComponents/Utilities";
+import { roundToTwoDecimals } from "./Utilities";
 
 function generateDistanceSchedule(schedule, user) {
     let isTempo = false;

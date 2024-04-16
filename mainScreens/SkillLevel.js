@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {StyleSheet, Text, View, TouchableWithoutFeedback, Pressable } from 'react-native';
-import StepIndicator from "../helperComponents/StepIndicator";
+import { StepIndicator } from "../helperComponents/Utilities";
 import RadioGroup from 'react-native-radio-buttons-group';
 import { Error } from "../helperComponents/Utilities";
 

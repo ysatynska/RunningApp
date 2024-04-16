@@ -47,6 +47,23 @@ export function roundToTwoDecimals(num) {
   }
 }
 
+export const StepIndicator = ({ currentStep }) => {
+  return (
+    <View style={styles.stepIndContainer}>
+      {[1, 2, 3].map(step => (
+        <View
+          key={step}
+          style={[
+            styles.circle,
+            currentStep === step && styles.highlightedCircle,
+          ]}
+        />
+      ))}
+    </View>
+  );
+};
+
+
 // these styls are the exact (!) copy of styles in CreateAccount and LoginScreent!
 
 const styles = StyleSheet.create({
@@ -112,5 +129,20 @@ const styles = StyleSheet.create({
       height: '100%',
       justifyContent: 'center',
       alignItems: 'center',
+    },
+    stepIndContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    circle: {
+      width: 18,
+      height: 18,
+      borderRadius: 9,
+      backgroundColor: '#ccc',
+      margin: 5,
+    },
+    highlightedCircle: {
+      backgroundColor: '#FF5953',
     },
   });

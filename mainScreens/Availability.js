@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { TouchableOpacity, Text, View, ScrollView, TouchableWithoutFeedback, Pressable, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { TouchableOpacity, Text, View, ScrollView, Pressable, StyleSheet } from 'react-native';
 import InputSpinner from 'react-native-input-spinner';
-import StepIndicator from "../helperComponents/StepIndicator";
+import { StepIndicator } from "../helperComponents/Utilities";
 import { Error } from "../helperComponents/Utilities";
-import generateSchedule, { newCurrentBest } from "../Schedule";
+import generateSchedule from "../helperComponents/Schedule";
 
 export default function Availability({ route, navigation }) {
     const [availability, setAvailability] = useState([

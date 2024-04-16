@@ -1,9 +1,9 @@
-import React, { Component, useState, useRef, useEffect } from 'react';
-import { View, StyleSheet, Dimensions, Button, Alert, Text, FlatList, TouchableOpacity, Pressable } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, Dimensions, Text, FlatList, Pressable } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import * as Progress from 'react-native-progress';
 import {Slider} from '@miblanchard/react-native-slider';
-import generateSchedule, { newCurrentBest } from "../Schedule";
+import generateSchedule, { newCurrentBest } from "../helperComponents/Schedule";
 import { saveUserAsync } from "../helperComponents/Utilities";
 
 export function UpdateButton ({ratings, user, updateUser}) {
@@ -136,9 +136,6 @@ export default function Profile ({ route, navigation }) {
 
 
   useEffect(() => {
-    console.log("store data is called. User: ", JSON.stringify(user, null, 2));
-    // console.log("selectedIDs: ", selectedIds);
-    // console.log("ratings: ", ratings);
     saveUserAsync(user); 
   }, [user]);
 
