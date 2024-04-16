@@ -60,6 +60,7 @@ export default function SkillLevel ({ route, navigation }) {
               radioButtons={radioButtons} 
               onPress={(index) => handlePress(index)}
               selectedId={selected}
+              labelStyle={styles.radioText}
           />
           {error != '' && 
             <Error message={error}/>
@@ -76,106 +77,34 @@ export default function SkillLevel ({ route, navigation }) {
   }
 
   const styles = StyleSheet.create({
-    welcomeText: {
-      fontSize: 32,
-      color: '#01CFEE'
-    },
-    button: {
-      backgroundColor: '#FF5953',
-      padding: 10,
-      borderRadius: 5,
-      margin: 20
-    },
-    buttonText: {
-      color: 'white', 
-      fontSize: 20
-    },
-    image: {
-      width: 300,
-      height: 300,
-      padding: 10,
-      margin: 20
-    },
-    paragraph: {
-      textAlign: 'center',
-      color: "#A6A6A6",
-      padding: 20,
-      fontSize: 17
-    },
     container: {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: 'white',
     },
+    title: {
+      position: 'absolute',
+      top: 50,
+      fontSize: 27,
+      fontWeight: 'bold',
+      color: '#1c5253'
+    },
+    radioText: {
+      fontSize: 24,
+      marginTop: 10,
+      fontWeight: 500,
+      color: '#1c5253'
+    },
     footer: {
       position: 'absolute',
       bottom: 0,
       padding: 10,
-    },
-    title: {
-      fontSize: 35,
-      marginBottom: 20,
-      color: '#747474'
-    },
-    optionButton: {
-      backgroundColor: '#e0e0e0',
-      padding: 15,
-      borderRadius: 10,
-      marginBottom: 10,
-    },
-    optionPressed: {
-      backgroundColor: '#b0b0b0',
-    },
-    optionText: {
-      fontSize: 18,
-    },
-    selectedOption: {
-      backgroundColor: '#b0b0b0',
-    },
-    selectionText: {
-      marginTop: 20,
-      fontSize: 18,
-    },
-    radioButton: {
-      height: 20,
-      width: 20,
-      backgroundColor: '#FFF',
-      borderRadius: 10,
-      borderWidth: 1,
-      borderColor: '#000',
-      margin: 10,
-      padding: 2,
-    },
-    radioButtonText: {
-      fontSize: 30,
-      color: '#747474'
-    },
-    radioButtonContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginBottom: 5,
-    },
-    radioButtonSelected: {
-      backgroundColor: '#01CFEE',
-    },
-    input: {
-      borderWidth: 1,
-      borderColor: '#ccc',
-      borderRadius: 5,
-      padding: 10,
-      marginTop: 10,
-      width: 200,
     },
     buttonText: {
       color: 'white',
       fontSize: 18,
       fontWeight: 'bold',
-    },
-    footer: {
-      position: 'absolute',
-      bottom: 0,
-      padding: 10,
     },
     nextButton: {
       backgroundColor: '#FF5953',

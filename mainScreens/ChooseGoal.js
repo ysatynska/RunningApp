@@ -176,13 +176,13 @@ const styles = StyleSheet.create({
     color: '#1c5253',
   },
   input: {
-      height: 40,
-      marginBottom: 22,
-      marginTop: 10,
-      borderWidth: 1,
-      padding: 10,
-      backgroundColor: 'white',
-      borderRadius: 50,
-      width: 150
-    },
+    height: 40,
+    marginBottom: 22,
+    marginTop: 10,
+    borderWidth: 1,
+    padding: 10,
+    backgroundColor: 'white',
+    borderRadius: 50,
+    width: 150
+  },
 });
