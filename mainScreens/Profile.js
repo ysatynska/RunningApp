@@ -4,22 +4,21 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Progress from 'react-native-progress';
 import {Slider} from '@miblanchard/react-native-slider';
-import generateSchedule from "../Schedule";
+import generateSchedule, { newCurrentBest } from "../Schedule";
+import { saveUserAsync } from "../helperComponents/Utilities";
 
 export function UpdateButton ({ratings, user, updateUser}) {
   function handleUpdate () {
     const average = ratings.reduce((accumulator, currentValue) => accumulator + currentValue, 0)/ratings.length;
-    // 1 = .5, 10 = 2  
-    const newRateOfImprovement = .5 + ((2 - .5) / (10 - 1)) * (average - 1);
+    // 1 = .5, 10 = 2 rateOfImprovement
+    const rateOfImprovement = .5 + ((2 - .5) / (10 - 1)) * (average - 1);
 
-    const newUser = {
-      ...user,
-      rateOfImprovement: newRateOfImprovement,
-      schedule: generateSchedule({...user, rateOfImprovement: newRateOfImprovement}, user.schedule)
-    };
+    const newUser = {...user};
+    newUser.currentBest = newCurrentBest(newUser.currentBest, rateOfImprovement, user.goal.minutes == 0);
+    newUser.schedule = generateSchedule(newUser);
     updateUser(newUser);
   }
-  
+
   return (
     <View>
       <Pressable onPress={handleUpdate} style={styles.button}>
@@ -139,16 +138,10 @@ export default function Profile ({ route, navigation }) {
 
 
   useEffect(() => {
-    const storeData = async () => {
-      try {
-        const jsonValue = JSON.stringify(user);
-        await AsyncStorage.setItem(user.username, jsonValue);
-      } catch (e) {
-        console.log(e)
-      }
-    };
-    console.log("store data is called", JSON.stringify(user.schedule, null, 2));
-    storeData(); 
+    console.log("store data is called. User: ", JSON.stringify(user, null, 2));
+    // console.log("selectedIDs: ", selectedIds);
+    // console.log("ratings: ", ratings);
+    saveUserAsync(user); 
   }, [user]);
 
   return (

@@ -32,8 +32,7 @@ export default function CreateAccount ({navigation}) {
       let newUser = {
         name: firstName, 
         username: username,
-        password: password, 
-        rateOfImprovement: 1.2,
+        password: password
       };
       navigation.navigate('chooseGoal', {user: newUser});
     } catch (e) {

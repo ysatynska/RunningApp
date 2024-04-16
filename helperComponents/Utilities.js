@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function Button ({onPress, title}) {
     return (
@@ -25,6 +26,25 @@ export function LoginImage ({invalidUsername, invalidPassword, invalidName = fal
             <Image source={invalidUsername || invalidPassword || invalidName ? require('../images/loginFail.png') : require('../images/loginSuccess.png')} style={styles.image}></Image>
         </View>
     );
+}
+
+export async function saveUserAsync (user) {
+  try {
+      const jsonValue = JSON.stringify(user);
+      await AsyncStorage.setItem(user.username, jsonValue);
+  } catch (e) {
+      console.log(e);
+  }
+};
+
+export function roundToTwoDecimals(num) {
+  const rounded = Number(num.toFixed(2));
+  // Check if the rounded value is an integer by comparing it to its integer part
+  if (rounded === Math.floor(rounded)) {
+      return Math.floor(rounded); // or just return rounded
+  } else {
+      return rounded;
+  }
 }
 
 // these styls are the exact (!) copy of styles in CreateAccount and LoginScreent!

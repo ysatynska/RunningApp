@@ -37,13 +37,14 @@ export default function ChooseGoal ({ route, navigation }) {
   function handleNext () {
     if (!isDistance && Number(miles)/Number(minutes) >= .5) {
       setError("With the given parameters, you speed would exceed the fastest someone ever ran ("  + (Number(miles)/Number(minutes)).toFixed(2) + " miles/minute vs fastest 0.463 miles/minute).");
+    
     } else if (!isDistance && Number(miles)/Number(minutes) < .05) {
-      // .5 miles/minute is the fastest a person ever ran.
-      // .05 is the walking distance.
       setError("With the given parameters, you speed would be below walking distance (" + (Number(miles)/Number(minutes)).toFixed(3) + " miles/minute vs walking 0.05 miles/minute).");
+    
     } else if (miles != '0' && miles != '' && (!isDistance ? minutes != '' : true)) {
       user.goal = {miles: Number(miles), minutes: (minutes == '' ? 0 : Number(minutes))};
       navigation.navigate('skillLevel', {user: user});
+    
     } else {
       setError("Please fill out all fields. Miles cannot be 0.");
     }
