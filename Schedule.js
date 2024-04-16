@@ -40,8 +40,6 @@ function generateTimeScedule(schedule, user) {
     }
 }
 
-// restructure this so that it takes only one parameter - user and returns a new schedule.
-// should have nothing to do with availability
 export default function generateSchedule (user) {
     let schedule = user.schedule.map((oneDay) => {
         return {
@@ -64,22 +62,16 @@ export function newCurrentBest (oldCurrentBest, rateOfImprovement, isDistance) {
         const milesDist = oldCurrentBest.milesDist * rateOfImprovement;
         let milesTempo = oldCurrentBest.milesTempo * Math.pow(rateOfImprovement, 4/5);
         let minutesTempo = oldCurrentBest.minutesTempo / Math.pow(rateOfImprovement, 1/5);
-
         if (minutesTempo/milesTempo > 20) {
             minutesTempo = 20 * milesTempo;
         } else if (minutesTempo/milesTempo < 7) {
             minutesTempo = 7 * milesTempo;
         }
-
         return {milesDist: milesDist, milesTempo: milesTempo, minutesTempo: minutesTempo};
     } else {
         // training for time
         const milesDist = oldCurrentBest.milesDist * rateOfImprovement;
         const minutesTempo = oldCurrentBest.minutesTempo * Math.pow(2.5 - rateOfImprovement, 1/4);
-        console.log("minutes tempo: ", minutesTempo);
-        console.log("oldCurrentBest.minutesTempo: ", oldCurrentBest.minutesTempo);
-        console.log("Math.pow(2 - rateOfImprovement, 1/4): ", Math.pow(2 - rateOfImprovement, 1/4))
-
         return {milesDist: milesDist, minutesTempo: minutesTempo};
     }
 }

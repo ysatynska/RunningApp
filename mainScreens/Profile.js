@@ -1,7 +1,6 @@
 import React, { Component, useState, useRef, useEffect } from 'react';
 import { View, StyleSheet, Dimensions, Button, Alert, Text, FlatList, TouchableOpacity, Pressable } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Progress from 'react-native-progress';
 import {Slider} from '@miblanchard/react-native-slider';
 import generateSchedule, { newCurrentBest } from "../Schedule";
@@ -18,7 +17,6 @@ export function UpdateButton ({ratings, user, updateUser}) {
     newUser.schedule = generateSchedule(newUser);
     updateUser(newUser);
   }
-
   return (
     <View>
       <Pressable onPress={handleUpdate} style={styles.button}>
@@ -26,7 +24,7 @@ export function UpdateButton ({ratings, user, updateUser}) {
       </Pressable>
     </View>
   );
-} 
+}
 
 export function ProgressBar ({progress, ratings, user, updateUser}) {
   return (
