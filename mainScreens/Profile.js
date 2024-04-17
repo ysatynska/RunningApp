@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Dimensions, Text, FlatList } from 'react-native';
-import { View, StyleSheet, Dimensions, Text, FlatList, Pressable, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Dimensions, Text, FlatList, TouchableOpacity } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import * as Progress from 'react-native-progress';
 import {Slider} from '@miblanchard/react-native-slider';
@@ -25,7 +24,7 @@ export function UpdateButton ({ratings, user, updateUser}) {
       <Button onPress={handleUpdate} title="Get Next Schedule!" padding={5} marginBottom={5} marginTop={5}/>
     </View>
   );
-} 
+}
 
 const SettingsButton = ({ onPress }) => {
   return (
@@ -120,21 +119,18 @@ export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings
 }
 
 export default function Profile ({ route, navigation }) {
-    const [selectedIds, setSelectedIds] = useState([]);
-    const [user, setUser] = useState(route.params.user);
-    const { schedule } = route.params.user;
-    const defaultRatings = schedule.map(() => 1);
-    const [ratings, setRatings] = useState(defaultRatings);
-
-    const handleSettingsPress = () => {
-      navigation.navigate('settings', {user: user});
-    };
-
-    const data = schedule.filter(oneDay => oneDay.available).map((oneDay, index) => ({
-        id: index,
-        title: oneDay.day,
-        task: oneDay.miles + ((oneDay.minsPerMile == 0) ? (' miles ' + oneDay.reps + ' non-stop') : (' miles at ' + oneDay.minsPerMile + ' mins/mile ' + oneDay.reps + ' times'))
-    }));
+  const [user, setUser] = useState(route.params.user);
+  const selectedIds = user.schedule.filter((oneDay) => oneDay.completed).map((oneDay) => oneDay.id);
+  const ratings = user.schedule.map((oneDay) => oneDay.rating);
+  const data = user.schedule.map((oneDay, index) => ({
+      id: index,
+      title: oneDay.day,
+      task: 'run ' + oneDay.miles + ((oneDay.minsPerMile == 0) ? (' miles ' + oneDay.reps + ' non-stop') : (' miles at ' + oneDay.minsPerMile + ' mins/mile ' + oneDay.reps + ' times'))
+  }));
+  
+  const handleSettingsPress = () => {
+    navigation.navigate('settings', {user: user});
+  };
 
   function handleCheckboxChange (isChecked, id) {
     const newSchedule = user.schedule.map((item, index) => (item.id == id ? { ...item, completed: !item.completed } : { ...item }));
@@ -157,32 +153,31 @@ export default function Profile ({ route, navigation }) {
     saveUserAsync(user); 
   }, [user]);
 
-    return (
-        <View style={styles.container}>
-            <SettingsButton onPress={handleSettingsPress} />
-            <ProgressBar progress={selectedIds.length/data.length} ratings={ratings} user={user}/>
-            <FlatList 
-                ItemSeparatorComponent={
-                    (({highlighted}) => (
-                    <View
-                        style={[styles.separator, highlighted && {marginLeft: 0}]}
-                    />
-                ))}
-                data={data}
-                renderItem={({ item }) => (
-                    <RenderItem
-                        item={item}
-                        onSelect={(isChecked) => handleCheckboxChange(isChecked, item.id)}
-                        isSelected={selectedIds.includes(item.id)}
-                        ratings={ratings}
-                        updateRatings={setRatings}
-                    />
-                )}
-                keyExtractor={item => item.id.toString()}
-            />
-        </View>
-    );
-
+  return (
+      <View style={styles.container}>
+          <SettingsButton onPress={handleSettingsPress} />
+          <ProgressBar progress={selectedIds.length/data.length} ratings={ratings} user={user} updateUser={setUser}/>
+          <FlatList 
+              ItemSeparatorComponent={
+                  (({highlighted}) => (
+                  <View
+                      style={[styles.separator, highlighted && {marginLeft: 0}]}
+                  />
+              ))}
+              data={data}
+              renderItem={({ item }) => (
+                  <RenderItem
+                      item={item}
+                      onSelect={(isChecked) => handleCheckboxChange(isChecked, item.id)}
+                      isSelected={selectedIds.includes(item.id)}
+                      ratings={ratings}
+                      updateRatings={(newRatings) => updateUserRatings(newRatings)}
+                  />
+              )}
+              keyExtractor={item => item.id.toString()}
+          />
+      </View>
+  );
 }
 
 // not this view's button is not in a footer.
