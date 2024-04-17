@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {View, Switch, StyleSheet, TextInput, Text, Pressable, KeyboardAvoidingView, Platform, ScrollView, TouchableWithoutFeedback, Keyboard} from 'react-native';
-import StepIndicator from "../helperComponents/StepIndicator";
+import { StepIndicator } from "../helperComponents/Utilities";
 import { Error } from "../helperComponents/Utilities";
 
 export default function ChooseGoal ({ route, navigation }) {
@@ -37,15 +37,16 @@ export default function ChooseGoal ({ route, navigation }) {
   function handleNext () {
     if (!isDistance && Number(miles)/Number(minutes) >= .5) {
       setError("With the given parameters, you speed would exceed the fastest someone ever ran ("  + (Number(miles)/Number(minutes)).toFixed(2) + " miles/minute vs fastest 0.463 miles/minute).");
+    
     } else if (!isDistance && Number(miles)/Number(minutes) < .05) {
-      // .5 miles/minute is the fastest a person ever ran.
-      // .05 is the walking distance.
       setError("With the given parameters, you speed would be below walking distance (" + (Number(miles)/Number(minutes)).toFixed(3) + " miles/minute vs walking 0.05 miles/minute).");
+    
     } else if (miles != '0' && miles != '' && (!isDistance ? minutes != '' : true)) {
       user.goal = {miles: Number(miles), minutes: (minutes == '' ? 0 : Number(minutes))};
       navigation.navigate('skillLevel', {user: user});
+    
     } else {
-      setError("Please fill out all of the fields. Miles cannot be 0.");
+      setError("Please fill out all fields. Miles cannot be 0.");
     }
   }
   function toggleSwitch () {
@@ -64,11 +65,11 @@ export default function ChooseGoal ({ route, navigation }) {
     <TouchableWithoutFeedback onPress={handlePress} accesible={false}>
       <View style={[styles.container, {flex: 1}]}>
         <KeyboardAvoidingView
-          style={{ flex: 1 }}
+          style={{ flex: 1, alignItems: 'center', flexGrow: 1 }}
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
         >
-          <ScrollView contentContainerStyle={[{ flexGrow: 1 }, styles.container]} showsVerticalScrollIndicator={false}>
+          <ScrollView contentContainerStyle={[{ flexGrow: 1, width: '85%' }, styles.container]} showsVerticalScrollIndicator={false}>
             <Text style={styles.text}>What would you like to train for?</Text>
             <Text style={{ fontSize: 14, color: '#1c5253' }}>(Time or Distance)</Text>
             <View style={styles.switchContainer}>
@@ -182,6 +183,6 @@ const styles = StyleSheet.create({
       padding: 10,
       backgroundColor: 'white',
       borderRadius: 50,
-      width: '50%'
-  },
+      width: 150
+    },
 });

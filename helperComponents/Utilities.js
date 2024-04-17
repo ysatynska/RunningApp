@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function Button ({onPress, title}) {
     return (
@@ -26,6 +27,42 @@ export function LoginImage ({invalidUsername, invalidPassword, invalidName = fal
         </View>
     );
 }
+
+export async function saveUserAsync (user) {
+  try {
+      const jsonValue = JSON.stringify(user);
+      await AsyncStorage.setItem(user.username, jsonValue);
+  } catch (e) {
+      console.log(e);
+  }
+};
+
+export function roundToTwoDecimals(num) {
+  const rounded = Number(num.toFixed(2));
+  // Check if the rounded value is an integer by comparing it to its integer part
+  if (rounded === Math.floor(rounded)) {
+      return Math.floor(rounded); // or just return rounded
+  } else {
+      return rounded;
+  }
+}
+
+export const StepIndicator = ({ currentStep }) => {
+  return (
+    <View style={styles.stepIndContainer}>
+      {[1, 2, 3].map(step => (
+        <View
+          key={step}
+          style={[
+            styles.circle,
+            currentStep === step && styles.highlightedCircle,
+          ]}
+        />
+      ))}
+    </View>
+  );
+};
+
 
 // these styls are the exact (!) copy of styles in CreateAccount and LoginScreent!
 
@@ -92,5 +129,20 @@ const styles = StyleSheet.create({
       height: '100%',
       justifyContent: 'center',
       alignItems: 'center',
+    },
+    stepIndContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    circle: {
+      width: 18,
+      height: 18,
+      borderRadius: 9,
+      backgroundColor: '#ccc',
+      margin: 5,
+    },
+    highlightedCircle: {
+      backgroundColor: '#FF5953',
     },
   });
