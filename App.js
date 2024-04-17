@@ -9,6 +9,7 @@ import {StyleSheet} from 'react-native';
 import LoginScreen from './mainScreens/LoginScreen.js';
 import CreateAccount from './mainScreens/CreateAccount.js';
 import Profile from './mainScreens/Profile.js';
+import Settings from './mainScreens/Settings.js';
 
 const Stack = createNativeStackNavigator();
 export default function App () {
@@ -26,6 +27,7 @@ export default function App () {
         <Stack.Screen name="skillLevel" options={{ title: 'Skill Level'}} component={SkillLevel} />
         <Stack.Screen name="availability" options={{ title: 'Availability'}} component={Availability} />
         <Stack.Screen name="profile" options={{ title: 'Profile'}} component={Profile} />
+        <Stack.Screen name="settings" options={{ title: 'Settings'}} component={Settings} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -3,6 +3,7 @@ import { View, StyleSheet, Dimensions, Button, Alert, Text, FlatList, TouchableO
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import * as Progress from 'react-native-progress';
 import {Slider} from '@miblanchard/react-native-slider';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export function UpdateButton ({ratings, }) {
   // 1 = .5, 10 = 2
@@ -20,6 +21,16 @@ export function UpdateButton ({ratings, }) {
     </View>
   );
 } 
+
+const SettingsButton = ({ onPress }) => {
+  return (
+    <TouchableOpacity onPress={onPress} style={styles.settingsButton}>
+      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <Icon name="cog" size={40} color="#01CFEE" />
+      </View>
+    </TouchableOpacity>
+  );
+};
 
 export function ProgressBar ({progress, ratings, user}) {
     return (
@@ -110,6 +121,10 @@ export default function Profile ({ route, navigation }) {
     const defaultRatings = schedule.map(() => 1);
     const [ratings, setRatings] = useState(defaultRatings);
 
+    const handleSettingsPress = () => {
+      navigation.navigate('settings', {user: user});
+    };
+
     const data = schedule.filter(oneDay => oneDay.available).map((oneDay, index) => ({
         id: index,
         title: oneDay.day,
@@ -142,6 +157,7 @@ export default function Profile ({ route, navigation }) {
 
     return (
         <View style={styles.container}>
+            <SettingsButton onPress={handleSettingsPress} />
             <ProgressBar progress={selectedIds.length/data.length} ratings={ratings} user={user}/>
             <FlatList 
                 ItemSeparatorComponent={
@@ -258,5 +274,16 @@ const styles = StyleSheet.create({
       color: 'white', 
       fontSize: 20,
       textAlign: 'center'
-  }
+  },
+  settingsButton: {
+    position: 'absolute',
+    width: 60,
+    height: 60,
+    top: 0,
+    right: 0,
+    padding: 8,
+    zIndex: 10,
+    backgroundColor: 'white',
+    borderRadius: 30,
+  },
 });
