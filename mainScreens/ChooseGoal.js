@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {View, Switch, StyleSheet, TextInput, Text, Pressable, KeyboardAvoidingView, Platform, ScrollView, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import { StepIndicator } from "../helperComponents/Utilities";
 import { Error } from "../helperComponents/Utilities";
+import {Button} from "../helperComponents/Utilities.js";
 
 export default function ChooseGoal ({ route, navigation }) {
   const [isDistance, setIsDistance] = useState(false);
@@ -114,9 +115,7 @@ export default function ChooseGoal ({ route, navigation }) {
 
         <View style={styles.footer}>
           <StepIndicator currentStep = {1}/>
-          <Pressable onPress={handleNext} style={styles.nextButton}>
-              <Text style={styles.buttonText}> Next </Text>
-          </Pressable>
+          <Button onPress={handleNext} title="Next" padding={10} marginBottom={20} marginTop={20}/>
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -137,31 +136,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#1c5253',
   },
-  button: {
-    backgroundColor: '#1c5253',
-    padding: 10,
-    borderRadius: 5,
-    width: '100%',
-    alignItems: 'center',
-    position: 'absolute',
-    bottom: 0,
-    marginBottom: 20,
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
   footer: {
     position: 'absolute',
     bottom: 0,
     padding: 10,
-  },
-  nextButton: {
-    backgroundColor: '#FF5953',
-    padding: 10,
-    borderRadius: 5,
-    margin: 20
   },
   title: {
     fontSize: 24,

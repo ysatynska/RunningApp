@@ -46,19 +46,6 @@ export function FirstName ({firstName, setFirstName}) {
 // these styls are the exact (!) copy of styles in CreateAccount and LoginScreent!
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        padding: 20,
-    },
-    header: {
-        alignItems: 'center',
-    },
-    createAccount: {
-        fontSize: 25,
-        marginTop: 20,
-        marginLeft: 5
-    },
     input: {
         height: 40,
         marginTop: 12,
@@ -66,39 +53,6 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: 'white',
         borderRadius: 50,
-    },
-    button: {
-        backgroundColor: '#FF5953',
-        padding: 8,
-        borderRadius: 50,
-        alignItems: 'center',
-        marginTop: 15,
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 20,
-    },
-    image: {
-        width: 200,
-        height: 200,
-        padding: 10,
-        margin: 20
-    },
-    link: {
-        color: '#0645AD',
-        fontSize: 15,
-    },
-    text: {
-        fontSize: 15,
-        color: 'gray',
-        marginLeft: 5,
-    },
-    error: {
-        fontSize: 16,
-        color: 'red',
-    },
-    linkContainer: {
-        marginTop: 8
     },
     icon: {
         position: 'absolute',

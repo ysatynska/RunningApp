@@ -1,115 +1,101 @@
 import React, { useState } from 'react';
-import {StyleSheet, Text, View, TouchableWithoutFeedback, Pressable } from 'react-native';
-import { StepIndicator } from "../helperComponents/Utilities";
+import {StyleSheet, Text, View, TouchableWithoutFeedback } from 'react-native';
+import { StepIndicator, Error, Button } from "../helperComponents/Utilities";
 import RadioGroup from 'react-native-radio-buttons-group';
-import { Error } from "../helperComponents/Utilities";
 
 export default function SkillLevel ({ route, navigation }) {
-    const [selected, setSelected] = useState(null);
-    const skillLevels = ['Beginner', 'Intermediate', 'Advanced'];
-    const [error, setError] = useState('');
-    const { user } = route.params;
-  
-    const radioButtons = skillLevels.map((level, index) => (
-      {
-        id: index,
-        label: skillLevels[index],
-        value: skillLevels[index]
-      }
-    ));
+  const [selected, setSelected] = useState(null);
+  const skillLevels = ['Beginner', 'Intermediate', 'Advanced'];
+  const [error, setError] = useState('');
+  const { user } = route.params;
 
-    function handleNext () {
-      if (selected != null) {
+  const radioButtons = skillLevels.map((level, index) => (
+    {
+      id: index,
+      label: skillLevels[index],
+      value: skillLevels[index]
+    }
+  ));
 
-        if (user.goal.minutes == 0) {
-          //training for distance
-          let milesDist = selected == 0 ? 1 : (selected == 1 ? 3 : 5);
-          let milesTempo = selected == 0 ? .5 : (selected == 1 ? 1.5 : 3);
-          if (milesTempo > user.goal.miles) {
-            milesTempo = user.goal.miles;
-          }
-          let minutesTempo = selected == 0 ? 6 : (selected == 1 ? 15 : 24);
-          user.currentBest = {milesDist: milesDist, milesTempo: milesTempo, minutesTempo: minutesTempo};
-        
-        } else {
-          // training for time
-          let milesDist = selected == 0 ? 1 : (selected == 1 ? 3 : 5);
+  function handleNext () {
+    if (selected != null) {
 
-          const paceTempo = selected == 0 ? 14 : (selected == 1 ? 12 : 9);
-          const minutesTempo = user.goal.miles * paceTempo;
-
-          user.currentBest = {milesDist: milesDist, minutesTempo: minutesTempo};
+      if (user.goal.minutes == 0) {
+        //training for distance
+        let milesDist = selected == 0 ? 1 : (selected == 1 ? 3 : 5);
+        let milesTempo = selected == 0 ? .5 : (selected == 1 ? 1.5 : 3);
+        if (milesTempo > user.goal.miles) {
+          milesTempo = user.goal.miles;
         }
-        navigation.navigate('availability', {user: user});
+        let minutesTempo = selected == 0 ? 6 : (selected == 1 ? 15 : 24);
+        user.currentBest = {milesDist: milesDist, milesTempo: milesTempo, minutesTempo: minutesTempo};
       
       } else {
-        setError("Please choose one of the options.")
-      }
-    }
+        // training for time
+        let milesDist = selected == 0 ? 1 : (selected == 1 ? 3 : 5);
 
-    function handlePress (index) {
-      setSelected(index);
-      setError('');
+        const paceTempo = selected == 0 ? 14 : (selected == 1 ? 12 : 9);
+        const minutesTempo = user.goal.miles * paceTempo;
+
+        user.currentBest = {milesDist: milesDist, minutesTempo: minutesTempo};
+      }
+      navigation.navigate('availability', {user: user});
+    
+    } else {
+      setError("Please choose one of the options.")
     }
-  
-    return (
-      <TouchableWithoutFeedback onPress={() => setError('')} accesible={false}>
-        <View style={styles.container}>
-          <Text style={styles.title}> What is your skill level? </Text>
-          <RadioGroup 
-              radioButtons={radioButtons} 
-              onPress={(index) => handlePress(index)}
-              selectedId={selected}
-              labelStyle={styles.radioText}
-          />
-          {error != '' && 
-            <Error message={error}/>
-          }
-          <View style={styles.footer}>
-            <StepIndicator currentStep = {2}/>
-            <Pressable onPress={handleNext} style={styles.nextButton}>
-                <Text style={styles.buttonText}> Next </Text>
-            </Pressable>
-          </View>
-        </View>
-      </TouchableWithoutFeedback>
-    );
   }
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'white',
-    },
-    title: {
-      position: 'absolute',
-      top: 50,
-      fontSize: 27,
-      fontWeight: 'bold',
-      color: '#1c5253'
-    },
-    radioText: {
-      fontSize: 24,
-      marginTop: 10,
-      fontWeight: 500,
-      color: '#1c5253'
-    },
-    footer: {
-      position: 'absolute',
-      bottom: 0,
-      padding: 10,
-    },
-    buttonText: {
-      color: 'white',
-      fontSize: 18,
-      fontWeight: 'bold',
-    },
-    nextButton: {
-      backgroundColor: '#FF5953',
-      padding: 10,
-      borderRadius: 5,
-      margin: 20
-    },
-  });
+  function handlePress (index) {
+    setSelected(index);
+    setError('');
+  }
+
+  return (
+    <TouchableWithoutFeedback onPress={() => setError('')} accesible={false}>
+      <View style={styles.container}>
+        <Text style={styles.title}> What is your skill level? </Text>
+        <RadioGroup 
+            radioButtons={radioButtons} 
+            onPress={(index) => handlePress(index)}
+            selectedId={selected}
+            labelStyle={styles.radioText}
+        />
+        {error != '' && 
+          <Error message={error}/>
+        }
+        <View style={styles.footer}>
+          <StepIndicator currentStep={2}/>
+          <Button onPress={handleNext} title="Next" padding={10} marginBottom={20}/>
+        </View>
+      </View>
+    </TouchableWithoutFeedback>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+  },
+  title: {
+    position: 'absolute',
+    top: 50,
+    fontSize: 27,
+    fontWeight: 'bold',
+    color: '#1c5253'
+  },
+  radioText: {
+    fontSize: 24,
+    marginTop: 10,
+    fontWeight: 500,
+    color: '#1c5253'
+  },
+  footer: {
+    position: 'absolute',
+    bottom: 0,
+    padding: 10,
+  },
+});
