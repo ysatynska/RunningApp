@@ -5,7 +5,6 @@ import * as Progress from 'react-native-progress';
 import {Slider} from '@miblanchard/react-native-slider';
 import generateSchedule, { newCurrentBest } from "../helperComponents/Schedule";
 import { saveUserAsync, Button } from "../helperComponents/Utilities";
-import { saveUserAsync } from "../helperComponents/Utilities";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export function UpdateButton ({ratings, user, updateUser}) {
@@ -29,7 +28,7 @@ export function UpdateButton ({ratings, user, updateUser}) {
 const SettingsButton = ({ onPress }) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.settingsButton}>
-      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+      <View style={styles.settingsButton}>
         <Icon name="cog" size={40} color="#01CFEE" />
       </View>
     </TouchableOpacity>
@@ -241,5 +240,13 @@ const styles = StyleSheet.create({
   },
   minimumTrackStyle: {
     backgroundColor: '#01CFEA'
+
   },
+  settingsButton: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    zIndex: 10,
+    padding: 10,
+  }
 });
