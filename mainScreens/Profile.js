@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Dimensions, Text, FlatList, Pressable } from 'react-native';
+import { View, StyleSheet, Dimensions, Text, FlatList, Pressable, TouchableOpacity } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import * as Progress from 'react-native-progress';
 import {Slider} from '@miblanchard/react-native-slider';
@@ -120,14 +120,6 @@ export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings
 }
 
 export default function Profile ({ route, navigation }) {
-  const [user, setUser] = useState(route.params.user);
-  const selectedIds = user.schedule.filter((oneDay) => oneDay.completed).map((oneDay) => oneDay.id);
-  const ratings = user.schedule.map((oneDay) => oneDay.rating);
-  const data = user.schedule.map((oneDay, index) => ({
-      id: index,
-      title: oneDay.day,
-      task: 'run ' + oneDay.miles + ((oneDay.minsPerMile == 0) ? (' miles ' + oneDay.reps + ' non-stop') : (' miles at ' + oneDay.minsPerMile + ' mins/mile ' + oneDay.reps + ' times'))
-  }));
     const [selectedIds, setSelectedIds] = useState([]);
     const [user, setUser] = useState(route.params.user);
     const { schedule } = route.params.user;
@@ -190,30 +182,7 @@ export default function Profile ({ route, navigation }) {
             />
         </View>
     );
-  return (
-      <View style={styles.container}>
-          <ProgressBar progress={selectedIds.length/data.length} ratings={ratings} user={user} updateUser={setUser}/>
-          <FlatList 
-              ItemSeparatorComponent={
-                  (({highlighted}) => (
-                  <View
-                      style={[styles.separator, highlighted && {marginLeft: 0}]}
-                  />
-              ))}
-              data={data}
-              renderItem={({ item }) => (
-                  <RenderItem
-                      item={item}
-                      onSelect={(isChecked) => handleCheckboxChange(isChecked, item.id)}
-                      isSelected={selectedIds.includes(item.id)}
-                      ratings={ratings}
-                      updateRatings={(newRatings) => updateUserRatings(newRatings)}
-                  />
-              )}
-              keyExtractor={item => item.id.toString()}
-          />
-      </View>
-  );
+
 }
 
 const styles = StyleSheet.create({
