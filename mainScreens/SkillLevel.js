@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {StyleSheet, Text, View, TouchableWithoutFeedback, Pressable } from 'react-native';
-import StepIndicator from "../helperComponents/StepIndicator";
+import { StepIndicator } from "../helperComponents/Utilities";
 import RadioGroup from 'react-native-radio-buttons-group';
 import { Error } from "../helperComponents/Utilities";
 
@@ -20,23 +20,28 @@ export default function SkillLevel ({ route, navigation }) {
 
     function handleNext () {
       if (selected != null) {
-        user.skillLevel = selected;
+
         if (user.goal.minutes == 0) {
           //training for distance
-          let miles = selected == 0 ? 1 : (selected == 1 ? 3 : 5);
-          if (miles > user.goal.miles) {
-            miles = user.goal.miles;
+          let milesDist = selected == 0 ? 1 : (selected == 1 ? 3 : 5);
+          let milesTempo = selected == 0 ? .5 : (selected == 1 ? 1.5 : 3);
+          if (milesTempo > user.goal.miles) {
+            milesTempo = user.goal.miles;
           }
-          user.currentBest = {miles: miles, minutes: 0};
+          let minutesTempo = selected == 0 ? 6 : (selected == 1 ? 15 : 24);
+          user.currentBest = {milesDist: milesDist, milesTempo: milesTempo, minutesTempo: minutesTempo};
+        
         } else {
           // training for time
-          let minutes = selected == 0 ? 15 : (selected == 1 ? 13 : 10);
-          if (minutes < user.goal.miles) {
-            minutes = user.goal.miles;
-          }
-          user.currentBest = {miles: 1, minutes: minutes};
+          let milesDist = selected == 0 ? 1 : (selected == 1 ? 3 : 5);
+
+          const paceTempo = selected == 0 ? 14 : (selected == 1 ? 12 : 9);
+          const minutesTempo = user.goal.miles * paceTempo;
+
+          user.currentBest = {milesDist: milesDist, minutesTempo: minutesTempo};
         }
         navigation.navigate('availability', {user: user});
+      
       } else {
         setError("Please choose one of the options.")
       }
