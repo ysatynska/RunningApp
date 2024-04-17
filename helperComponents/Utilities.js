@@ -2,10 +2,10 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, Pressable } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export function Button ({onPress, title}) {
+export function Button ({onPress, title, padding, marginBottom = 0, marginTop = 15}) {
     return (
         <View>
-            <Pressable onPress={onPress} style={styles.button}>
+            <Pressable onPress={onPress} style={[styles.button, {padding, marginBottom, marginTop}]}>
                 <Text style={styles.buttonText}> {title} </Text>
             </Pressable>
         </View>
@@ -64,36 +64,16 @@ export const StepIndicator = ({ currentStep }) => {
 };
 
 
-// these styls are the exact (!) copy of styles in CreateAccount and LoginScreent!
+// these styls are the exact (!) copy of the same ones in CreateAccount and LoginScreent!
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      padding: 20,
-    },
     header: {
       alignItems: 'center',
     },
-    createAccount: {
-      fontSize: 25,
-      marginTop: 20,
-      marginLeft: 5
-    },
-    input: {
-      height: 40,
-      marginTop: 12,
-      borderWidth: 1,
-      padding: 10,
-      backgroundColor: 'white',
-      borderRadius: 50,
-    },
     button: {
       backgroundColor: '#FF5953',
-      padding: 8,
       borderRadius: 50,
       alignItems: 'center',
-      marginTop: 15,
     },
     buttonText: {
       color: 'white',
@@ -105,30 +85,10 @@ const styles = StyleSheet.create({
       padding: 10,
       margin: 20
     },
-    link: {
-      color: '#0645AD',
-      fontSize: 15,
-    },
-    text: {
-      fontSize: 15,
-      color: 'gray',
-      marginLeft: 5,
-    },
     error: {
       fontSize: 16,
       color: 'red',
       marginLeft: 5
-    },
-    linkContainer: {
-      marginTop: 8
-    },
-    icon: {
-      position: 'absolute',
-      right: 10,
-      top: 6,
-      height: '100%',
-      justifyContent: 'center',
-      alignItems: 'center',
     },
     stepIndContainer: {
       flexDirection: 'row',

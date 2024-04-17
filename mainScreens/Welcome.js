@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, StyleSheet, Text, Pressable, Image} from 'react-native';
+import {View, StyleSheet, Text, Image} from 'react-native';
+import {Button} from "../helperComponents/Utilities.js";
 
 export default function Welcome ({navigation}) {
   return (
@@ -7,9 +8,7 @@ export default function Welcome ({navigation}) {
         <Image source={require('../images/welcome.png')} style={styles.image}/>
         <Text style={styles.welcomeText}> Welcome! </Text>
         <Text style={styles.paragraph}> Discover the joy of movement with running, a simple step towards a healthy life. </Text>
-        <Pressable onPress={() => navigation.navigate('createAccount')} style={styles.button}>
-            <Text style={styles.buttonText}> Start </Text>
-        </Pressable>
+        <Button onPress={() => navigation.navigate('createAccount')} title="Start" padding={12}/>
       </View>
   );
 }
@@ -25,16 +24,6 @@ const styles = StyleSheet.create({
     fontSize: 32,
     color: '#01CFEE',
     fontWeight: 'bold',
-  },
-  button: {
-    backgroundColor: '#FF5953',
-    padding: 10,
-    borderRadius: 5,
-    margin: 20
-  },
-  buttonText: {
-    color: 'white', 
-    fontSize: 20
   },
   image: {
     width: 300,

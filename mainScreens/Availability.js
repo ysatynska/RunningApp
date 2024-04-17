@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, Text, View, ScrollView, Pressable, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, View, ScrollView, StyleSheet } from 'react-native';
 import InputSpinner from 'react-native-input-spinner';
 import { StepIndicator } from "../helperComponents/Utilities";
 import { Error } from "../helperComponents/Utilities";
+import {Button} from "../helperComponents/Utilities.js";
 import generateSchedule from "../helperComponents/Schedule";
 
 export default function Availability({ route, navigation }) {
@@ -93,9 +94,7 @@ export default function Availability({ route, navigation }) {
                 </View>
                 <View style={styles.footer}>
                     <StepIndicator currentStep = {3}/>
-                    <Pressable onPress={handleNext} style={styles.button}>
-                        <Text style={styles.buttonText}> Next </Text>
-                    </Pressable>
+                    <Button onPress={handleNext} title="Next" padding={10} marginBottom={20} marginTop={20}/>
                 </View>
             </View>
         </ScrollView>
@@ -135,16 +134,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         color: '#1c5253',
-    },
-    button: {
-        backgroundColor: '#FF5953',
-        padding: 10,
-        borderRadius: 5,
-        margin: 20
-    },
-    buttonText: {
-        color: 'white', 
-        fontSize: 20
     },
     errorContainer: {
         marginVertical: 15

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Dimensions, Text, FlatList, Pressable } from 'react-native';
+import { View, StyleSheet, Dimensions, Text, FlatList } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import * as Progress from 'react-native-progress';
 import {Slider} from '@miblanchard/react-native-slider';
 import generateSchedule, { newCurrentBest } from "../helperComponents/Schedule";
-import { saveUserAsync } from "../helperComponents/Utilities";
+import { saveUserAsync, Button } from "../helperComponents/Utilities";
 
 export function UpdateButton ({ratings, user, updateUser}) {
   function handleUpdate () {
@@ -19,9 +19,7 @@ export function UpdateButton ({ratings, user, updateUser}) {
   }
   return (
     <View>
-      <Pressable onPress={handleUpdate} style={styles.button}>
-        <Text style={styles.buttonText}> Get Next Schedule! </Text>
-      </Pressable>
+      <Button onPress={handleUpdate} title="Get Next Schedule!" padding={5} marginBottom={5} marginTop={5}/>
     </View>
   );
 }
@@ -165,6 +163,7 @@ export default function Profile ({ route, navigation }) {
   );
 }
 
+// not this view's button is not in a footer.
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -176,25 +175,8 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: "#CED0CE",
   },
-  list: {
-    flex: 1,
-    marginTop:20,
-  },
-  distanceValue: {
-    fontSize: 25,
-    color: '#FF3B30', 
-    fontWeight: '600',
-    marginBottom: 8,
-  },
   progressBar: {
     marginBottom: 8,
-  },
-  welcomeText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 16,
-    color: '#000',
-    textAlign: 'center'
   },
   progressContainer: {
     padding: 15,
@@ -237,26 +219,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.7,
     marginTop: 12
   },
-  slider: {
-    marginBottom: 20,
-    marginTop: 12,
-  },
   maximumTrackStyle: {
     backgroundColor: 'white'
   },
   minimumTrackStyle: {
     backgroundColor: '#01CFEA'
   },
-  button: {
-      backgroundColor: '#FF7B76',
-      padding: 5,
-      margin: 5,
-      borderRadius: 5,
-      textAlign: 'center'
-  },
-  buttonText: {
-      color: 'white', 
-      fontSize: 20,
-      textAlign: 'center'
-  }
 });
