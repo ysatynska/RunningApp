@@ -13,7 +13,7 @@ export function UpdateButton ({ratings, user, updateUser}) {
     const rateOfImprovement = .5 + ((2 - .5) / (10 - 1)) * (average - 1);
 
     const newUser = {...user};
-    newUser.currentBest = newCurrentBest(newUser.currentBest, rateOfImprovement, user.goal.minutes == 0);
+    newUser.currentBest = newCurrentBest(newUser.currentBest, rateOfImprovement, user.goal);
     newUser.schedule = generateSchedule(newUser);
     updateUser(newUser);
   }
@@ -54,6 +54,7 @@ export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings
     const newRatings = ratings.map((rating, index) => (index === item.id) ? value[0] : rating);
     updateRatings(newRatings);
   }
+  console.log("isSelected in RenderItem: ", isSelected)
   return (
     <View style={styles.itemContainer}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -75,8 +76,9 @@ export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings
         )}
       </View>
       <BouncyCheckbox
+          key={isSelected}
           isChecked={isSelected}
-          onPress={(isChecked) => onSelect(isChecked)}
+          onPress={() => onSelect(!isSelected)}
           text={item.task}
           textStyle={{ color: "#1c5253", fontWeight: '600' }}
           iconStyle={{ borderColor: 'lightgray' }}
@@ -95,7 +97,6 @@ export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings
               trackMarks={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
               renderTrackMarkComponent={(index) => <TrackMark index={index}/>}
               trackClickable={true}
-              disabled={isSelected}
               maximumTrackStyle={styles.maximumTrackStyle}
               minimumTrackStyle={styles.minimumTrackStyle}
               thumbTintColor='#01CFEA'
@@ -109,6 +110,7 @@ export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings
 export default function Profile ({ route, navigation }) {
   const [user, setUser] = useState(route.params.user);
   const selectedIds = user.schedule.filter((oneDay) => oneDay.completed).map((oneDay) => oneDay.id);
+  console.log(selectedIds)
   const ratings = user.schedule.map((oneDay) => oneDay.rating);
   const data = user.schedule.map((oneDay, index) => ({
       id: index,
@@ -117,7 +119,8 @@ export default function Profile ({ route, navigation }) {
   }));
 
   function handleCheckboxChange (isChecked, id) {
-    const newSchedule = user.schedule.map((item, index) => (item.id == id ? { ...item, completed: !item.completed } : { ...item }));
+    console.log("in handleCheckboxChange: ", isChecked)
+    const newSchedule = user.schedule.map((item) => (item.id == id ? { ...item, completed: !item.completed } : { ...item }));
     setUser({ ...user, schedule: newSchedule });
   };
 
@@ -134,7 +137,7 @@ export default function Profile ({ route, navigation }) {
 
 
   useEffect(() => {
-    saveUserAsync(user); 
+    saveUserAsync(user);
   }, [user]);
 
   return (
