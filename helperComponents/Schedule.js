@@ -72,7 +72,7 @@ export function newCurrentBest (oldCurrentBest, rateOfImprovement, goal) {
         // training for time
         const milesDist = oldCurrentBest.milesDist * rateOfImprovement;
         let minutesTempo = oldCurrentBest.minutesTempo * Math.pow(2.5 - rateOfImprovement, 1/4);
-        if (minutesTempo/goal.miles) {
+        if (minutesTempo/goal.miles > 20) {
             minutesTempo = 20 * goal.miles;
         }
         return {milesDist: milesDist, minutesTempo: minutesTempo};

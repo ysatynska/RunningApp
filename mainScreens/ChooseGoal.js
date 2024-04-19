@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import {View, Switch, StyleSheet, TextInput, Text, Pressable, KeyboardAvoidingView, Platform, ScrollView, TouchableWithoutFeedback, Keyboard} from 'react-native';
+import {View, Switch, TextInput, Text, KeyboardAvoidingView, Platform, ScrollView, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import { StepIndicator } from "../helperComponents/Utilities";
 import { Error } from "../helperComponents/Utilities";
 import {Button} from "../helperComponents/Utilities.js";
+import {goalStyles} from "../helperComponents/styles.js";
 
 export default function ChooseGoal ({ route, navigation }) {
   const [isDistance, setIsDistance] = useState(false);
@@ -64,16 +65,16 @@ export default function ChooseGoal ({ route, navigation }) {
     
   return (
     <TouchableWithoutFeedback onPress={handlePress} accesible={false}>
-      <View style={[styles.container, {flex: 1}]}>
+      <View style={[goalStyles.container, {flex: 1}]}>
         <KeyboardAvoidingView
           style={{ flex: 1, alignItems: 'center', flexGrow: 1 }}
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
         >
-          <ScrollView contentContainerStyle={[{ flexGrow: 1, width: '85%' }, styles.container]} showsVerticalScrollIndicator={false}>
-            <Text style={styles.text}>What would you like to train for?</Text>
+          <ScrollView contentContainerStyle={[{ flexGrow: 1, width: '85%' }, goalStyles.container]} showsVerticalScrollIndicator={false}>
+            <Text style={goalStyles.text}>What would you like to train for?</Text>
             <Text style={{ fontSize: 14, color: '#1c5253' }}>(Time or Distance)</Text>
-            <View style={styles.switchContainer}>
+            <View style={goalStyles.switchContainer}>
               <Switch
                 trackColor={{true: '#01CFEE'}}
                 thumbColor={'#f4f3f4'}
@@ -83,13 +84,14 @@ export default function ChooseGoal ({ route, navigation }) {
               />
             </View>
 
-            <Text style={styles.title}>{isDistance ? 'Distance' : 'Time'}</Text>
+            <Text style={goalStyles.title}>{isDistance ? 'Distance' : 'Time'}</Text>
 
+<View style={{alignSelf: 'center', marginTop: 40}}>
             {!isDistance && 
               <>
-                <Text style={styles.subtitle}>Minutes</Text>
+                <Text style={goalStyles.subtitle}>Minutes</Text>
                 <TextInput
-                  style={styles.input}
+                  style={goalStyles.input}
                   onChangeText={value => handleMinsChange(value)}
                   value={minutes}
                   keyboardType="numeric"
@@ -98,9 +100,9 @@ export default function ChooseGoal ({ route, navigation }) {
               </>
             }
 
-            <Text style={styles.subtitle}>Miles</Text>
+            <Text style={goalStyles.subtitle}>Miles</Text>
             <TextInput 
-              style={styles.input}
+              style={goalStyles.input}
               placeholder="Miles"
               keyboardType="numeric"
               value={miles}
@@ -109,11 +111,11 @@ export default function ChooseGoal ({ route, navigation }) {
 
             {error != '' && 
               <Error message={error}/>
-            }
+            }</View>
           </ScrollView>
         </KeyboardAvoidingView>
 
-        <View style={styles.footer}>
+        <View style={goalStyles.footer}>
           <StepIndicator currentStep = {1}/>
           <Button onPress={handleNext} title="Next" padding={10} marginBottom={20} marginTop={20}/>
         </View>
@@ -121,46 +123,3 @@ export default function ChooseGoal ({ route, navigation }) {
     </TouchableWithoutFeedback>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    paddingTop: 25,
-  },
-  switchContainer: {
-    marginTop: 20,
-    marginBottom: 20,
-  },
-  text: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#1c5253',
-  },
-  footer: {
-    position: 'absolute',
-    bottom: 0,
-    padding: 10,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    color: '#1c5253',
-  },
-  subtitle: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    marginTop: 10,
-    color: '#1c5253',
-  },
-  input: {
-    height: 40,
-    marginBottom: 22,
-    marginTop: 10,
-    borderWidth: 1,
-    padding: 10,
-    backgroundColor: 'white',
-    borderRadius: 50,
-    width: 150
-  },
-});
