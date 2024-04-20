@@ -5,7 +5,7 @@ import { StepIndicator } from "../helperComponents/Utilities";
 import { Error } from "../helperComponents/Utilities";
 import {Button} from "../helperComponents/Utilities.js";
 import generateSchedule from "../helperComponents/Schedule";
-import {availabilityStyles} from "../helperComponents/styles.js";
+import {sharedStyles, availabilityItem} from "../helperComponents/styles.js";
 
 export default function Availability({ route, navigation }) {
     const [availability, setAvailability] = useState([
@@ -56,33 +56,33 @@ export default function Availability({ route, navigation }) {
 
     return (
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-            <View style={availabilityStyles.container}>
-                <Text style={availabilityStyles.spinnerText}>
+            <View style={sharedStyles.alignContainer}>
+                <Text style={sharedStyles.headerText}>
                     How many hours are you available for?
                 </Text>
-                <Text style={[availabilityStyles.instructions]}>
+                <Text style={[sharedStyles.subscriptText, {marginBottom: 20}]}>
                     (Tap day to select/deselect as available)
                 </Text>
-                <View style={availabilityStyles.list}>
+                <View>
                     {availability.map((item, index) => (
-                        <View key={index} style={availabilityStyles.item}>
+                        <View key={index} style={availabilityItem}>
                             <TouchableOpacity onPress={() => handleDaySelection(index)}>
-                                <Text style={[availabilityStyles.weekday, { textDecorationLine: (item.hours != 0) ? 'none' : 'line-through' }, 
-                            { color: (item.hours != 0) ? null : '#01CFEE' }]}>
+                                <Text style={[sharedStyles.largeText, { textDecorationLine: (item.hours != 0) ? 'none' : 'line-through' }, 
+                            { color: (item.hours != 0) ? '#1c5253' : '#01CFEE' }]}>
                                     {item.day}
                                 </Text>
                             </TouchableOpacity>
                                 <InputSpinner 
                                     max={9}
-                                    min={1}
+                                    min={0}
                                     step={1}
                                     value={item.hours}
                                     onChange={(hours) => handleHoursChange(index, hours)}
                                     width={150}
-                                    color={(item.hours != 0) ? '#01CFEE' : '#f0f0f0'}
+                                    color={(item.hours != 0) ? '#01CFEE' : '#E8E8E8'}
                                     editable={false}
                                     disabled={(item.hours != 0) ? false : true}
-                                    inputStyle={[availabilityStyles.spinnerText, {color: (item.hours != 0) ? null : '#f0f0f0'}]}
+                                    inputStyle={[sharedStyles.headerText, {color: (item.hours != 0) ? '#1c5253' : '#1c5253'}]}
                                 />
                         </View>
                     ))}
@@ -92,9 +92,9 @@ export default function Availability({ route, navigation }) {
                         <Error message={error}/>
                     }
                 </View>
-                <View style={availabilityStyles.footer}>
+                <View>
                     <StepIndicator currentStep = {3}/>
-                    <Button onPress={handleNext} title="Next" padding={10} marginBottom={20} marginTop={20}/>
+                    <Button onPress={handleNext} title="Get Schedule!" padding={10} marginBottom={20} marginTop={15}/>
                 </View>
             </View>
         </ScrollView>

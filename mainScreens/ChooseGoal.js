@@ -3,7 +3,7 @@ import {View, Switch, TextInput, Text, KeyboardAvoidingView, Platform, ScrollVie
 import { StepIndicator } from "../helperComponents/Utilities";
 import { Error } from "../helperComponents/Utilities";
 import {Button} from "../helperComponents/Utilities.js";
-import {goalStyles, sharedStyles} from "../helperComponents/styles.js";
+import {sharedStyles} from "../helperComponents/styles.js";
 
 export default function ChooseGoal ({ route, navigation }) {
   const [isDistance, setIsDistance] = useState(false);
@@ -65,16 +65,16 @@ export default function ChooseGoal ({ route, navigation }) {
     
   return (
     <TouchableWithoutFeedback onPress={handlePress} accesible={false}>
-      <View style={sharedStyles.alignContainer}>
+      <View style={[sharedStyles.alignContainer, {flex: 1}]}>
         <KeyboardAvoidingView
           style={{ flex: 1, alignItems: 'center', flexGrow: 1 }}
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
         >
-          <ScrollView contentContainerStyle={[{ flexGrow: 1, width: '85%' }, goalStyles.container]} showsVerticalScrollIndicator={false}>
-            <Text style={goalStyles.text}>What would you like to train for?</Text>
-            <Text style={{ fontSize: 14, color: '#1c5253' }}>(Time or Distance)</Text>
-            <View style={goalStyles.switchContainer}>
+          <ScrollView contentContainerStyle={[{ flexGrow: 1 }, sharedStyles.alignContainer]} showsVerticalScrollIndicator={false}>
+            <Text style={sharedStyles.headerText}>What would you like to train for?</Text>
+            <Text style={[sharedStyles.subscriptText]}>(Time or Distance)</Text>
+            <View style={{marginVertical: 20}}>
               <Switch
                 trackColor={{true: '#01CFEE'}}
                 thumbColor={'#f4f3f4'}
@@ -84,38 +84,39 @@ export default function ChooseGoal ({ route, navigation }) {
               />
             </View>
 
-            <Text style={goalStyles.title}>{isDistance ? 'Distance' : 'Time'}</Text>
+            <Text style={[sharedStyles.headerText, {fontSize: 26}]}>{isDistance ? 'Distance' : 'Time'}</Text>
 
-<View style={{alignSelf: 'center', marginTop: 40}}>
-            {!isDistance && 
-              <>
-                <Text style={goalStyles.subtitle}>Minutes</Text>
-                <TextInput
-                  style={goalStyles.input}
-                  onChangeText={value => handleMinsChange(value)}
-                  value={minutes}
-                  keyboardType="numeric"
-                  placeholder="Minutes"
-                />
-              </>
-            }
+            <View style={{alignSelf: 'center', alignItems: 'center', marginTop: 50}}>
+              {!isDistance && 
+                <>
+                  <Text style={[sharedStyles.headerText, {textAlign: 'center', fontSize: 15}]}>Minutes</Text>
+                  <TextInput
+                    style={[sharedStyles.input, {marginBottom: 30, width: 150}]}
+                    onChangeText={value => handleMinsChange(value)}
+                    value={minutes}
+                    keyboardType="numeric"
+                    placeholder="Minutes"
+                  />
+                </>
+              }
 
-            <Text style={goalStyles.subtitle}>Miles</Text>
-            <TextInput 
-              style={goalStyles.input}
-              placeholder="Miles"
-              keyboardType="numeric"
-              value={miles}
-              onChangeText={value => handleDistChange(value)}
-            />
+              <Text style={[sharedStyles.headerText, {textAlign: 'center', fontSize: 15}]}>Miles</Text>
+              <TextInput 
+                style={[sharedStyles.input, {marginBottom: 30, width: 150}]}
+                placeholder="Miles"
+                keyboardType="numeric"
+                value={miles}
+                onChangeText={value => handleDistChange(value)}
+              />
 
-            {error != '' && 
-              <Error message={error}/>
-            }</View>
+              {error != '' && 
+                <Error message={error}/>
+              }
+            </View>
           </ScrollView>
         </KeyboardAvoidingView>
 
-        <View style={goalStyles.footer}>
+        <View style={sharedStyles.footer}>
           <StepIndicator currentStep = {1}/>
           <Button onPress={handleNext} title="Next" padding={10} marginBottom={20} marginTop={20}/>
         </View>

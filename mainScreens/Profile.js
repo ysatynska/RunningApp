@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Dimensions, Text, FlatList } from 'react-native';
+import { View, Dimensions, Text, FlatList } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import * as Progress from 'react-native-progress';
 import {Slider} from '@miblanchard/react-native-slider';
 import generateSchedule, { newCurrentBest } from "../helperComponents/Schedule";
 import { saveUserAsync, Button } from "../helperComponents/Utilities";
-import { profileStyles } from "../helperComponents/styles.js";
+import { sharedStyles, profileStyles } from "../helperComponents/styles.js";
 
 export function UpdateButton ({ratings, user, updateUser}) {
   function handleUpdate () {
@@ -28,9 +28,9 @@ export function UpdateButton ({ratings, user, updateUser}) {
 export function ProgressBar ({progress, ratings, user, updateUser}) {
   return (
       <View style={profileStyles.progressContainer}>
-          <Text style={profileStyles.totalDistanceText}>Progress this week</Text>
+          <Text style={profileStyles.progressText}>Progress this week</Text>
           <Progress.Bar
-              style={profileStyles.progressBar}
+              style={{marginVertical: 10}}
               width={Dimensions.get('screen').width - 70}
               progress={progress}
               height={20}
@@ -58,7 +58,7 @@ export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings
   return (
     <View style={profileStyles.itemContainer}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Text style={profileStyles.weekday}>{item.title}</Text>
+        <Text style={sharedStyles.largeText}>{item.title}</Text>
         {isSelected && (
           <View style={{
             width: 30,
@@ -80,10 +80,10 @@ export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings
           isChecked={isSelected}
           onPress={() => onSelect(!isSelected)}
           text={item.task}
-          textStyle={profileStyles.taskText}
+          textStyle={[sharedStyles.subscriptText, {fontWeight: 500}]}
           iconStyle={{ borderColor: 'lightgray' }}
           fillColor="#01CFEE"
-          style={profileStyles.progressBar}
+          style={{marginTop: 10}}
       />
       
       {!isSelected && 
@@ -142,7 +142,7 @@ export default function Profile ({ route, navigation }) {
   }, [user]);
 
   return (
-      <View style={profileStyles.container}>
+      <View style={sharedStyles.justifyContainer}>
           <ProgressBar progress={selectedIds.length/data.length} ratings={ratings} user={user} updateUser={setUser}/>
           <FlatList 
               ItemSeparatorComponent={

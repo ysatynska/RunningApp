@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Image, Pressable } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {utilitiesStyles} from "../helperComponents/styles.js";
+import {utilitiesStyles, sharedStyles} from "../helperComponents/styles.js";
 
 export function Button ({onPress, title, padding, marginBottom = 0, marginTop = 15, alignSelf = "auto"}) {
     return (
@@ -16,7 +16,7 @@ export function Button ({onPress, title, padding, marginBottom = 0, marginTop = 
 export function Error ({message}) {
     return (
       <View>
-        <Text style={utilitiesStyles.error}>{message}</Text>
+        <Text style={[utilitiesStyles.error]}>{message}</Text>
       </View>
     );
 }
@@ -24,7 +24,7 @@ export function Error ({message}) {
 export function LoginImage ({invalidUsername, invalidPassword, invalidName = false}) {
     return (
         <View>
-            <Image source={invalidUsername || invalidPassword || invalidName ? require('../images/loginFail.png') : require('../images/loginSuccess.png')} style={utilitiesStyles.image}></Image>
+            <Image source={invalidUsername || invalidPassword || invalidName ? require('../images/loginFail.png') : require('../images/loginSuccess.png')} style={utilitiesStyles.loginImage}></Image>
         </View>
     );
 }

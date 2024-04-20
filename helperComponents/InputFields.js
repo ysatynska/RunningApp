@@ -1,20 +1,20 @@
 import React from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, TextInput, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import {inputStyles} from "../helperComponents/styles.js";
+import {hiddenPasswordIcon, sharedStyles} from "../helperComponents/styles.js";
 
 export function Password ({isPasswordVisible, togglePasswordVisibility, password, setPassword}) {
     return (
-      <View style={inputStyles.passwordContainer}>
+      <View>
         <TextInput
-            style={inputStyles.input}
+            style={sharedStyles.input}
             placeholder="Password"
             secureTextEntry={!isPasswordVisible}
             value={password}
             onChangeText={setPassword}
         />
-        <TouchableOpacity onPressIn={togglePasswordVisibility} style={inputStyles.icon}>
-          <MaterialIcons name={isPasswordVisible ? 'visibility' : 'visibility-off'} size={24} color="grey" />
+        <TouchableOpacity onPressIn={togglePasswordVisibility} style={hiddenPasswordIcon}>
+          <MaterialIcons name={isPasswordVisible ? 'visibility' : 'visibility-off'} size={24} color="grey"/>
         </TouchableOpacity>
       </View>
     );
@@ -23,7 +23,7 @@ export function Password ({isPasswordVisible, togglePasswordVisibility, password
 export function InputField ({value, onChange, placeholder, autoCap='sentences'}) {
     return (
         <TextInput
-            style={inputStyles.input}
+            style={sharedStyles.input}
             placeholder={placeholder}
             value={value}
             onChangeText={onChange}
