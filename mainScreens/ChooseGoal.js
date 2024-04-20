@@ -3,7 +3,7 @@ import {View, Switch, TextInput, Text, KeyboardAvoidingView, Platform, ScrollVie
 import { StepIndicator } from "../helperComponents/Utilities";
 import { Error } from "../helperComponents/Utilities";
 import {Button} from "../helperComponents/Utilities.js";
-import {goalStyles} from "../helperComponents/styles.js";
+import {goalStyles, sharedStyles} from "../helperComponents/styles.js";
 
 export default function ChooseGoal ({ route, navigation }) {
   const [isDistance, setIsDistance] = useState(false);
@@ -65,7 +65,7 @@ export default function ChooseGoal ({ route, navigation }) {
     
   return (
     <TouchableWithoutFeedback onPress={handlePress} accesible={false}>
-      <View style={[goalStyles.container, {flex: 1}]}>
+      <View style={sharedStyles.alignContainer}>
         <KeyboardAvoidingView
           style={{ flex: 1, alignItems: 'center', flexGrow: 1 }}
           behavior={Platform.OS === "ios" ? "padding" : "height"}

@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, TouchableWithoutFeedback, KeyboardAvoidin
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as InputFields from '../helperComponents/InputFields.js';
 import * as Utilities from '../helperComponents/Utilities.js';
-import {createAccountStyles} from "../helperComponents/styles.js";
+import {sharedStyles} from "../helperComponents/styles.js";
 
 export default function CreateAccount ({navigation}) {
   const [username, setUsername] = useState('');
@@ -58,9 +58,9 @@ export default function CreateAccount ({navigation}) {
         keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
       >
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-          <View style={createAccountStyles.container}>
+          <View style={sharedStyles.justifyContainer}>
             <Utilities.LoginImage invalidUsername={invalidUsername} invalidPassword={invalidPassword} invalidName={invalidName}/>
-            <Text style={createAccountStyles.createAccount}>Create Account</Text>
+            <Text style={[sharedStyles.largeText, {marginLeft: 5}]}>Create Account</Text>
             
             <InputFields.FirstName firstName={firstName} setFirstName={setFirstName}/>
             {invalidName && <Utilities.Error message={"Must be between 1 and 30 characters"}/>}
@@ -74,10 +74,10 @@ export default function CreateAccount ({navigation}) {
             <Utilities.Button onPress={handleCreate} title="Sign Up" padding={8}/>
             
             <View style={{marginTop: 10}}>
-                <Text style={createAccountStyles.text}>
+                <Text style={sharedStyles.subscriptText}>
                   Already have an account?{' '}
                   <TouchableOpacity onPress={() => navigation.navigate('login')}>
-                      <Text style={createAccountStyles.link}>Sign in</Text>
+                      <Text style={[sharedStyles.subscriptText, {color: '#0645AD'}]}>Sign in</Text>
                   </TouchableOpacity>
                 </Text>
             </View>

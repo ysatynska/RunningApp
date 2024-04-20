@@ -160,6 +160,14 @@ import { StyleSheet } from 'react-native';
 // }
 
 
+
+export const welcomeText = {
+    fontSize: 32,
+    color: '#01CFEE',
+    fontWeight: 'bold',
+    textAlign: 'center',
+}
+
 // Liz Adds
 
 export const sharedStyles = StyleSheet.create({
@@ -181,21 +189,23 @@ export const sharedStyles = StyleSheet.create({
         fontSize: 25,
         color: '#1c5253',
     },
+    subscriptText: {
+        fontSize: 16,
+        color: 'gray',
+        textAlign: 'center'
+    },
     footer: {
         position: 'absolute',
         bottom: 0,
         padding: 10,
     },
-    subscriptText: {
-        fontSize: 16,
-        color: '#1c5253',
-    },
     image: {
-        width: 200,
-        height: 200,
+        width: 315,
+        height: 315,
         padding: 10,
         margin: 20,
-        alignSelf: "center"
+        alignSelf: "center",
+        borderRadius: 20,
     },
     input: {
         height: 40,
@@ -205,40 +215,6 @@ export const sharedStyles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 50,
     },
-});
-
-export const welcomeStyles = StyleSheet.create({
-    // justifyContainer
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        padding: 20,
-    },
-
-
-    welcomeText: {
-      fontSize: 32,
-      color: '#01CFEE',
-      fontWeight: 'bold',
-      textAlign: 'center',
-    },
-
-    // image
-    image: {
-      width: 300,
-      height: 300,
-      padding: 10,
-      margin: 20,
-      alignSelf: "center"
-    },
-    paragraph: {
-        // subscriptText
-        fontSize: 16,
-
-      textAlign: 'center',
-      color: "#A6A6A6",
-      marginVertical: 10
-    }
 });
 
 export const skillStyles = StyleSheet.create({
@@ -383,45 +359,6 @@ export const loginStyles = StyleSheet.create({
       marginLeft: 5
     },
   });
-
-  export const createAccountStyles = StyleSheet.create({
-
-    //justifyContainer
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      padding: 20,
-    },
-
-
-    createAccount: {
-        // largeText
-        fontSize: 25,
-        color: '#1c5253',
-
-
-      marginLeft: 5
-    },
-
-
-    link: {
-        //subscriptText
-
-        fontSize: 16,
-      color: '#0645AD',
-    },
-
-    
-    text: {
-        // subscriptText
-        fontSize: 16,
-
-
-      color: 'gray',
-      marginLeft: 10,
-    },
-  });
-
   export const goalStyles = StyleSheet.create({
     //alignContainer
     container: {
@@ -537,6 +474,10 @@ export const utilitiesStyles = StyleSheet.create({
         backgroundColor: '#FF5953',
         borderRadius: 50,
         alignItems: 'center',
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+        shadowColor: 'gray',
+        shadowOffset: { height: 2, width: 0 },
     },
 
     // headerText
