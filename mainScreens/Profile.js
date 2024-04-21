@@ -28,8 +28,8 @@ export function UpdateButton ({ratings, user, updateUser}) {
 
 const SettingsButton = ({ onPress }) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.settingsButton}>
-      <View style={styles.settingsButton}>
+    <TouchableOpacity onPress={onPress} style={profileStyles.settingsButton}>
+      <View>
         <Icon name="cog" size={40} color="#01CFEE" />
       </View>
     </TouchableOpacity>
@@ -119,7 +119,7 @@ export default function Profile ({ route, navigation }) {
       title: oneDay.day,
       task: 'run ' + oneDay.miles + ((oneDay.minsPerMile == 0) ? (' miles ' + oneDay.reps + ' non-stop') : (' miles at ' + oneDay.minsPerMile + ' mins/mile ' + oneDay.reps + ' times'))
   }));
-  
+  console.log(JSON.stringify(user, null, 2));
   const handleSettingsPress = () => {
     navigation.navigate('settings', {user: user});
   };
@@ -136,9 +136,9 @@ export default function Profile ({ route, navigation }) {
 
   React.useEffect(() => {
     navigation.setOptions({
-      title: `Welcome back, ${user.username}!`,
+      title: `Welcome back, ${user.name}!`,
     });
-  }, [user.username, navigation]);
+  }, [user.name, navigation]);
 
 
   useEffect(() => {
@@ -147,6 +147,7 @@ export default function Profile ({ route, navigation }) {
 
   return (
       <View style={sharedStyles.justifyContainer}>
+          <SettingsButton onPress={handleSettingsPress}/>
           <ProgressBar progress={selectedIds.length/data.length} ratings={ratings} user={user} updateUser={setUser}/>
           <FlatList 
               ItemSeparatorComponent={
