@@ -18,7 +18,7 @@ const SettingsButton = ({ onPress }) => {
   return (
     <TouchableOpacity onPress={onPress} style={profileStyles.settingsButton}>
       <View>
-        <Icon name="cog" size={40} color="white" />
+        <Icon name="cog" size={28} color="white" />
       </View>
     </TouchableOpacity>
   );
@@ -27,9 +27,7 @@ const SettingsButton = ({ onPress }) => {
 
 const Stack = createNativeStackNavigator();
 export default function App () {
-  const handleSettingsPress = (navigation) => {
-    navigation.navigate('settings', {user: user});
-  };
+
 
   return (
     <NavigationContainer>
