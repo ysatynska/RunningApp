@@ -12,6 +12,15 @@ const input_spinner_color = '#DCDCDC';
 const link_color = '#0645AD';
 
 // non-static styles
+export const screenOptionsStyles = StyleSheet.create({
+    headerBackTitleVisible: false,
+    headerBackTitleStyle: { color: '#01CFEE' },
+    headerStyle: {
+      backgroundColor: '#01CFEE'
+    },
+    headerTintColor: 'white'
+});
+
 export const sharedStyles = StyleSheet.create({
     headerText: {
         fontSize: 20,
