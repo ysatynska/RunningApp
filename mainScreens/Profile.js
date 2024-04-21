@@ -6,8 +6,14 @@ import { Slider } from '@miblanchard/react-native-slider';
 import generateSchedule, { newCurrentBest } from "../helperComponents/Schedule";
 import { saveUserAsync, Button } from "../helperComponents/Utilities";
 import { sharedStyles, profileStyles } from "../helperComponents/styles.js";
+import { useTheme } from '../helperComponents/ThemeContext.js';
+import { getStyles } from '../helperComponents/styles.js';
 
 export function UpdateButton ({ratings, user, updateUser}) {
+  // Grab dynamic theme
+  const { theme } = useTheme();
+  const styles = getStyles(theme);
+
   function handleUpdate () {
     const average = ratings.reduce((accumulator, currentValue) => accumulator + currentValue, 0)/ratings.length;
     // 1 = .5, 10 = 2 rateOfImprovement
@@ -26,6 +32,10 @@ export function UpdateButton ({ratings, user, updateUser}) {
 }
 
 export function ProgressBar ({progress, ratings, user, updateUser}) {
+  // Grab dynamic theme
+  const { theme } = useTheme();
+  const styles = getStyles(theme);
+
   return (
       <View style={profileStyles.progressContainer}>
           <Text style={profileStyles.progressText}>Progress this week</Text>
@@ -45,12 +55,20 @@ export function ProgressBar ({progress, ratings, user, updateUser}) {
 }
 
 export function TrackMark ({index}) {
+  // Grab dynamic theme
+  const { theme } = useTheme();
+  const styles = getStyles(theme);
+
     return (
         <Text style={{ position: 'absolute', top: -30, left: 5, alignItems: 'center', color: '#1c5253' }}>{index+1}</Text>
     );
 }
 
 export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings }) {
+  // Grab dynamic theme
+  const { theme } = useTheme();
+  const styles = getStyles(theme);
+
   function changeRatings (value) {
     const newRatings = ratings.map((rating, index) => (index === item.id) ? value[0] : rating);
     updateRatings(newRatings);
@@ -109,6 +127,10 @@ export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings
 }
 
 export default function Profile ({ route, navigation }) {
+  // Grab dynamic theme
+  const { theme } = useTheme();
+  const styles = getStyles(theme);
+  
   const [user, setUser] = useState(route.params.user);
   const selectedIds = user.schedule.filter((oneDay) => oneDay.completed).map((oneDay) => oneDay.id);
   console.log(selectedIds)
