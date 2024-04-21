@@ -9,6 +9,7 @@ import {screenOptionsStyles} from "./helperComponents/styles.js";
 import LoginScreen from './mainScreens/LoginScreen.js';
 import CreateAccount from './mainScreens/CreateAccount.js';
 import Profile from './mainScreens/Profile.js';
+import { ThemeProvider } from './helperComponents/ThemeContext.js';
 import Settings from './mainScreens/Settings.js';
 
 const Stack = createNativeStackNavigator();

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, Text, View, ScrollView } from 'react-native';
 import InputSpinner from 'react-native-input-spinner';
-import { StepIndicator } from "../helperComponents/Utilities";
-import { Error } from "../helperComponents/Utilities";
-import {Button} from "../helperComponents/Utilities.js";
+import { StepIndicator, Error, Button } from "../helperComponents/Utilities";
 import generateSchedule from "../helperComponents/Schedule";
-import {sharedStyles, availabilityItem, colors} from "../helperComponents/styles.js";
+import { useTheme } from '../helperComponents/ThemeContext.js';
+import { getStyles } from '../helperComponents/styles.js';
+import { sharedStyles, availabilityItem, colors } from "../helperComponents/styles.js";
 
 export default function Availability({ route, navigation }) {
     const [availability, setAvailability] = useState([
@@ -19,6 +19,10 @@ export default function Availability({ route, navigation }) {
     ]);
     const [error, setError] = useState('');
     const { user } = route.params;
+
+    // Grab dynamic theme
+    // const { theme } = useTheme();
+    // const styles = getStyles(theme);
 
     // Function to update 'available' state of a weekday
     function handleDaySelection(index) {

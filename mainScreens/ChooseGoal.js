@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import {View, Switch, TextInput, Text, KeyboardAvoidingView, Platform, ScrollView, TouchableWithoutFeedback, Keyboard} from 'react-native';
-import { StepIndicator } from "../helperComponents/Utilities";
-import { Error } from "../helperComponents/Utilities";
-import {Button} from "../helperComponents/Utilities.js";
-import {sharedStyles, footerStyle, colors} from "../helperComponents/styles.js";
+import { StepIndicator, Error, Button } from "../helperComponents/Utilities";
+import { useTheme } from '../helperComponents/ThemeContext.js';
+import { getStyles } from '../helperComponents/styles.js';
+import { sharedStyles, footerStyle, colors } from "../helperComponents/styles.js";
 
 export default function ChooseGoal ({ route, navigation }) {
   const [isDistance, setIsDistance] = useState(false);
@@ -11,6 +11,10 @@ export default function ChooseGoal ({ route, navigation }) {
   const [miles, setMiles] = useState('');
   const [error, setError] = useState('');
   const { user } = route.params;
+
+  // Grab dynamic theme
+  // const { theme } = useTheme();
+  // const styles = getStyles(theme);
 
   function handleDistChange (value) {
     setError('');

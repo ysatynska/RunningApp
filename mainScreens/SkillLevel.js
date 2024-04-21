@@ -2,13 +2,19 @@ import React, { useState } from 'react';
 import { Text, View, TouchableWithoutFeedback } from 'react-native';
 import { StepIndicator, Error, Button } from "../helperComponents/Utilities";
 import RadioGroup from 'react-native-radio-buttons-group';
-import {sharedStyles, footerStyle} from "../helperComponents/styles.js";
+import { useTheme } from '../helperComponents/ThemeContext.js';
+import { getStyles } from '../helperComponents/styles.js';
+import { sharedStyles, footerStyle } from "../helperComponents/styles.js";
 
 export default function SkillLevel ({ route, navigation }) {
   const [selected, setSelected] = useState(null);
   const skillLevels = ['Beginner', 'Intermediate', 'Advanced'];
   const [error, setError] = useState('');
   const { user } = route.params;
+
+  // Grab dynamic theme
+  // const { theme } = useTheme();
+  // const styles = getStyles(theme);
 
   const radioButtons = skillLevels.map((level, index) => (
     {
