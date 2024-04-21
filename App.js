@@ -9,6 +9,7 @@ import {StyleSheet} from 'react-native';
 import LoginScreen from './mainScreens/LoginScreen.js';
 import CreateAccount from './mainScreens/CreateAccount.js';
 import Profile from './mainScreens/Profile.js';
+import { ThemeProvider } from './helperComponents/ThemeContext.js';
 
 const Stack = createNativeStackNavigator();
 export default function App () {
@@ -18,14 +19,16 @@ export default function App () {
           headerBackTitleVisible: false,
           headerBackTitleStyle: { color: '#01CFEE' },
           ...styles.headerStyle
-        }}>
-        <Stack.Screen name="welcome" options={{ title: 'Welcome'}} component={Welcome} />
-        <Stack.Screen name="createAccount" options={{ title: 'Sign Up'}} component={CreateAccount} />
-        <Stack.Screen name="login" options={{ title: 'Sign In'}} component={LoginScreen} />
-        <Stack.Screen name="chooseGoal" options={{ title: 'Choose Goal'}} component={ChooseGoal} />
-        <Stack.Screen name="skillLevel" options={{ title: 'Skill Level'}} component={SkillLevel} />
-        <Stack.Screen name="availability" options={{ title: 'Availability'}} component={Availability} />
-        <Stack.Screen name="profile" options={{ title: 'Profile'}} component={Profile} />
+      }}>
+        <ThemeProvider>
+          <Stack.Screen name="welcome" options={{ title: 'Welcome'}} component={Welcome} />
+          <Stack.Screen name="createAccount" options={{ title: 'Sign Up'}} component={CreateAccount} />
+          <Stack.Screen name="login" options={{ title: 'Sign In'}} component={LoginScreen} />
+          <Stack.Screen name="chooseGoal" options={{ title: 'Choose Goal'}} component={ChooseGoal} />
+          <Stack.Screen name="skillLevel" options={{ title: 'Skill Level'}} component={SkillLevel} />
+          <Stack.Screen name="availability" options={{ title: 'Availability'}} component={Availability} />
+          <Stack.Screen name="profile" options={{ title: 'Profile'}} component={Profile} />
+        </ThemeProvider>
       </Stack.Navigator>
     </NavigationContainer>
   );
