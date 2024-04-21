@@ -3,7 +3,7 @@ import {View, Switch, TextInput, Text, KeyboardAvoidingView, Platform, ScrollVie
 import { StepIndicator } from "../helperComponents/Utilities";
 import { Error } from "../helperComponents/Utilities";
 import {Button} from "../helperComponents/Utilities.js";
-import {sharedStyles} from "../helperComponents/styles.js";
+import {sharedStyles, footerStyle, colors} from "../helperComponents/styles.js";
 
 export default function ChooseGoal ({ route, navigation }) {
   const [isDistance, setIsDistance] = useState(false);
@@ -76,9 +76,9 @@ export default function ChooseGoal ({ route, navigation }) {
             <Text style={[sharedStyles.subscriptText]}>(Time or Distance)</Text>
             <View style={{marginVertical: 20}}>
               <Switch
-                trackColor={{true: '#01CFEE'}}
-                thumbColor={'#f4f3f4'}
-                ios_backgroundColor="#3e3e3e"
+                trackColor={{true: colors.headerColor}}
+                thumbColor={colors.smallBgColor}
+                ios_backgroundColor={colors.textColor}
                 onValueChange={toggleSwitch}
                 value={isDistance}
               />
@@ -116,7 +116,7 @@ export default function ChooseGoal ({ route, navigation }) {
           </ScrollView>
         </KeyboardAvoidingView>
 
-        <View style={sharedStyles.footer}>
+        <View style={footerStyle}>
           <StepIndicator currentStep = {1}/>
           <Button onPress={handleNext} title="Next" padding={10} marginBottom={20} marginTop={20}/>
         </View>

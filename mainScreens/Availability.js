@@ -5,7 +5,7 @@ import { StepIndicator } from "../helperComponents/Utilities";
 import { Error } from "../helperComponents/Utilities";
 import {Button} from "../helperComponents/Utilities.js";
 import generateSchedule from "../helperComponents/Schedule";
-import {sharedStyles, availabilityItem} from "../helperComponents/styles.js";
+import {sharedStyles, availabilityItem, colors} from "../helperComponents/styles.js";
 
 export default function Availability({ route, navigation }) {
     const [availability, setAvailability] = useState([
@@ -68,7 +68,7 @@ export default function Availability({ route, navigation }) {
                         <View key={index} style={availabilityItem}>
                             <TouchableOpacity onPress={() => handleDaySelection(index)}>
                                 <Text style={[sharedStyles.largeText, { textDecorationLine: (item.hours != 0) ? 'none' : 'line-through' }, 
-                            { color: (item.hours != 0) ? '#1c5253' : '#01CFEE' }]}>
+                            { color: (item.hours != 0) ? colors.textColor : colors.headerColor }]}>
                                     {item.day}
                                 </Text>
                             </TouchableOpacity>
@@ -79,10 +79,10 @@ export default function Availability({ route, navigation }) {
                                     value={item.hours}
                                     onChange={(hours) => handleHoursChange(index, hours)}
                                     width={150}
-                                    color={(item.hours != 0) ? '#01CFEE' : '#E8E8E8'}
+                                    color={(item.hours != 0) ? colors.headerColor : colors.inputSpinnerColor}
                                     editable={false}
                                     disabled={(item.hours != 0) ? false : true}
-                                    inputStyle={[sharedStyles.headerText, {color: (item.hours != 0) ? '#1c5253' : '#1c5253'}]}
+                                    inputStyle={sharedStyles.headerText}
                                 />
                         </View>
                     ))}

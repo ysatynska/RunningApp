@@ -5,7 +5,7 @@ import * as Progress from 'react-native-progress';
 import {Slider} from '@miblanchard/react-native-slider';
 import generateSchedule, { newCurrentBest } from "../helperComponents/Schedule";
 import { saveUserAsync, Button } from "../helperComponents/Utilities";
-import { sharedStyles, profileStyles } from "../helperComponents/styles.js";
+import { sharedStyles, profileStyles, profileItemContainer } from "../helperComponents/styles.js";
 
 export function UpdateButton ({ratings, user, updateUser}) {
   function handleUpdate () {
@@ -35,8 +35,8 @@ export function ProgressBar ({progress, ratings, user, updateUser}) {
               progress={progress}
               height={20}
               borderWidth={0}
-              unfilledColor="#ECECEC"
-              color="#01CFEE"
+              unfilledColor={sharedStyles.alignContainer.backgroundColor}
+              color={profileStyles.minimumTrackStyle.color}
               borderRadius={10}
           />
           {progress == 1 && <UpdateButton ratings={ratings} user={user} updateUser={updateUser}/>}
@@ -46,7 +46,7 @@ export function ProgressBar ({progress, ratings, user, updateUser}) {
 
 export function TrackMark ({index}) {
     return (
-        <Text style={{ position: 'absolute', top: -30, left: 5, alignItems: 'center', color: '#1c5253' }}>{index+1}</Text>
+        <Text style={profileStyles.trackMarkText}>{index+1}</Text>
     );
 }
 
@@ -56,20 +56,12 @@ export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings
     updateRatings(newRatings);
   }
   return (
-    <View style={profileStyles.itemContainer}>
+    <View style={profileItemContainer}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
         <Text style={sharedStyles.largeText}>{item.title}</Text>
         {isSelected && (
-          <View style={{
-            width: 30,
-            height: 30,
-            borderRadius: 15,
-            backgroundColor: '#01CFEE',
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginLeft: 10
-          }}>
-            <Text style={{ color: 'white', fontSize: 15, fontWeight: 'bold' }}>
+          <View style={profileStyles.circle}>
+            <Text style={profileStyles.circleText}>
               {ratings[item.id]}
             </Text>
           </View>
@@ -81,8 +73,7 @@ export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings
           onPress={() => onSelect(!isSelected)}
           text={item.task}
           textStyle={[sharedStyles.subscriptText, {fontWeight: 500}]}
-          iconStyle={{ borderColor: 'lightgray' }}
-          fillColor="#01CFEE"
+          fillColor={profileStyles.circle.backgroundColor}
           style={{marginTop: 10}}
       />
       
@@ -100,7 +91,7 @@ export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings
               trackClickable={true}
               maximumTrackStyle={profileStyles.maximumTrackStyle}
               minimumTrackStyle={profileStyles.minimumTrackStyle}
-              thumbTintColor='#01CFEA'
+              thumbTintColor={profileStyles.minimumTrackStyle.color}
           />
         </View>
       }
@@ -111,7 +102,6 @@ export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings
 export default function Profile ({ route, navigation }) {
   const [user, setUser] = useState(route.params.user);
   const selectedIds = user.schedule.filter((oneDay) => oneDay.completed).map((oneDay) => oneDay.id);
-  console.log(selectedIds)
   const ratings = user.schedule.map((oneDay) => oneDay.rating);
   const data = user.schedule.map((oneDay, index) => ({
       id: index,
@@ -120,7 +110,6 @@ export default function Profile ({ route, navigation }) {
   }));
 
   function handleCheckboxChange (isChecked, id) {
-    console.log("in handleCheckboxChange: ", isChecked)
     const newSchedule = user.schedule.map((item) => (item.id == id ? { ...item, completed: !item.completed } : { ...item }));
     setUser({ ...user, schedule: newSchedule });
   };
