@@ -83,7 +83,7 @@ export default function CreateAccount ({navigation}) {
                 <Text style={sharedStyles.subscriptText}>
                   Already have an account?{' '}
                   <TouchableOpacity onPress={() => navigation.navigate('login')}>
-                      <Text style={[sharedStyles.subscriptText, {color: '#0645AD'}]}>Sign in</Text>
+                      <Text style={[sharedStyles.subscriptText, {color: sharedStyles.linkColor}]}>Sign in</Text>
                   </TouchableOpacity>
                 </Text>
             </View>

@@ -18,9 +18,10 @@ export function Password ({isPasswordVisible, togglePasswordVisibility, password
             secureTextEntry={!isPasswordVisible}
             value={password}
             onChangeText={setPassword}
+            color={hiddenPasswordIcon.color}
         />
         <TouchableOpacity onPressIn={togglePasswordVisibility} style={hiddenPasswordIcon}>
-          <MaterialIcons name={isPasswordVisible ? 'visibility' : 'visibility-off'} size={24} color="grey"/>
+          <MaterialIcons name={isPasswordVisible ? 'visibility' : 'visibility-off'} size={24} color={hiddenPasswordIcon.color}/>
         </TouchableOpacity>
       </View>
     );
@@ -38,6 +39,7 @@ export function InputField ({value, onChange, placeholder, autoCap='sentences'})
             value={value}
             onChangeText={onChange}
             autoCapitalize={autoCap}
+            color={hiddenPasswordIcon.color}
         />
     );
 }

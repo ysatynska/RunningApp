@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { utilitiesStyles, sharedStyles } from "../helperComponents/styles.js";
 import { useTheme } from './ThemeContext.js';
 import { getStyles } from './styles.js';
+import {utilitiesStyles, staticUtilitiesStyles} from "../helperComponents/styles.js";
 
 export function Button ({onPress, title, padding, marginBottom = 0, marginTop = 15, alignSelf = "auto"}) {
   // Grab dynamic theme
@@ -26,7 +27,7 @@ export function Error ({message}) {
 
     return (
       <View>
-        <Text style={[utilitiesStyles.error]}>{message}</Text>
+        <Text style={staticUtilitiesStyles.error}>{message}</Text>
       </View>
     );
 }
@@ -38,7 +39,7 @@ export function LoginImage ({invalidUsername, invalidPassword, invalidName = fal
 
     return (
         <View>
-            <Image source={invalidUsername || invalidPassword || invalidName ? require('../images/loginFail.png') : require('../images/loginSuccess.png')} style={utilitiesStyles.loginImage}></Image>
+            <Image source={invalidUsername || invalidPassword || invalidName ? require('../images/loginFail.png') : require('../images/loginSuccess.png')} style={staticUtilitiesStyles.loginImage}></Image>
         </View>
     );
 }
@@ -68,7 +69,7 @@ export const StepIndicator = ({ currentStep }) => {
   // const styles = getStyles(theme);
   
   return (
-    <View style={utilitiesStyles.stepIndContainer}>
+    <View style={staticUtilitiesStyles.stepIndContainer}>
       {[1, 2, 3].map(step => (
         <View
           key={step}
