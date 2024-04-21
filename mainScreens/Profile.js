@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Dimensions, Text, FlatList } from 'react-native';
+import { View, StyleSheet, Dimensions, Text, FlatList, TouchableOpacity } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import * as Progress from 'react-native-progress';
 import {Slider} from '@miblanchard/react-native-slider';
 import generateSchedule, { newCurrentBest } from "../helperComponents/Schedule";
 import { saveUserAsync, Button } from "../helperComponents/Utilities";
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { sharedStyles, profileStyles, profileItemContainer } from "../helperComponents/styles.js";
 
 export function UpdateButton ({ratings, user, updateUser}) {
@@ -24,6 +25,16 @@ export function UpdateButton ({ratings, user, updateUser}) {
     </View>
   );
 }
+
+const SettingsButton = ({ onPress }) => {
+  return (
+    <TouchableOpacity onPress={onPress} style={styles.settingsButton}>
+      <View style={styles.settingsButton}>
+        <Icon name="cog" size={40} color="#01CFEE" />
+      </View>
+    </TouchableOpacity>
+  );
+};
 
 export function ProgressBar ({progress, ratings, user, updateUser}) {
   return (
@@ -108,6 +119,10 @@ export default function Profile ({ route, navigation }) {
       title: oneDay.day,
       task: 'run ' + oneDay.miles + ((oneDay.minsPerMile == 0) ? (' miles ' + oneDay.reps + ' non-stop') : (' miles at ' + oneDay.minsPerMile + ' mins/mile ' + oneDay.reps + ' times'))
   }));
+  
+  const handleSettingsPress = () => {
+    navigation.navigate('settings', {user: user});
+  };
 
   function handleCheckboxChange (isChecked, id) {
     const newSchedule = user.schedule.map((item) => (item.id == id ? { ...item, completed: !item.completed } : { ...item }));
