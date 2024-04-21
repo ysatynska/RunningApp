@@ -7,8 +7,8 @@ import { getStyles } from '../helperComponents/styles.js';
 
 export default function Welcome ({navigation}) {
   // Grab dynamic theme
-  const { theme } = useTheme();
-  const styles = getStyles(theme);
+  // const { theme } = useTheme();
+  // const styles = getStyles(theme);
   
   const fadeAnimText = useRef(new Animated.Value(0)).current;
   const fadeAnimButton = useRef(new Animated.Value(0)).current; 

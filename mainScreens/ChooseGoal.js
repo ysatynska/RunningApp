@@ -13,8 +13,8 @@ export default function ChooseGoal ({ route, navigation }) {
   const { user } = route.params;
 
   // Grab dynamic theme
-  const { theme } = useTheme();
-  const styles = getStyles(theme);
+  // const { theme } = useTheme();
+  // const styles = getStyles(theme);
 
   function handleDistChange (value) {
     setError('');

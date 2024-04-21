@@ -7,8 +7,8 @@ import { getStyles } from './styles.js';
 
 export function Button ({onPress, title, padding, marginBottom = 0, marginTop = 15, alignSelf = "auto"}) {
   // Grab dynamic theme
-  const { theme } = useTheme();
-  const styles = getStyles(theme);
+  // const { theme } = useTheme();
+  // const styles = getStyles(theme);
 
     return (
         <View>
@@ -21,8 +21,8 @@ export function Button ({onPress, title, padding, marginBottom = 0, marginTop = 
 
 export function Error ({message}) {
   // Grab dynamic theme
-  const { theme } = useTheme();
-  const styles = getStyles(theme);
+  // const { theme } = useTheme();
+  // const styles = getStyles(theme);
 
     return (
       <View>
@@ -33,8 +33,8 @@ export function Error ({message}) {
 
 export function LoginImage ({invalidUsername, invalidPassword, invalidName = false}) {
   // Grab dynamic theme
-  const { theme } = useTheme();
-  const styles = getStyles(theme);
+  // const { theme } = useTheme();
+  // const styles = getStyles(theme);
 
     return (
         <View>
@@ -64,8 +64,8 @@ export function roundToTwoDecimals(num) {
 
 export const StepIndicator = ({ currentStep }) => {
   // Grab dynamic theme
-  const { theme } = useTheme();
-  const styles = getStyles(theme);
+  // const { theme } = useTheme();
+  // const styles = getStyles(theme);
   
   return (
     <View style={utilitiesStyles.stepIndContainer}>

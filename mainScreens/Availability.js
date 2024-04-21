@@ -21,8 +21,8 @@ export default function Availability({ route, navigation }) {
     const { user } = route.params;
 
     // Grab dynamic theme
-    const { theme } = useTheme();
-    const styles = getStyles(theme);
+    // const { theme } = useTheme();
+    // const styles = getStyles(theme);
 
     // Function to update 'available' state of a weekday
     function handleDaySelection(index) {

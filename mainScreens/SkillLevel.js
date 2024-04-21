@@ -13,8 +13,8 @@ export default function SkillLevel ({ route, navigation }) {
   const { user } = route.params;
 
   // Grab dynamic theme
-  const { theme } = useTheme();
-  const styles = getStyles(theme);
+  // const { theme } = useTheme();
+  // const styles = getStyles(theme);
 
   const radioButtons = skillLevels.map((level, index) => (
     {

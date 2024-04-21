@@ -11,8 +11,8 @@ import { getStyles } from '../helperComponents/styles.js';
 
 export function UpdateButton ({ratings, user, updateUser}) {
   // Grab dynamic theme
-  const { theme } = useTheme();
-  const styles = getStyles(theme);
+  // const { theme } = useTheme();
+  // const styles = getStyles(theme);
 
   function handleUpdate () {
     const average = ratings.reduce((accumulator, currentValue) => accumulator + currentValue, 0)/ratings.length;

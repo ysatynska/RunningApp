@@ -17,8 +17,8 @@ export default function CreateAccount ({navigation}) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   // Grab dynamic theme
-  const { theme } = useTheme();
-  const styles = getStyles(theme);
+  // const { theme } = useTheme();
+  // const styles = getStyles(theme);
 
   const handleCreate = async () => {
     handlePress();

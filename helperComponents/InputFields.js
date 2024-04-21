@@ -7,8 +7,8 @@ import { getStyles } from './styles.js';
 
 export function Password ({isPasswordVisible, togglePasswordVisibility, password, setPassword}) {
     // Grab dynamic theme
-    const { theme } = useTheme();
-    const styles = getStyles(theme);
+    // const { theme } = useTheme();
+    // const styles = getStyles(theme);
 
     return (
       <View>
@@ -28,8 +28,8 @@ export function Password ({isPasswordVisible, togglePasswordVisibility, password
 
 export function InputField ({value, onChange, placeholder, autoCap='sentences'}) {
     // Grab dynamic theme
-    const { theme } = useTheme();
-    const styles = getStyles(theme);
+    // const { theme } = useTheme();
+    // const styles = getStyles(theme);
 
     return (
         <TextInput
@@ -44,8 +44,8 @@ export function InputField ({value, onChange, placeholder, autoCap='sentences'})
 
 export function Username ({username, setUsername}) {
     // Grab dynamic theme
-    const { theme } = useTheme();
-    const styles = getStyles(theme);
+    // const { theme } = useTheme();
+    // const styles = getStyles(theme);
 
     return (
         <InputField value={username} onChange={setUsername} placeholder='Username' autoCap='none'/>
@@ -54,8 +54,8 @@ export function Username ({username, setUsername}) {
 
 export function FirstName ({firstName, setFirstName}) {
     // Grab dynamic theme
-    const { theme } = useTheme();
-    const styles = getStyles(theme);
+    // const { theme } = useTheme();
+    // const styles = getStyles(theme);
     
     return (
         <InputField value={firstName} onChange={setFirstName} placeholder='First Name'/>
