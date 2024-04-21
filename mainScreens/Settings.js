@@ -1,16 +1,61 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Switch, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, Switch, StyleSheet, TouchableOpacity } from 'react-native';
+import {hiddenPasswordIcon, sharedStyles} from "../helperComponents/styles.js";
+import { MaterialIcons } from '@expo/vector-icons';
+import * as Utilities from '../helperComponents/Utilities.js';
 
-const Settings = () => {
+
+export function Password ({isPasswordVisible, togglePasswordVisibility, password, setPassword}) {
+  return (
+    <View>
+      <TextInput
+          style={sharedStyles.input}
+          placeholder="Password"
+          secureTextEntry={!isPasswordVisible}
+          value={password}
+          onChangeText={setPassword}
+          color={hiddenPasswordIcon.color}
+      />
+      <TouchableOpacity onPressIn={togglePasswordVisibility} style={hiddenPasswordIcon}>
+        <MaterialIcons name={isPasswordVisible ? 'visibility' : 'visibility-off'} size={24} color={hiddenPasswordIcon.color}/>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+export function InputField ({value, onChange, placeholder, autoCap='sentences'}) {
+  return (
+      <TextInput
+          style={sharedStyles.input}
+          placeholder={placeholder}
+          value={value}
+          onChangeText={onChange}
+          autoCapitalize={autoCap}
+          color={hiddenPasswordIcon.color}
+      />
+  );
+}
+
+
+const Settings = ({route, navigation}) => {
   const [firstName, setFirstName] = useState('');
   const [password, setPassword] = useState('');
   const [theme, setTheme] = useState('light');
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  let user = route.params.user;
 
-  const handleSaveSettings = () => {
-    // Here you can implement logic to save settings to backend or local storage
-    console.log('First Name:', firstName);
-    console.log('Password:', password);
-    console.log('Theme:', theme);
+  const handleGoalUpdate = () => {
+    navigation.navigate('chooseGoal', {user: user});
+  }
+
+  const handleSaveSettings = async () => {
+    user.name = firstName;
+    user.password = password;
+    navigation.navigate('profile', {user: user})
+  };
+
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
   };
 
   return (
@@ -18,19 +63,10 @@ const Settings = () => {
       <Text style={styles.header}>Update Settings</Text>
 
       <Text style={styles.label}>First Name:</Text>
-      <TextInput
-        style={styles.input}
-        value={firstName}
-        onChangeText={(text) => setFirstName(text)}
-      />
+      <InputField value={firstName} onChange={setFirstName} placeholder='First Name'/>
 
       <Text style={styles.label}>New Password:</Text>
-      <TextInput
-        style={styles.input}
-        secureTextEntry={true}
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-      />
+      <Password isPasswordVisible={isPasswordVisible} togglePasswordVisibility={togglePasswordVisibility} password={password} setPassword={setPassword}/>
 
       <Text style={styles.label}>Theme:</Text>
       <View style={styles.themeContainer}>
@@ -42,7 +78,8 @@ const Settings = () => {
         <Text style={styles.themeLabel}>Dark</Text>
       </View>
 
-      <Button title="Save Settings" onPress={handleSaveSettings} />
+      <Utilities.Button title="Save Settings" onPress={handleSaveSettings} padding={8}/>
+      <Utilities.Button title="Edit Goal" onPress={handleGoalUpdate} padding={8} />
     </View>
   );
 };
