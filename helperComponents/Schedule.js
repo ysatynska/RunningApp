@@ -56,8 +56,8 @@ export default function generateSchedule (user) {
     return schedule;
 }
 
-export function newCurrentBest (oldCurrentBest, rateOfImprovement, isDistance) {
-    if (isDistance) {
+export function newCurrentBest (oldCurrentBest, rateOfImprovement, goal) {
+    if (goal.minutes == 0) {
         // training for distance 
         const milesDist = oldCurrentBest.milesDist * rateOfImprovement;
         let milesTempo = oldCurrentBest.milesTempo * Math.pow(rateOfImprovement, 4/5);
@@ -71,7 +71,10 @@ export function newCurrentBest (oldCurrentBest, rateOfImprovement, isDistance) {
     } else {
         // training for time
         const milesDist = oldCurrentBest.milesDist * rateOfImprovement;
-        const minutesTempo = oldCurrentBest.minutesTempo * Math.pow(2.5 - rateOfImprovement, 1/4);
+        let minutesTempo = oldCurrentBest.minutesTempo * Math.pow(2.5 - rateOfImprovement, 1/4);
+        if (minutesTempo/goal.miles > 20) {
+            minutesTempo = 20 * goal.miles;
+        }
         return {milesDist: milesDist, minutesTempo: minutesTempo};
     }
 }

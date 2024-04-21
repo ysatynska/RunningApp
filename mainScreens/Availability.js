@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, Text, View, ScrollView, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, View, ScrollView } from 'react-native';
 import InputSpinner from 'react-native-input-spinner';
 import { StepIndicator } from "../helperComponents/Utilities";
 import { Error } from "../helperComponents/Utilities";
 import {Button} from "../helperComponents/Utilities.js";
 import generateSchedule from "../helperComponents/Schedule";
+import {sharedStyles, availabilityItem, colors} from "../helperComponents/styles.js";
 
 export default function Availability({ route, navigation }) {
     const [availability, setAvailability] = useState([
@@ -49,93 +50,53 @@ export default function Availability({ route, navigation }) {
                 }
             });
             user.schedule = generateSchedule(user);
-            // saveUserAsync(user); // this function also updates currentBest
             navigation.navigate('profile', {user: user});
         }
     }
 
     return (
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-            <View style={styles.container}>
-                <Text style={styles.instructions}>
+            <View style={sharedStyles.alignContainer}>
+                <Text style={sharedStyles.headerText}>
                     How many hours are you available for?
                 </Text>
-                <Text style={[styles.instructions, { fontSize: 12, marginBottom: 10 }]}>
+                <Text style={[sharedStyles.subscriptText, {marginBottom: 20}]}>
                     (Tap day to select/deselect as available)
                 </Text>
-                <View style={styles.list}>
+                <View>
                     {availability.map((item, index) => (
-                        <View key={index} style={styles.item}>
+                        <View key={index} style={availabilityItem}>
                             <TouchableOpacity onPress={() => handleDaySelection(index)}>
-                                <Text style={[styles.weekday, { textDecorationLine: (item.hours != 0) ? 'none' : 'line-through' }, 
-                            { color: (item.hours != 0) ? null : '#01CFEE' }]}>
+                                <Text style={[sharedStyles.largeText, { textDecorationLine: (item.hours != 0) ? 'none' : 'line-through' }, 
+                            { color: (item.hours != 0) ? colors.textColor : colors.headerColor }]}>
                                     {item.day}
                                 </Text>
                             </TouchableOpacity>
                                 <InputSpinner 
                                     max={9}
-                                    min={1}
+                                    min={0}
                                     step={1}
                                     value={item.hours}
                                     onChange={(hours) => handleHoursChange(index, hours)}
                                     width={150}
-                                    color={(item.hours != 0) ? '#01CFEE' : '#f0f0f0'}
+                                    color={(item.hours != 0) ? colors.headerColor : colors.inputSpinnerColor}
                                     editable={false}
                                     disabled={(item.hours != 0) ? false : true}
-                                    inputStyle={[styles.spinnerText, {color: (item.hours != 0) ? null : '#f0f0f0'}]}
+                                    inputStyle={sharedStyles.headerText}
                                 />
                         </View>
                     ))}
                 </View>
-                <View style={styles.errorContainer}>
+                <View>
                     {error != '' && 
                         <Error message={error}/>
                     }
                 </View>
-                <View style={styles.footer}>
+                <View>
                     <StepIndicator currentStep = {3}/>
-                    <Button onPress={handleNext} title="Next" padding={10} marginBottom={20} marginTop={20}/>
+                    <Button onPress={handleNext} title="Get Schedule!" padding={10} marginBottom={20} marginTop={15}/>
                 </View>
             </View>
         </ScrollView>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        paddingTop: 20,
-        justifyContent: 'flex-start',
-    },
-    instructions: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: '#1c5253',
-    },
-    item: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        width: '100%',
-        padding: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: 'dimgrey',
-    },
-    list: {
-        backgroundColor: '#fff'
-    },
-    weekday: {
-        fontSize: 25,
-        color: '#1c5253',
-    },
-    spinnerText: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: '#1c5253',
-    },
-    errorContainer: {
-        marginVertical: 15
-    }
-});

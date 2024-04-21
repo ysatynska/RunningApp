@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, TouchableWithoutFeedback, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, TouchableWithoutFeedback, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as InputFields from '../helperComponents/InputFields.js';
 import * as Utilities from '../helperComponents/Utilities.js';
+import {sharedStyles} from "../helperComponents/styles.js";
 
 export default function CreateAccount ({navigation}) {
   const [username, setUsername] = useState('');
@@ -57,9 +58,9 @@ export default function CreateAccount ({navigation}) {
         keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
       >
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-          <View style={styles.container}>
+          <View style={sharedStyles.justifyContainer}>
             <Utilities.LoginImage invalidUsername={invalidUsername} invalidPassword={invalidPassword} invalidName={invalidName}/>
-            <Text style={styles.createAccount}>Create Account</Text>
+            <Text style={[sharedStyles.largeText, {marginLeft: 5}]}>Create Account</Text>
             
             <InputFields.FirstName firstName={firstName} setFirstName={setFirstName}/>
             {invalidName && <Utilities.Error message={"Must be between 1 and 30 characters"}/>}
@@ -73,10 +74,10 @@ export default function CreateAccount ({navigation}) {
             <Utilities.Button onPress={handleCreate} title="Sign Up" padding={8}/>
             
             <View style={{marginTop: 10}}>
-                <Text style={styles.text}>
+                <Text style={sharedStyles.subscriptText}>
                   Already have an account?{' '}
                   <TouchableOpacity onPress={() => navigation.navigate('login')}>
-                      <Text style={styles.link}>Sign in</Text>
+                      <Text style={[sharedStyles.subscriptText, {color: sharedStyles.linkColor}]}>Sign in</Text>
                   </TouchableOpacity>
                 </Text>
             </View>
@@ -86,25 +87,3 @@ export default function CreateAccount ({navigation}) {
     </TouchableWithoutFeedback>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 20,
-  },
-  createAccount: {
-    fontSize: 25,
-    marginTop: 20,
-    marginLeft: 5
-  },
-  link: {
-    color: '#0645AD',
-    fontSize: 15,
-  },
-  text: {
-    fontSize: 15,
-    color: 'gray',
-    marginLeft: 5,
-  },
-});

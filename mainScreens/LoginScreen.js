@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableWithoutFeedback, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { View, Text, TouchableWithoutFeedback, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as InputFields from '../helperComponents/InputFields.js';
 import * as Utilities from '../helperComponents/Utilities.js';
+import {sharedStyles} from "../helperComponents/styles.js";
 
 export default function LoginScreen ({navigation}) {
   const [username, setUsername] = useState('');
@@ -45,9 +46,9 @@ export default function LoginScreen ({navigation}) {
         keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
       >
         <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-          <View style={styles.container}>
+          <View style={sharedStyles.justifyContainer}>
             <Utilities.LoginImage invalidUsername={invalidUsername} invalidPassword={invalidPassword}/>
-            <Text style={styles.createAccount}>Login Details</Text>
+            <Text style={[sharedStyles.largeText, {marginLeft: 5}]}>Login Details</Text>
 
             <InputFields.Username username={username} setUsername={setUsername}/>
             {invalidUsername && <Utilities.Error message={"Invalid Username"}/>}
@@ -62,17 +63,3 @@ export default function LoginScreen ({navigation}) {
     </TouchableWithoutFeedback>
   );
 };
-
-// this styles is the exact (!) same as in CreateAccount.js, no need to double check.
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 20,
-  },
-  createAccount: {
-    fontSize: 25,
-    marginTop: 20,
-    marginLeft: 5
-  },
-});
