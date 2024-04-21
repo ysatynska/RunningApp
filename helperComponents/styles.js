@@ -131,10 +131,7 @@ export const profileStyles = StyleSheet.create({
         color: text_color 
     },
     settingsButton: {
-        position: 'absolute',
-        top: 0,
-        right: 0,
-        zIndex: 2,
+        borderRadius: 3,
     }
 });
 

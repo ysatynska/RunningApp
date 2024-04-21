@@ -5,7 +5,6 @@ import * as Progress from 'react-native-progress';
 import {Slider} from '@miblanchard/react-native-slider';
 import generateSchedule, { newCurrentBest } from "../helperComponents/Schedule";
 import { saveUserAsync, Button } from "../helperComponents/Utilities";
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { sharedStyles, profileStyles, profileItemContainer } from "../helperComponents/styles.js";
 
 export function UpdateButton ({ratings, user, updateUser}) {
@@ -26,15 +25,6 @@ export function UpdateButton ({ratings, user, updateUser}) {
   );
 }
 
-const SettingsButton = ({ onPress }) => {
-  return (
-    <TouchableOpacity onPress={onPress} style={profileStyles.settingsButton}>
-      <View>
-        <Icon name="cog" size={40} color="#01CFEE" />
-      </View>
-    </TouchableOpacity>
-  );
-};
 
 export function ProgressBar ({progress, ratings, user, updateUser}) {
   return (
@@ -119,10 +109,6 @@ export default function Profile ({ route, navigation }) {
       title: oneDay.day,
       task: 'run ' + oneDay.miles + ((oneDay.minsPerMile == 0) ? (' miles ' + oneDay.reps + ' non-stop') : (' miles at ' + oneDay.minsPerMile + ' mins/mile ' + oneDay.reps + ' times'))
   }));
-  console.log(JSON.stringify(user, null, 2));
-  const handleSettingsPress = () => {
-    navigation.navigate('settings', {user: user});
-  };
 
   function handleCheckboxChange (isChecked, id) {
     const newSchedule = user.schedule.map((item) => (item.id == id ? { ...item, completed: !item.completed } : { ...item }));
@@ -147,7 +133,6 @@ export default function Profile ({ route, navigation }) {
 
   return (
       <View style={sharedStyles.justifyContainer}>
-          <SettingsButton onPress={handleSettingsPress}/>
           <ProgressBar progress={selectedIds.length/data.length} ratings={ratings} user={user} updateUser={setUser}/>
           <FlatList 
               ItemSeparatorComponent={
