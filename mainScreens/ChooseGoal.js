@@ -3,7 +3,7 @@ import {View, Switch, TextInput, Text, KeyboardAvoidingView, Platform, ScrollVie
 import { StepIndicator, Error, Button } from "../helperComponents/Utilities";
 import { useTheme } from '../helperComponents/ThemeContext.js';
 import { getStyles } from '../helperComponents/styles.js';
-import {sharedStyles, footerStyle, colors} from "../helperComponents/styles.js";
+import { sharedStyles, footerStyle, colors } from "../helperComponents/styles.js";
 
 export default function ChooseGoal ({ route, navigation }) {
   const [isDistance, setIsDistance] = useState(false);

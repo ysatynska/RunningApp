@@ -4,7 +4,7 @@ import { StepIndicator, Error, Button } from "../helperComponents/Utilities";
 import RadioGroup from 'react-native-radio-buttons-group';
 import { useTheme } from '../helperComponents/ThemeContext.js';
 import { getStyles } from '../helperComponents/styles.js';
-import {sharedStyles, footerStyle} from "../helperComponents/styles.js";
+import { sharedStyles, footerStyle } from "../helperComponents/styles.js";
 
 export default function SkillLevel ({ route, navigation }) {
   const [selected, setSelected] = useState(null);

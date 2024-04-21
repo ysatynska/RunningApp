@@ -44,8 +44,8 @@ const SettingsButton = ({ onPress }) => {
 
 export function ProgressBar ({progress, ratings, user, updateUser}) {
   // Grab dynamic theme
-  const { theme } = useTheme();
-  const styles = getStyles(theme);
+  // const { theme } = useTheme();
+  // const styles = getStyles(theme);
 
   return (
       <View style={profileStyles.progressContainer}>
@@ -67,8 +67,8 @@ export function ProgressBar ({progress, ratings, user, updateUser}) {
 
 export function TrackMark ({index}) {
   // Grab dynamic theme
-  const { theme } = useTheme();
-  const styles = getStyles(theme);
+  // const { theme } = useTheme();
+  // const styles = getStyles(theme);
 
     return (
         <Text style={profileStyles.trackMarkText}>{index+1}</Text>
@@ -77,8 +77,8 @@ export function TrackMark ({index}) {
 
 export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings }) {
   // Grab dynamic theme
-  const { theme } = useTheme();
-  const styles = getStyles(theme);
+  // const { theme } = useTheme();
+  // const styles = getStyles(theme);
 
   function changeRatings (value) {
     const newRatings = ratings.map((rating, index) => (index === item.id) ? value[0] : rating);
@@ -130,8 +130,8 @@ export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings
 
 export default function Profile ({ route, navigation }) {
   // Grab dynamic theme
-  const { theme } = useTheme();
-  const styles = getStyles(theme);
+  // const { theme } = useTheme();
+  // const styles = getStyles(theme);
   
   const [user, setUser] = useState(route.params.user);
   const selectedIds = user.schedule.filter((oneDay) => oneDay.completed).map((oneDay) => oneDay.id);

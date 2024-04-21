@@ -3,7 +3,7 @@ import { View, Text, Image, Pressable } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from './ThemeContext.js';
 import { getStyles } from './styles.js';
-import {utilitiesStyles, staticUtilitiesStyles} from "../helperComponents/styles.js";
+import { utilitiesStyles, staticUtilitiesStyles } from "../helperComponents/styles.js";
 
 export function Button ({onPress, title, padding, marginBottom = 0, marginTop = 15, alignSelf = "auto"}) {
   // Grab dynamic theme

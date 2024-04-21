@@ -5,7 +5,7 @@ import { StepIndicator, Error, Button } from "../helperComponents/Utilities";
 import generateSchedule from "../helperComponents/Schedule";
 import { useTheme } from '../helperComponents/ThemeContext.js';
 import { getStyles } from '../helperComponents/styles.js';
-import {sharedStyles, availabilityItem, colors} from "../helperComponents/styles.js";
+import { sharedStyles, availabilityItem, colors } from "../helperComponents/styles.js";
 
 export default function Availability({ route, navigation }) {
     const [availability, setAvailability] = useState([

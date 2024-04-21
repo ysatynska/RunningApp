@@ -1,11 +1,8 @@
-import React, { useRef, useEffect } from 'react';
-import { View, Image, Animated } from 'react-native';
-import { Button } from "../helperComponents/Utilities.js";
 import { useTheme } from '../helperComponents/ThemeContext.js';
 import { getStyles } from '../helperComponents/styles.js';
 import React, {useRef, useEffect} from 'react';
 import {View, Image, Animated} from 'react-native';
-import {Button} from "../helperComponents/Utilities.js";
+import { Button } from "../helperComponents/Utilities.js";
 import {welcomeImage, welcomeText, sharedStyles} from "../helperComponents/styles.js";
 
 export default function Welcome ({navigation}) {
