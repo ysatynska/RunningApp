@@ -14,7 +14,7 @@ import { ThemeProvider } from './helperComponents/ThemeContext.js';
 const Stack = createNativeStackNavigator();
 export default function App () {
   return (
-    <ThemeProvider>
+    // <ThemeProvider>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="welcome" screenOptions={{
             headerBackTitleVisible: false,
@@ -30,7 +30,7 @@ export default function App () {
             <Stack.Screen name="profile" options={{ title: 'Profile'}} component={Profile} />
         </Stack.Navigator>
       </NavigationContainer>
-    </ThemeProvider>
+    // </ThemeProvider>
   );
 }
 
