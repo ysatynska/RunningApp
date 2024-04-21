@@ -1,6 +1,6 @@
 // File to create the themeContext used for rendering
 //   different themes across the app
-import { createContext, useState, useContext, Children } from "react";
+import { createContext, useState, useContext } from "react";
 import { themes } from "./styles";
 
 const ThemeContext = createContext(); // Declare the context variable
