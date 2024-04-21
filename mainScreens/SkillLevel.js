@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import {StyleSheet, Text, View, TouchableWithoutFeedback } from 'react-native';
+import { Text, View, TouchableWithoutFeedback } from 'react-native';
 import { StepIndicator, Error, Button } from "../helperComponents/Utilities";
 import RadioGroup from 'react-native-radio-buttons-group';
+import {sharedStyles} from "../helperComponents/styles.js";
 
 export default function SkillLevel ({ route, navigation }) {
   const [selected, setSelected] = useState(null);
@@ -53,18 +54,18 @@ export default function SkillLevel ({ route, navigation }) {
 
   return (
     <TouchableWithoutFeedback onPress={() => setError('')} accesible={false}>
-      <View style={styles.container}>
-        <Text style={styles.title}> What is your skill level? </Text>
+      <View style={[sharedStyles.alignContainer, sharedStyles.justifyContainer]}>
+        <Text style={[sharedStyles.headerText, {position: 'absolute', top: 50, fontSize: 25}]}> What is your skill level? </Text>
         <RadioGroup 
             radioButtons={radioButtons} 
             onPress={(index) => handlePress(index)}
             selectedId={selected}
-            labelStyle={styles.radioText}
+            labelStyle={[sharedStyles.largeText, {marginVertical: 5}]}
         />
         {error != '' && 
           <Error message={error}/>
         }
-        <View style={styles.footer}>
+        <View style={sharedStyles.footer}>
           <StepIndicator currentStep={2}/>
           <Button onPress={handleNext} title="Next" padding={10} marginBottom={20}/>
         </View>
@@ -72,30 +73,3 @@ export default function SkillLevel ({ route, navigation }) {
     </TouchableWithoutFeedback>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-  },
-  title: {
-    position: 'absolute',
-    top: 50,
-    fontSize: 27,
-    fontWeight: 'bold',
-    color: '#1c5253'
-  },
-  radioText: {
-    fontSize: 24,
-    marginTop: 10,
-    fontWeight: 500,
-    color: '#1c5253'
-  },
-  footer: {
-    position: 'absolute',
-    bottom: 0,
-    padding: 10,
-  },
-});

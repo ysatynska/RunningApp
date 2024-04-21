@@ -1,40 +1,40 @@
-import React from 'react';
-import {View, StyleSheet, Text, Image} from 'react-native';
+import React, {useRef, useEffect} from 'react';
+import {View, Image, Animated} from 'react-native';
 import {Button} from "../helperComponents/Utilities.js";
+import {welcomeStyles, sharedStyles} from "../helperComponents/styles.js";
 
 export default function Welcome ({navigation}) {
+  const fadeAnimText = useRef(new Animated.Value(0)).current;
+  const fadeAnimButton = useRef(new Animated.Value(0)).current; 
+  useEffect(() => {
+    Animated.timing(
+      fadeAnimText,
+      {
+        toValue: 1,
+        duration: 2000,
+        useNativeDriver: true,
+      }
+    ).start(() => {
+      Animated.timing(
+        fadeAnimButton,
+        {
+          toValue: 1,
+          duration: 500,
+          useNativeDriver: true,
+        }
+      ).start();
+    });
+  }, [fadeAnimText, fadeAnimButton]);
   return (
-      <View style={styles.container}>
-        <Image source={require('../images/welcome.png')} style={styles.image}/>
-        <Text style={styles.welcomeText}> Welcome! </Text>
-        <Text style={styles.paragraph}> Discover the joy of movement with running, a simple step towards a healthy life. </Text>
-        <Button onPress={() => navigation.navigate('createAccount')} title="Start" padding={12}/>
+      <View style={sharedStyles.justifyContainer}>
+        <Image source={require('../images/giphy.gif')} style={[welcomeStyles.welcomeImage, {transform: [{ scaleX: -1 }]}]}/>
+        <Animated.Text style={[welcomeStyles.welcomeText, { opacity: fadeAnimText, marginVertical: 10 }]}> Welcome! </Animated.Text>
+        <Animated.Text style={[sharedStyles.subscriptText, { opacity: fadeAnimText, marginVertical: 10 }]}>
+          Discover the joy of movement with running, a simple step towards a healthy life.
+        </Animated.Text>
+        <Animated.View style={{ opacity: fadeAnimButton }}>
+          <Button onPress={() => navigation.navigate('createAccount')} title="Start" padding={12} alignSelf="center"/>
+        </Animated.View>
       </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'white',
-  },
-  welcomeText: {
-    fontSize: 32,
-    color: '#01CFEE',
-    fontWeight: 'bold',
-  },
-  image: {
-    width: 300,
-    height: 300,
-    padding: 10,
-    margin: 20
-  },
-  paragraph: {
-    textAlign: 'center',
-    color: "#A6A6A6",
-    padding: 20,
-    fontSize: 17
-  }
-});

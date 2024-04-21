@@ -1,19 +1,20 @@
 import React from 'react';
-import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, TextInput, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import {hiddenPasswordIcon, sharedStyles} from "../helperComponents/styles.js";
 
 export function Password ({isPasswordVisible, togglePasswordVisibility, password, setPassword}) {
     return (
-      <View style={styles.passwordContainer}>
+      <View>
         <TextInput
-            style={styles.input}
+            style={sharedStyles.input}
             placeholder="Password"
             secureTextEntry={!isPasswordVisible}
             value={password}
             onChangeText={setPassword}
         />
-        <TouchableOpacity onPressIn={togglePasswordVisibility} style={styles.icon}>
-          <MaterialIcons name={isPasswordVisible ? 'visibility' : 'visibility-off'} size={24} color="grey" />
+        <TouchableOpacity onPressIn={togglePasswordVisibility} style={hiddenPasswordIcon}>
+          <MaterialIcons name={isPasswordVisible ? 'visibility' : 'visibility-off'} size={24} color="grey"/>
         </TouchableOpacity>
       </View>
     );
@@ -22,7 +23,7 @@ export function Password ({isPasswordVisible, togglePasswordVisibility, password
 export function InputField ({value, onChange, placeholder, autoCap='sentences'}) {
     return (
         <TextInput
-            style={styles.input}
+            style={sharedStyles.input}
             placeholder={placeholder}
             value={value}
             onChangeText={onChange}
@@ -42,24 +43,3 @@ export function FirstName ({firstName, setFirstName}) {
         <InputField value={firstName} onChange={setFirstName} placeholder='First Name'/>
     );
 }
-
-// these styls are the exact (!) copy of styles in CreateAccount and LoginScreent!
-
-const styles = StyleSheet.create({
-    input: {
-        height: 40,
-        marginTop: 12,
-        borderWidth: 1,
-        padding: 10,
-        backgroundColor: 'white',
-        borderRadius: 50,
-    },
-    icon: {
-        position: 'absolute',
-        right: 10,
-        top: 6,
-        height: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-});

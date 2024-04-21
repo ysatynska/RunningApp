@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Dimensions, Text, FlatList } from 'react-native';
+import { View, Dimensions, Text, FlatList } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import * as Progress from 'react-native-progress';
 import {Slider} from '@miblanchard/react-native-slider';
 import generateSchedule, { newCurrentBest } from "../helperComponents/Schedule";
 import { saveUserAsync, Button } from "../helperComponents/Utilities";
+import { sharedStyles, profileStyles } from "../helperComponents/styles.js";
 
 export function UpdateButton ({ratings, user, updateUser}) {
   function handleUpdate () {
@@ -13,7 +14,7 @@ export function UpdateButton ({ratings, user, updateUser}) {
     const rateOfImprovement = .5 + ((2 - .5) / (10 - 1)) * (average - 1);
 
     const newUser = {...user};
-    newUser.currentBest = newCurrentBest(newUser.currentBest, rateOfImprovement, user.goal.minutes == 0);
+    newUser.currentBest = newCurrentBest(newUser.currentBest, rateOfImprovement, user.goal);
     newUser.schedule = generateSchedule(newUser);
     updateUser(newUser);
   }
@@ -26,10 +27,10 @@ export function UpdateButton ({ratings, user, updateUser}) {
 
 export function ProgressBar ({progress, ratings, user, updateUser}) {
   return (
-      <View style={styles.progressContainer}>
-          <Text style={styles.totalDistanceText}>Progress this week</Text>
+      <View style={profileStyles.progressContainer}>
+          <Text style={profileStyles.progressText}>Progress this week</Text>
           <Progress.Bar
-              style={styles.progressBar}
+              style={{marginVertical: 10}}
               width={Dimensions.get('screen').width - 70}
               progress={progress}
               height={20}
@@ -55,9 +56,9 @@ export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings
     updateRatings(newRatings);
   }
   return (
-    <View style={styles.itemContainer}>
+    <View style={profileStyles.itemContainer}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-        <Text style={styles.weekday}>{item.title}</Text>
+        <Text style={sharedStyles.largeText}>{item.title}</Text>
         {isSelected && (
           <View style={{
             width: 30,
@@ -75,16 +76,18 @@ export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings
         )}
       </View>
       <BouncyCheckbox
+          key={isSelected}
           isChecked={isSelected}
-          onPress={(isChecked) => onSelect(isChecked)}
+          onPress={() => onSelect(!isSelected)}
           text={item.task}
-          textStyle={{ color: "#1c5253", fontWeight: '600' }}
+          textStyle={[sharedStyles.subscriptText, {fontWeight: 500}]}
           iconStyle={{ borderColor: 'lightgray' }}
           fillColor="#01CFEE"
+          style={{marginTop: 10}}
       />
       
       {!isSelected && 
-        <View style={styles.card}>
+        <View style={profileStyles.card}>
           <Text tx="Range & Haptic step-mode" />
           <Slider
               value={ratings[item.id]}
@@ -95,9 +98,8 @@ export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings
               trackMarks={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
               renderTrackMarkComponent={(index) => <TrackMark index={index}/>}
               trackClickable={true}
-              disabled={isSelected}
-              maximumTrackStyle={styles.maximumTrackStyle}
-              minimumTrackStyle={styles.minimumTrackStyle}
+              maximumTrackStyle={profileStyles.maximumTrackStyle}
+              minimumTrackStyle={profileStyles.minimumTrackStyle}
               thumbTintColor='#01CFEA'
           />
         </View>
@@ -109,6 +111,7 @@ export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings
 export default function Profile ({ route, navigation }) {
   const [user, setUser] = useState(route.params.user);
   const selectedIds = user.schedule.filter((oneDay) => oneDay.completed).map((oneDay) => oneDay.id);
+  console.log(selectedIds)
   const ratings = user.schedule.map((oneDay) => oneDay.rating);
   const data = user.schedule.map((oneDay, index) => ({
       id: index,
@@ -117,7 +120,8 @@ export default function Profile ({ route, navigation }) {
   }));
 
   function handleCheckboxChange (isChecked, id) {
-    const newSchedule = user.schedule.map((item, index) => (item.id == id ? { ...item, completed: !item.completed } : { ...item }));
+    console.log("in handleCheckboxChange: ", isChecked)
+    const newSchedule = user.schedule.map((item) => (item.id == id ? { ...item, completed: !item.completed } : { ...item }));
     setUser({ ...user, schedule: newSchedule });
   };
 
@@ -134,17 +138,17 @@ export default function Profile ({ route, navigation }) {
 
 
   useEffect(() => {
-    saveUserAsync(user); 
+    saveUserAsync(user);
   }, [user]);
 
   return (
-      <View style={styles.container}>
+      <View style={sharedStyles.justifyContainer}>
           <ProgressBar progress={selectedIds.length/data.length} ratings={ratings} user={user} updateUser={setUser}/>
           <FlatList 
               ItemSeparatorComponent={
                   (({highlighted}) => (
                   <View
-                      style={[styles.separator, highlighted && {marginLeft: 0}]}
+                      style={[profileStyles.separator, highlighted && {marginLeft: 0}]}
                   />
               ))}
               data={data}
@@ -162,67 +166,3 @@ export default function Profile ({ route, navigation }) {
       </View>
   );
 }
-
-// not this view's button is not in a footer.
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor:'white'
-  },
-  separator: {
-    height: 1,
-    width: "100%",
-    backgroundColor: "#CED0CE",
-  },
-  progressBar: {
-    marginBottom: 8,
-  },
-  progressContainer: {
-    padding: 15,
-    backgroundColor: '#FFF',
-    borderRadius: 20,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 3,
-  },
-  totalDistanceText: {
-    fontSize: 15,
-    color: '#1c5253',
-    fontWeight: 'bold',
-    marginBottom: 10
-  },
-  itemContainer: {
-    flexDirection: 'column',
-    paddingTop: 23,
-    paddingBottom: 23,
-    paddingLeft: 10, 
-    paddingRight: 10,
-    justifyContent: 'center'
-  },
-  weekday: {
-    fontSize: 18,
-    marginBottom: 10,
-    color: '#1c5253'
-  },
-  card: {
-    borderRadius: 16,
-    paddingLeft: 12,
-    paddingRight: 12,
-    shadowColor: '#01CFEE',
-    shadowOffset: {
-      width: -2,
-      height: 1,
-    },
-    shadowOpacity: 0.7,
-    marginTop: 12
-  },
-  maximumTrackStyle: {
-    backgroundColor: 'white'
-  },
-  minimumTrackStyle: {
-    backgroundColor: '#01CFEA'
-  },
-});
