@@ -1,12 +1,23 @@
 import { StyleSheet } from 'react-native';
 
-const header_color = '#01CFEE';
-const primary_color = '#F3AF98';
-const secondary_color = '#1C5253';
-const tertiary_color = '#A6A6A6';
-const button_color = '#FF5953';
-const neutral_color = '#FFFFFF';
-const error_color = '#CC0000';
+export const themes = {
+    light: {
+        header_color: '#01CFEE',  
+        primary_color: '#1C5253', // Instructions, text color
+        secondary_color: '#A6A6A6', // Instructions subtext color
+        button_color: '#FF5953', // Button color
+        neutral_color: '#FFFFFF', // Background color (screen background)
+        error_color: '#CC0000', // Error message color
+    },
+    dark: {
+        header_color: '#2F4550',
+        primary_color: '#00A6ED',
+        secondary_color: '#FAFFFD',
+        button_color: '#FE5F55',
+        neutral_color: '#0E1111',
+        error_color: '#CC0000',
+    },
+};
 
 export const sharedStyles = StyleSheet.create({
     justifyContainer: {
