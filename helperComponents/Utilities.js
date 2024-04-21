@@ -2,8 +2,14 @@ import React from 'react';
 import { View, Text, Image, Pressable } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { utilitiesStyles, sharedStyles } from "../helperComponents/styles.js";
+import { useTheme } from './ThemeContext.js';
+import { getStyles } from './styles.js';
 
 export function Button ({onPress, title, padding, marginBottom = 0, marginTop = 15, alignSelf = "auto"}) {
+  // Grab dynamic theme
+  const { theme } = useTheme();
+  const styles = getStyles(theme);
+
     return (
         <View>
             <Pressable onPress={onPress} style={[utilitiesStyles.button, {padding, marginBottom, marginTop, alignSelf}]}>
@@ -14,6 +20,10 @@ export function Button ({onPress, title, padding, marginBottom = 0, marginTop = 
 }
 
 export function Error ({message}) {
+  // Grab dynamic theme
+  const { theme } = useTheme();
+  const styles = getStyles(theme);
+
     return (
       <View>
         <Text style={[utilitiesStyles.error]}>{message}</Text>
@@ -22,6 +32,10 @@ export function Error ({message}) {
 }
 
 export function LoginImage ({invalidUsername, invalidPassword, invalidName = false}) {
+  // Grab dynamic theme
+  const { theme } = useTheme();
+  const styles = getStyles(theme);
+
     return (
         <View>
             <Image source={invalidUsername || invalidPassword || invalidName ? require('../images/loginFail.png') : require('../images/loginSuccess.png')} style={utilitiesStyles.loginImage}></Image>
@@ -49,6 +63,10 @@ export function roundToTwoDecimals(num) {
 }
 
 export const StepIndicator = ({ currentStep }) => {
+  // Grab dynamic theme
+  const { theme } = useTheme();
+  const styles = getStyles(theme);
+  
   return (
     <View style={utilitiesStyles.stepIndContainer}>
       {[1, 2, 3].map(step => (
