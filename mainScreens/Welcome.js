@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { View, Image, Animated } from 'react-native';
 import { Button } from "../helperComponents/Utilities.js";
-import { welcomeStyles, sharedStyles } from "../helperComponents/styles.js";
 import { useTheme } from '../helperComponents/ThemeContext.js';
 import { getStyles } from '../helperComponents/styles.js';
 import React, {useRef, useEffect} from 'react';

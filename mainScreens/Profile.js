@@ -5,7 +5,6 @@ import * as Progress from 'react-native-progress';
 import { Slider } from '@miblanchard/react-native-slider';
 import generateSchedule, { newCurrentBest } from "../helperComponents/Schedule";
 import { saveUserAsync, Button } from "../helperComponents/Utilities";
-import { sharedStyles, profileStyles } from "../helperComponents/styles.js";
 import { useTheme } from '../helperComponents/ThemeContext.js';
 import { getStyles } from '../helperComponents/styles.js';
 import Icon from 'react-native-vector-icons/FontAwesome';

@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import {View, Switch, TextInput, Text, KeyboardAvoidingView, Platform, ScrollView, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import { StepIndicator, Error, Button } from "../helperComponents/Utilities";
-import {sharedStyles} from "../helperComponents/styles.js";
 import { useTheme } from '../helperComponents/ThemeContext.js';
 import { getStyles } from '../helperComponents/styles.js';
-import { StepIndicator } from "../helperComponents/Utilities";
-import { Error } from "../helperComponents/Utilities";
-import {Button} from "../helperComponents/Utilities.js";
 import {sharedStyles, footerStyle, colors} from "../helperComponents/styles.js";
 
 export default function ChooseGoal ({ route, navigation }) {

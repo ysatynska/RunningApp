@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, Image, Pressable } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { utilitiesStyles, sharedStyles } from "../helperComponents/styles.js";
 import { useTheme } from './ThemeContext.js';
 import { getStyles } from './styles.js';
 import {utilitiesStyles, staticUtilitiesStyles} from "../helperComponents/styles.js";

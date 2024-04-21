@@ -3,7 +3,6 @@ import { TouchableOpacity, Text, View, ScrollView } from 'react-native';
 import InputSpinner from 'react-native-input-spinner';
 import { StepIndicator, Error, Button } from "../helperComponents/Utilities";
 import generateSchedule from "../helperComponents/Schedule";
-import {sharedStyles, availabilityItem} from "../helperComponents/styles.js";
 import { useTheme } from '../helperComponents/ThemeContext.js';
 import { getStyles } from '../helperComponents/styles.js';
 import {sharedStyles, availabilityItem, colors} from "../helperComponents/styles.js";

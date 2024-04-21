@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Text, View, TouchableWithoutFeedback } from 'react-native';
 import { StepIndicator, Error, Button } from "../helperComponents/Utilities";
 import RadioGroup from 'react-native-radio-buttons-group';
-import { sharedStyles } from "../helperComponents/styles.js";
 import { useTheme } from '../helperComponents/ThemeContext.js';
 import { getStyles } from '../helperComponents/styles.js';
 import {sharedStyles, footerStyle} from "../helperComponents/styles.js";
