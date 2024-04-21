@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Text, View, TouchableWithoutFeedback } from 'react-native';
 import { StepIndicator, Error, Button } from "../helperComponents/Utilities";
 import RadioGroup from 'react-native-radio-buttons-group';
-import {sharedStyles} from "../helperComponents/styles.js";
+import { sharedStyles } from "../helperComponents/styles.js";
 
 export default function SkillLevel ({ route, navigation }) {
   const [selected, setSelected] = useState(null);

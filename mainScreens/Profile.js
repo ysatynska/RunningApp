@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Dimensions, Text, FlatList } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import * as Progress from 'react-native-progress';
-import {Slider} from '@miblanchard/react-native-slider';
+import { Slider } from '@miblanchard/react-native-slider';
 import generateSchedule, { newCurrentBest } from "../helperComponents/Schedule";
 import { saveUserAsync, Button } from "../helperComponents/Utilities";
 import { sharedStyles, profileStyles } from "../helperComponents/styles.js";

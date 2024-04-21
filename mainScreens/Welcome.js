@@ -1,7 +1,7 @@
-import React, {useRef, useEffect} from 'react';
-import {View, Image, Animated} from 'react-native';
-import {Button} from "../helperComponents/Utilities.js";
-import {welcomeStyles, sharedStyles} from "../helperComponents/styles.js";
+import React, { useRef, useEffect } from 'react';
+import { View, Image, Animated } from 'react-native';
+import { Button } from "../helperComponents/Utilities.js";
+import { welcomeStyles, sharedStyles } from "../helperComponents/styles.js";
 
 export default function Welcome ({navigation}) {
   const fadeAnimText = useRef(new Animated.Value(0)).current;

@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, TouchableWithoutFeedback, KeyboardAvoidin
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as InputFields from '../helperComponents/InputFields.js';
 import * as Utilities from '../helperComponents/Utilities.js';
-import {sharedStyles} from "../helperComponents/styles.js";
+import { sharedStyles } from "../helperComponents/styles.js";
 
 export default function CreateAccount ({navigation}) {
   const [username, setUsername] = useState('');

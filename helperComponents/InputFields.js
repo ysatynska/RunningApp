@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TextInput, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import {hiddenPasswordIcon, sharedStyles} from "../helperComponents/styles.js";
+import { hiddenPasswordIcon, sharedStyles } from "../helperComponents/styles.js";
 
 export function Password ({isPasswordVisible, togglePasswordVisibility, password, setPassword}) {
     return (

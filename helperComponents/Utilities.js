@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Image, Pressable } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {utilitiesStyles, sharedStyles} from "../helperComponents/styles.js";
+import { utilitiesStyles, sharedStyles } from "../helperComponents/styles.js";
 
 export function Button ({onPress, title, padding, marginBottom = 0, marginTop = 15, alignSelf = "auto"}) {
     return (
