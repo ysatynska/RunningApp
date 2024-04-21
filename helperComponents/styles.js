@@ -3,17 +3,25 @@ import { StyleSheet } from 'react-native';
 export const themes = {
     light: {
         header_color: '#01CFEE',  
-        primary_color: '#1C5253', // Instructions, text color
-        secondary_color: '#A6A6A6', // Instructions subtext color
+        primary_text_color: '#1C5253', // Instructions, text color
+        secondary_text_color: '#A6A6A6', // Instructions subtext color
+        bg_color: '#F0F0F0', // Background screen color
+        small_bg_color: '#FFFFFF', // Backrgound object color
+        separator_color: '#CED0CE', // Separating lines for Availability and Profile screens
+        shadow_color: 'gray', // Shadow used in Profile and for buttons
         button_color: '#FF5953', // Button color
-        neutral_color: '#FFFFFF', // Background color (screen background)
+        button_text_color: '#FFFFFF', // Button text color
+        input_spinner_color: '#DCDCDC', // Used for incrementing buttons in Availability
+        link_color: '#0645AD', // Link color for sign in/create account links
         error_color: '#CC0000', // Error message color
     },
     dark: {
         header_color: '#2F4550',
-        primary_color: '#00A6ED',
-        secondary_color: '#FAFFFD',
+        primary_text_color: '#00A6ED',
+        secondary_text_color: '#FAFFFD',
+        bg_color: '#0E1111',
         button_color: '#FE5F55',
+        button_text_color: '',
         neutral_color: '#0E1111',
         error_color: '#CC0000',
     },
@@ -28,6 +36,8 @@ const button_text_color = 'white';
 const button_color = '#FF5953';
 const input_spinner_color = '#DCDCDC';
 const link_color = '#0645AD';
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // non-static styles
 export const screenOptionsStyles = StyleSheet.create({
@@ -193,8 +203,20 @@ export const hiddenPasswordIcon = {
     color: text_color
 }
 
+export const availabilityItem =  {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    paddingBottom: 15,
+    paddingHorizontal: 20,
+    marginBottom: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: separator_color,
+};
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // static styles
 export const footerStyle = {
@@ -220,18 +242,6 @@ export const welcomeImage =  {
     borderRadius: 20,
 };
 
-export const availabilityItem =  {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%',
-    paddingBottom: 15,
-    paddingHorizontal: 20,
-    marginBottom: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: 'inherit',
-};
-
 export const staticUtilitiesStyles = {
     stepIndContainer: {
         flexDirection: 'row',
@@ -246,7 +256,7 @@ export const staticUtilitiesStyles = {
         alignSelf: "center"
     },
     error: {
-        color: 'red', 
+        color: '#CC0000', 
         textAlign: 'left',
         marginLeft: 5,
         marginTop: 5,
