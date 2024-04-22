@@ -1,87 +1,92 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, Switch, StyleSheet, TouchableOpacity } from 'react-native';
-import {hiddenPasswordIcon, sharedStyles} from "../helperComponents/styles.js";
+import { hiddenPasswordIcon, sharedStyles } from '../helperComponents/styles.js';
 import { MaterialIcons } from '@expo/vector-icons';
 import * as Utilities from '../helperComponents/Utilities.js';
 
-
-export function Password ({isPasswordVisible, togglePasswordVisibility, password, setPassword}) {
-  return (
-    <View>
-      <TextInput
-          style={sharedStyles.input}
-          placeholder="Password"
-          secureTextEntry={!isPasswordVisible}
-          value={password}
-          onChangeText={setPassword}
-          color={hiddenPasswordIcon.color}
-      />
-      <TouchableOpacity onPressIn={togglePasswordVisibility} style={hiddenPasswordIcon}>
-        <MaterialIcons name={isPasswordVisible ? 'visibility' : 'visibility-off'} size={24} color={hiddenPasswordIcon.color}/>
-      </TouchableOpacity>
-    </View>
-  );
+export function Password({ isPasswordVisible, togglePasswordVisibility, password, setPassword }) {
+    return (
+        <View>
+            <TextInput
+                style={sharedStyles.input}
+                placeholder="Password"
+                secureTextEntry={!isPasswordVisible}
+                value={password}
+                onChangeText={setPassword}
+                color={hiddenPasswordIcon.color}
+            />
+            <TouchableOpacity onPressIn={togglePasswordVisibility} style={hiddenPasswordIcon}>
+                <MaterialIcons
+                    name={isPasswordVisible ? 'visibility' : 'visibility-off'}
+                    size={24}
+                    color={hiddenPasswordIcon.color}
+                />
+            </TouchableOpacity>
+        </View>
+    );
 }
 
-export function InputField ({value, onChange, placeholder, autoCap='sentences'}) {
-  return (
-      <TextInput
-          style={sharedStyles.input}
-          placeholder={placeholder}
-          value={value}
-          onChangeText={onChange}
-          autoCapitalize={autoCap}
-          color={hiddenPasswordIcon.color}
-      />
-  );
-}
-
-
-const Settings = ({route, navigation}) => {
-  const [firstName, setFirstName] = useState('');
-  const [password, setPassword] = useState('');
-  const [theme, setTheme] = useState('light');
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  let user = route.params.user;
-
-  const handleGoalUpdate = () => {
-    navigation.navigate('chooseGoal', {user: user});
-  }
-
-  const handleSaveSettings = async () => {
-    user.name = firstName;
-    user.password = password;
-    navigation.navigate('profile', {user: user})
-  };
-
-  const togglePasswordVisibility = () => {
-    setIsPasswordVisible(!isPasswordVisible);
-  };
-
-  return (
-    <View style={[sharedStyles.justifyContainer]}>
-      <Text style={sharedStyles.headerText}>Update Settings</Text>
-
-      <Text style={sharedStyles.subscriptText}>First Name:</Text>
-      <InputField value={firstName} onChange={setFirstName} placeholder='First Name'/>
-
-      <Text style={sharedStyles.subscriptText}>New Password:</Text>
-      <Password isPasswordVisible={isPasswordVisible} togglePasswordVisibility={togglePasswordVisibility} password={password} setPassword={setPassword}/>
-
-      <Text style={sharedStyles.subscriptText}>Theme:</Text>
-      <View style={sharedStyles.alignContainer}>
-        <Text>Light</Text>
-        <Switch
-          value={theme === 'dark'}
-          onValueChange={(value) => setTheme(value ? 'dark' : 'light')}
+export function InputField({ value, onChange, placeholder, autoCap = 'sentences' }) {
+    return (
+        <TextInput
+            style={sharedStyles.input}
+            placeholder={placeholder}
+            value={value}
+            onChangeText={onChange}
+            autoCapitalize={autoCap}
+            color={hiddenPasswordIcon.color}
         />
-        <Text>Dark</Text>
-      </View>
+    );
+}
 
-      <Utilities.Button title="Save Settings" onPress={handleSaveSettings} padding={8}/>
-      <Utilities.Button title="Edit Goal" onPress={handleGoalUpdate} padding={8} />
-    </View>
-  );
+const Settings = ({ route, navigation }) => {
+    const [firstName, setFirstName] = useState('');
+    const [password, setPassword] = useState('');
+    const [theme, setTheme] = useState('light');
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    let user = route.params.user;
+
+    const handleGoalUpdate = () => {
+        navigation.navigate('chooseGoal', { user: user });
+    };
+
+    const handleSaveSettings = async () => {
+        user.name = firstName;
+        user.password = password;
+        navigation.navigate('profile', { user: user });
+    };
+
+    const togglePasswordVisibility = () => {
+        setIsPasswordVisible(!isPasswordVisible);
+    };
+
+    return (
+        <View style={styles.container}>
+            <Text style={styles.header}>Update Settings</Text>
+
+    return (
+      <View style={[sharedStyles.justifyContainer]}>
+        <Text style={sharedStyles.headerText}>Update Settings</Text>
+
+        <Text style={sharedStyles.subscriptText}>First Name:</Text>
+        <InputField value={firstName} onChange={setFirstName} placeholder='First Name'/>
+
+        <Text style={sharedStyles.subscriptText}>New Password:</Text>
+        <Password isPasswordVisible={isPasswordVisible} togglePasswordVisibility={togglePasswordVisibility} password={password} setPassword={setPassword}/>
+
+        <Text style={sharedStyles.subscriptText}>Theme:</Text>
+        <View style={sharedStyles.alignContainer}>
+          <Text>Light</Text>
+          <Switch
+            value={theme === 'dark'}
+            onValueChange={(value) => setTheme(value ? 'dark' : 'light')}
+          />
+          <Text>Dark</Text>
+        </View>
+        <Utilities.Button title="Save Settings" onPress={handleSaveSettings} padding={8} />
+        <Utilities.Button title="Edit Goal" onPress={handleGoalUpdate} padding={8} />
+      </View>
+    );
 };
 
 export default Settings;

@@ -5,10 +5,11 @@ import ChooseGoal from './mainScreens/ChooseGoal.js';
 import Welcome from './mainScreens/Welcome.js';
 import SkillLevel from './mainScreens/SkillLevel.js';
 import Availability from './mainScreens/Availability.js';
-import {screenOptionsStyles} from "./helperComponents/styles.js";
+import { screenOptionsStyles } from './helperComponents/styles.js';
 import LoginScreen from './mainScreens/LoginScreen.js';
 import CreateAccount from './mainScreens/CreateAccount.js';
 import Profile from './mainScreens/Profile.js';
+import { ThemeProvider } from './helperComponents/ThemeContext.js';
 import Settings from './mainScreens/Settings.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { View, StyleSheet, Dimensions, Text, FlatList, TouchableOpacity } from 'react-native';
@@ -27,8 +28,6 @@ const SettingsButton = ({ onPress }) => {
 
 const Stack = createNativeStackNavigator();
 export default function App () {
-
-
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="welcome" screenOptions={screenOptionsStyles}>
