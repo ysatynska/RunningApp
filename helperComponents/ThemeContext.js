@@ -19,9 +19,5 @@ export const ThemeProvider = ({ children }) => {
     };
 
     // Wrap all components requiring access to the theme
-    return (
-        <ThemeContext.Provider value={{ theme, toggleTheme }}>
-            {children}
-        </ThemeContext.Provider>
-    );
+    return <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>;
 };

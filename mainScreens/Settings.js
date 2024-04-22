@@ -1,26 +1,10 @@
 import React, { useState } from 'react';
-import {
-    View,
-    Text,
-    TextInput,
-    Button,
-    Switch,
-    StyleSheet,
-    TouchableOpacity,
-} from 'react-native';
-import {
-    hiddenPasswordIcon,
-    sharedStyles,
-} from '../helperComponents/styles.js';
+import { View, Text, TextInput, Button, Switch, StyleSheet, TouchableOpacity } from 'react-native';
+import { hiddenPasswordIcon, sharedStyles } from '../helperComponents/styles.js';
 import { MaterialIcons } from '@expo/vector-icons';
 import * as Utilities from '../helperComponents/Utilities.js';
 
-export function Password({
-    isPasswordVisible,
-    togglePasswordVisibility,
-    password,
-    setPassword,
-}) {
+export function Password({ isPasswordVisible, togglePasswordVisibility, password, setPassword }) {
     return (
         <View>
             <TextInput
@@ -31,10 +15,7 @@ export function Password({
                 onChangeText={setPassword}
                 color={hiddenPasswordIcon.color}
             />
-            <TouchableOpacity
-                onPressIn={togglePasswordVisibility}
-                style={hiddenPasswordIcon}
-            >
+            <TouchableOpacity onPressIn={togglePasswordVisibility} style={hiddenPasswordIcon}>
                 <MaterialIcons
                     name={isPasswordVisible ? 'visibility' : 'visibility-off'}
                     size={24}
@@ -45,12 +26,7 @@ export function Password({
     );
 }
 
-export function InputField({
-    value,
-    onChange,
-    placeholder,
-    autoCap = 'sentences',
-}) {
+export function InputField({ value, onChange, placeholder, autoCap = 'sentences' }) {
     return (
         <TextInput
             style={sharedStyles.input}
@@ -89,11 +65,7 @@ const Settings = ({ route, navigation }) => {
             <Text style={styles.header}>Update Settings</Text>
 
             <Text style={styles.label}>First Name:</Text>
-            <InputField
-                value={firstName}
-                onChange={setFirstName}
-                placeholder="First Name"
-            />
+            <InputField value={firstName} onChange={setFirstName} placeholder="First Name" />
 
             <Text style={styles.label}>New Password:</Text>
             <Password
@@ -106,25 +78,12 @@ const Settings = ({ route, navigation }) => {
             <Text style={styles.label}>Theme:</Text>
             <View style={styles.themeContainer}>
                 <Text style={styles.themeLabel}>Light</Text>
-                <Switch
-                    value={theme === 'dark'}
-                    onValueChange={(value) =>
-                        setTheme(value ? 'dark' : 'light')
-                    }
-                />
+                <Switch value={theme === 'dark'} onValueChange={(value) => setTheme(value ? 'dark' : 'light')} />
                 <Text style={styles.themeLabel}>Dark</Text>
             </View>
 
-            <Utilities.Button
-                title="Save Settings"
-                onPress={handleSaveSettings}
-                padding={8}
-            />
-            <Utilities.Button
-                title="Edit Goal"
-                onPress={handleGoalUpdate}
-                padding={8}
-            />
+            <Utilities.Button title="Save Settings" onPress={handleSaveSettings} padding={8} />
+            <Utilities.Button title="Edit Goal" onPress={handleGoalUpdate} padding={8} />
         </View>
     );
 };

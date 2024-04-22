@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import {
-    View,
-    Text,
-    TouchableWithoutFeedback,
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-} from 'react-native';
+import { View, Text, TouchableWithoutFeedback, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as InputFields from '../helperComponents/InputFields.js';
 import * as Utilities from '../helperComponents/Utilities.js';
@@ -60,23 +53,11 @@ export default function LoginScreen({ navigation }) {
             >
                 <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                     <View style={sharedStyles.justifyContainer}>
-                        <Utilities.LoginImage
-                            invalidUsername={invalidUsername}
-                            invalidPassword={invalidPassword}
-                        />
-                        <Text
-                            style={[sharedStyles.largeText, { marginLeft: 5 }]}
-                        >
-                            Login Details
-                        </Text>
+                        <Utilities.LoginImage invalidUsername={invalidUsername} invalidPassword={invalidPassword} />
+                        <Text style={[sharedStyles.largeText, { marginLeft: 5 }]}>Login Details</Text>
 
-                        <InputFields.Username
-                            username={username}
-                            setUsername={setUsername}
-                        />
-                        {invalidUsername && (
-                            <Utilities.Error message={'Invalid Username'} />
-                        )}
+                        <InputFields.Username username={username} setUsername={setUsername} />
+                        {invalidUsername && <Utilities.Error message={'Invalid Username'} />}
 
                         <InputFields.Password
                             isPasswordVisible={isPasswordVisible}
@@ -84,15 +65,9 @@ export default function LoginScreen({ navigation }) {
                             password={password}
                             setPassword={setPassword}
                         />
-                        {invalidPassword && (
-                            <Utilities.Error message={'Invalid Password'} />
-                        )}
+                        {invalidPassword && <Utilities.Error message={'Invalid Password'} />}
 
-                        <Utilities.Button
-                            onPress={handleLogin}
-                            title="Sign In"
-                            padding={8}
-                        />
+                        <Utilities.Button onPress={handleLogin} title="Sign In" padding={8} />
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>

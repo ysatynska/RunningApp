@@ -147,10 +147,7 @@ export const profileStyles = StyleSheet.create({
         alignItems: 'center',
         marginLeft: 10,
     },
-    circleText: [
-        sharedStyles.headerText,
-        { color: button_text_color, fontSize: 17 },
-    ],
+    circleText: [sharedStyles.headerText, { color: button_text_color, fontSize: 17 }],
     trackMarkText: {
         position: 'absolute',
         top: -30,

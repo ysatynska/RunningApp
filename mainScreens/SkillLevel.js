@@ -61,22 +61,9 @@ export default function SkillLevel({ route, navigation }) {
     }
 
     return (
-        <TouchableWithoutFeedback
-            onPress={() => setError('')}
-            accesible={false}
-        >
-            <View
-                style={[
-                    sharedStyles.alignContainer,
-                    sharedStyles.justifyContainer,
-                ]}
-            >
-                <Text
-                    style={[
-                        sharedStyles.headerText,
-                        { position: 'absolute', top: 50, fontSize: 25 },
-                    ]}
-                >
+        <TouchableWithoutFeedback onPress={() => setError('')} accesible={false}>
+            <View style={[sharedStyles.alignContainer, sharedStyles.justifyContainer]}>
+                <Text style={[sharedStyles.headerText, { position: 'absolute', top: 50, fontSize: 25 }]}>
                     {' '}
                     What is your skill level?{' '}
                 </Text>
@@ -89,12 +76,7 @@ export default function SkillLevel({ route, navigation }) {
                 {error != '' && <Error message={error} />}
                 <View style={footerStyle}>
                     <StepIndicator currentStep={2} />
-                    <Button
-                        onPress={handleNext}
-                        title="Next"
-                        padding={10}
-                        marginBottom={20}
-                    />
+                    <Button onPress={handleNext} title="Next" padding={10} marginBottom={20} />
                 </View>
             </View>
         </TouchableWithoutFeedback>

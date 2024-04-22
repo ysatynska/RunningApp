@@ -3,19 +3,9 @@ import { View, Text, Image, Pressable } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from './ThemeContext.js';
 import { getStyles } from './styles.js';
-import {
-    utilitiesStyles,
-    staticUtilitiesStyles,
-} from '../helperComponents/styles.js';
+import { utilitiesStyles, staticUtilitiesStyles } from '../helperComponents/styles.js';
 
-export function Button({
-    onPress,
-    title,
-    padding,
-    marginBottom = 0,
-    marginTop = 15,
-    alignSelf = 'auto',
-}) {
+export function Button({ onPress, title, padding, marginBottom = 0, marginTop = 15, alignSelf = 'auto' }) {
     // Grab dynamic theme
     // const { theme } = useTheme();
     // const styles = getStyles(theme);
@@ -24,10 +14,7 @@ export function Button({
         <View>
             <Pressable
                 onPress={onPress}
-                style={[
-                    utilitiesStyles.button,
-                    { padding, marginBottom, marginTop, alignSelf },
-                ]}
+                style={[utilitiesStyles.button, { padding, marginBottom, marginTop, alignSelf }]}
             >
                 <Text style={utilitiesStyles.buttonText}> {title} </Text>
             </Pressable>
@@ -47,11 +34,7 @@ export function Error({ message }) {
     );
 }
 
-export function LoginImage({
-    invalidUsername,
-    invalidPassword,
-    invalidName = false,
-}) {
+export function LoginImage({ invalidUsername, invalidPassword, invalidName = false }) {
     // Grab dynamic theme
     // const { theme } = useTheme();
     // const styles = getStyles(theme);
@@ -99,11 +82,7 @@ export const StepIndicator = ({ currentStep }) => {
             {[1, 2, 3].map((step) => (
                 <View
                     key={step}
-                    style={[
-                        utilitiesStyles.circle,
-                        currentStep === step &&
-                            utilitiesStyles.highlightedCircle,
-                    ]}
+                    style={[utilitiesStyles.circle, currentStep === step && utilitiesStyles.highlightedCircle]}
                 />
             ))}
         </View>
