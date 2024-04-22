@@ -59,23 +59,23 @@ const Settings = ({route, navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Update Settings</Text>
+    <View style={[sharedStyles.justifyContainer]}>
+      <Text style={sharedStyles.headerText}>Update Settings</Text>
 
-      <Text style={styles.label}>First Name:</Text>
+      <Text style={sharedStyles.subscriptText}>First Name:</Text>
       <InputField value={firstName} onChange={setFirstName} placeholder='First Name'/>
 
-      <Text style={styles.label}>New Password:</Text>
+      <Text style={sharedStyles.subscriptText}>New Password:</Text>
       <Password isPasswordVisible={isPasswordVisible} togglePasswordVisibility={togglePasswordVisibility} password={password} setPassword={setPassword}/>
 
-      <Text style={styles.label}>Theme:</Text>
-      <View style={styles.themeContainer}>
-        <Text style={styles.themeLabel}>Light</Text>
+      <Text style={sharedStyles.subscriptText}>Theme:</Text>
+      <View style={sharedStyles.alignContainer}>
+        <Text>Light</Text>
         <Switch
           value={theme === 'dark'}
           onValueChange={(value) => setTheme(value ? 'dark' : 'light')}
         />
-        <Text style={styles.themeLabel}>Dark</Text>
+        <Text>Dark</Text>
       </View>
 
       <Utilities.Button title="Save Settings" onPress={handleSaveSettings} padding={8}/>
@@ -83,33 +83,5 @@ const Settings = ({route, navigation}) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
-  header: {
-    fontSize: 20,
-    marginBottom: 10,
-  },
-  label: {
-    marginBottom: 5,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 10,
-    marginBottom: 10,
-  },
-  themeContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-  },
-  themeLabel: {
-    marginHorizontal: 5,
-  },
-});
 
 export default Settings;
