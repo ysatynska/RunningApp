@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, Switch, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Switch, TouchableOpacity } from 'react-native';
 import { hiddenPasswordIcon, sharedStyles } from '../helperComponents/styles.js';
 import { MaterialIcons } from '@expo/vector-icons';
 import * as Utilities from '../helperComponents/Utilities.js';
+import * as InputFields from '../helperComponents/InputFields.js';
+import { useTheme } from '../helperComponents/ThemeContext.js';
+import { getStyles } from '../helperComponents/styles.js';
 
 export function Password({ isPasswordVisible, togglePasswordVisibility, password, setPassword }) {
     return (
@@ -26,25 +29,15 @@ export function Password({ isPasswordVisible, togglePasswordVisibility, password
     );
 }
 
-export function InputField({ value, onChange, placeholder, autoCap = 'sentences' }) {
-    return (
-        <TextInput
-            style={sharedStyles.input}
-            placeholder={placeholder}
-            value={value}
-            onChangeText={onChange}
-            autoCapitalize={autoCap}
-            color={hiddenPasswordIcon.color}
-        />
-    );
-}
-
-const Settings = ({ route, navigation }) => {
+export default function Settings ({ route, navigation }) {
     const [firstName, setFirstName] = useState('');
     const [password, setPassword] = useState('');
     const [theme, setTheme] = useState('light');
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     let user = route.params.user;
+    // Grab dynamic theme
+    // const { theme } = useTheme();
+    // const styles = getStyles(theme);
 
     const handleGoalUpdate = () => {
         navigation.navigate('chooseGoal', { user: user });
@@ -59,17 +52,22 @@ const Settings = ({ route, navigation }) => {
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
     };
-    
+
     return (
       <View style={[sharedStyles.justifyContainer]}>
         <Text style={sharedStyles.headerText}>Update Settings</Text>
 
         <Text style={sharedStyles.subscriptText}>First Name:</Text>
-        <InputField value={firstName} onChange={setFirstName} placeholder='First Name'/>
+        <InputFields.FirstName value={firstName} onChange={setFirstName} placeholder='First Name'/>
 
         <Text style={sharedStyles.subscriptText}>New Password:</Text>
-        <Password isPasswordVisible={isPasswordVisible} togglePasswordVisibility={togglePasswordVisibility} password={password} setPassword={setPassword}/>
-
+        <InputFields.Password
+            isPasswordVisible={isPasswordVisible}
+            togglePasswordVisibility={togglePasswordVisibility}
+            password={password}
+            setPassword={setPassword}
+        />
+        
         <Text style={sharedStyles.subscriptText}>Theme:</Text>
         <View style={sharedStyles.alignContainer}>
           <Text>Light</Text>
@@ -84,5 +82,3 @@ const Settings = ({ route, navigation }) => {
       </View>
     );
 };
-
-export default Settings;

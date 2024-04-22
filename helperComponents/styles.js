@@ -18,6 +18,7 @@ export const themes = {
     dark: {
         header_color: '#2F4550',
         primary_text_color: '#00A6ED',
+        
         secondary_text_color: '#FAFFFD',
         bg_color: '#0E1111',
         button_color: '#FE5F55',
