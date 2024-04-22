@@ -59,11 +59,7 @@ const Settings = ({ route, navigation }) => {
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
     };
-
-    return (
-        <View style={styles.container}>
-            <Text style={styles.header}>Update Settings</Text>
-
+    
     return (
       <View style={[sharedStyles.justifyContainer]}>
         <Text style={sharedStyles.headerText}>Update Settings</Text>
