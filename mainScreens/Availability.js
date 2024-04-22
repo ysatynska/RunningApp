@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, Text, View, ScrollView } from 'react-native';
 import InputSpinner from 'react-native-input-spinner';
-import { StepIndicator, Error, Button } from "../helperComponents/Utilities";
-import generateSchedule from "../helperComponents/Schedule";
+import { StepIndicator, Error, Button } from '../helperComponents/Utilities';
+import generateSchedule from '../helperComponents/Schedule';
 import { useTheme } from '../helperComponents/ThemeContext.js';
 import { getStyles } from '../helperComponents/styles.js';
-import { sharedStyles, availabilityItem, colors } from "../helperComponents/styles.js";
+import {
+    sharedStyles,
+    availabilityItem,
+    colors,
+} from '../helperComponents/styles.js';
 
 export default function Availability({ route, navigation }) {
     const [availability, setAvailability] = useState([
@@ -26,35 +30,41 @@ export default function Availability({ route, navigation }) {
 
     // Function to update 'available' state of a weekday
     function handleDaySelection(index) {
-        setError('')
+        setError('');
         const updatedAvailability = [...availability];
-        updatedAvailability[index].hours = (updatedAvailability[index].hours == 0) ? 1 : 0;
+        updatedAvailability[index].hours =
+            updatedAvailability[index].hours == 0 ? 1 : 0;
         setAvailability(updatedAvailability);
-    };
+    }
 
     // Function to update 'hours' state of a weekday when the InputSpinner is incremented
     function handleHoursChange(index, hours) {
         const updatedAvailability = [...availability];
         updatedAvailability[index].hours = isNaN(hours) ? 0 : parseInt(hours);
         setAvailability(updatedAvailability);
-    };
+    }
 
-    function handleNext () {
-        const totalHours = availability.reduce((total, current) => total + current.hours, 0);
+    function handleNext() {
+        const totalHours = availability.reduce(
+            (total, current) => total + current.hours,
+            0
+        );
         if (totalHours == 0) {
-            setError('Please select at least 1 hour when you are available.')
+            setError('Please select at least 1 hour when you are available.');
         } else {
-            user.schedule = availability.filter(oneDay => oneDay.hours != 0).map((oneDay, index) => {
-                return {
-                    ...oneDay,
-                    id: index,
-                    miles: 0,
-                    minsPerMile: 0,
-                    reps: 0
-                }
-            });
+            user.schedule = availability
+                .filter((oneDay) => oneDay.hours != 0)
+                .map((oneDay, index) => {
+                    return {
+                        ...oneDay,
+                        id: index,
+                        miles: 0,
+                        minsPerMile: 0,
+                        reps: 0,
+                    };
+                });
             user.schedule = generateSchedule(user);
-            navigation.navigate('profile', {user: user});
+            navigation.navigate('profile', { user: user });
         }
     }
 
@@ -64,43 +74,70 @@ export default function Availability({ route, navigation }) {
                 <Text style={sharedStyles.headerText}>
                     How many hours are you available for?
                 </Text>
-                <Text style={[sharedStyles.subscriptText, {marginBottom: 20}]}>
+                <Text
+                    style={[sharedStyles.subscriptText, { marginBottom: 20 }]}
+                >
                     (Tap day to select/deselect as available)
                 </Text>
                 <View>
                     {availability.map((item, index) => (
                         <View key={index} style={availabilityItem}>
-                            <TouchableOpacity onPress={() => handleDaySelection(index)}>
-                                <Text style={[sharedStyles.largeText, { textDecorationLine: (item.hours != 0) ? 'none' : 'line-through' }, 
-                            { color: (item.hours != 0) ? colors.textColor : colors.headerColor }]}>
+                            <TouchableOpacity
+                                onPress={() => handleDaySelection(index)}
+                            >
+                                <Text
+                                    style={[
+                                        sharedStyles.largeText,
+                                        {
+                                            textDecorationLine:
+                                                item.hours != 0
+                                                    ? 'none'
+                                                    : 'line-through',
+                                        },
+                                        {
+                                            color:
+                                                item.hours != 0
+                                                    ? colors.textColor
+                                                    : colors.headerColor,
+                                        },
+                                    ]}
+                                >
                                     {item.day}
                                 </Text>
                             </TouchableOpacity>
-                                <InputSpinner 
-                                    max={9}
-                                    min={0}
-                                    step={1}
-                                    value={item.hours}
-                                    onChange={(hours) => handleHoursChange(index, hours)}
-                                    width={150}
-                                    color={(item.hours != 0) ? colors.headerColor : colors.inputSpinnerColor}
-                                    editable={false}
-                                    disabled={(item.hours != 0) ? false : true}
-                                    inputStyle={sharedStyles.headerText}
-                                />
+                            <InputSpinner
+                                max={9}
+                                min={0}
+                                step={1}
+                                value={item.hours}
+                                onChange={(hours) =>
+                                    handleHoursChange(index, hours)
+                                }
+                                width={150}
+                                color={
+                                    item.hours != 0
+                                        ? colors.headerColor
+                                        : colors.inputSpinnerColor
+                                }
+                                editable={false}
+                                disabled={item.hours != 0 ? false : true}
+                                inputStyle={sharedStyles.headerText}
+                            />
                         </View>
                     ))}
                 </View>
+                <View>{error != '' && <Error message={error} />}</View>
                 <View>
-                    {error != '' && 
-                        <Error message={error}/>
-                    }
-                </View>
-                <View>
-                    <StepIndicator currentStep = {3}/>
-                    <Button onPress={handleNext} title="Get Schedule!" padding={10} marginBottom={20} marginTop={15}/>
+                    <StepIndicator currentStep={3} />
+                    <Button
+                        onPress={handleNext}
+                        title="Get Schedule!"
+                        padding={10}
+                        marginBottom={20}
+                        marginTop={15}
+                    />
                 </View>
             </View>
         </ScrollView>
     );
-};
+}

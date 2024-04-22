@@ -1,17 +1,17 @@
 // File to create the themeContext used for rendering
 //   different themes across the app
-import { createContext, useState, useContext } from "react";
-import { themes } from "./styles";
+import { createContext, useState, useContext } from 'react';
+import { themes } from './styles';
 
 const ThemeContext = createContext(); // Declare the context variable
 
-// Define the useTheme function that will be used in component files to 
+// Define the useTheme function that will be used in component files to
 //   render different themes dynamically
 export const useTheme = () => useContext(useTheme);
 
 // Define the ThemeProvider that will wrap all components using dynamic theme
 export const ThemeProvider = ({ children }) => {
-    const [theme, setTheme] = useState(themes.light);  // Default theme
+    const [theme, setTheme] = useState(themes.light); // Default theme
 
     // Function to update theme when changed
     const toggleTheme = (themeName) => {
