@@ -150,11 +150,7 @@ export default function Profile({ route, navigation }) {
                 ? ' miles ' + oneDay.reps + ' non-stop'
                 : ' miles at ' + oneDay.minsPerMile + ' mins/mile ' + oneDay.reps + ' times'),
     }));
-    console.log(JSON.stringify(user, null, 2));
-    const handleSettingsPress = () => {
-        navigation.navigate('settings', { user: user });
-    };
-
+  
     function handleCheckboxChange(isChecked, id) {
         const newSchedule = user.schedule.map((item) =>
             item.id == id ? { ...item, completed: !item.completed } : { ...item }
@@ -182,7 +178,6 @@ export default function Profile({ route, navigation }) {
 
     return (
         <View style={sharedStyles.justifyContainer}>
-            <SettingsButton onPress={handleSettingsPress} />
             <ProgressBar
                 progress={selectedIds.length / data.length}
                 ratings={ratings}
