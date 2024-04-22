@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export const themes = {
     light: {
-        header_color: '#01CFEE',
+        header_color: '#01CFEE',  
         primary_text_color: '#1C5253', // Instructions, text color
         secondary_text_color: '#A6A6A6', // Instructions subtext color
         bg_color: '#F0F0F0', // Background screen color
@@ -30,7 +30,7 @@ const header_color = '#01CFEE';
 const text_color = '#1C5253';
 const bg_color = '#F0F0F0';
 const small_bg_color = 'white'; // for input fields and progress container
-const separator_color = '#CED0CE';
+const separator_color = "#CED0CE";
 const shadow_color = 'gray';
 const button_text_color = 'white';
 const button_color = '#FF5953';
@@ -44,9 +44,9 @@ export const screenOptionsStyles = StyleSheet.create({
     headerBackTitleVisible: false,
     headerBackTitleStyle: { color: '#01CFEE' },
     headerStyle: {
-        backgroundColor: '#01CFEE',
+      backgroundColor: '#01CFEE'
     },
-    headerTintColor: 'white',
+    headerTintColor: 'white'
 });
 
 export const sharedStyles = StyleSheet.create({
@@ -62,7 +62,7 @@ export const sharedStyles = StyleSheet.create({
     subscriptText: {
         fontSize: 16,
         color: text_color,
-        textAlign: 'center',
+        textAlign: 'center'
     },
     input: {
         height: 40,
@@ -83,32 +83,32 @@ export const sharedStyles = StyleSheet.create({
         paddingTop: 20,
         backgroundColor: bg_color,
     },
-    linkColor: link_color,
+    linkColor: link_color
 });
 
 export const colors = {
     headerColor: header_color,
     textColor: text_color,
     inputSpinnerColor: input_spinner_color,
-    smallBgColor: small_bg_color,
-};
+    smallBgColor: small_bg_color
+}
 
 export const profileStyles = StyleSheet.create({
     separator: {
-        height: 1,
-        width: '100%',
-        backgroundColor: separator_color,
+      height: 1,
+      width: "100%",
+      backgroundColor: separator_color,
     },
     progressContainer: {
-        padding: 15,
-        backgroundColor: small_bg_color,
-        borderRadius: 20,
-        shadowColor: shadow_color,
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 6,
-        elevation: 3,
-        marginBottom: 15,
+      padding: 15,
+      backgroundColor: small_bg_color,
+      borderRadius: 20,
+      shadowColor: shadow_color,
+      shadowOffset: {width: 0, height: 2},
+      shadowOpacity: 0.1,
+      shadowRadius: 6,
+      elevation: 3,
+      marginBottom: 15
     },
     progressText: [
         sharedStyles.subscriptText,
@@ -116,27 +116,27 @@ export const profileStyles = StyleSheet.create({
             textAlign: 'left',
             marginLeft: 5,
             fontWeight: 'bold',
-        },
+        }
     ],
     card: {
-        borderRadius: 16,
-        paddingLeft: 12,
-        paddingRight: 12,
-        shadowColor: shadow_color,
-        shadowOffset: {
-            width: -2,
-            height: 1,
-        },
-        shadowOpacity: 0.7,
-        marginTop: 12,
+      borderRadius: 16,
+      paddingLeft: 12,
+      paddingRight: 12,
+      shadowColor: shadow_color,
+      shadowOffset: {
+        width: -2,
+        height: 1,
+      },
+      shadowOpacity: 0.7,
+      marginTop: 12
     },
     maximumTrackStyle: {
-        backgroundColor: small_bg_color,
-        color: small_bg_color,
+      backgroundColor: small_bg_color,
+      color: small_bg_color
     },
     minimumTrackStyle: {
-        backgroundColor: header_color,
-        color: header_color,
+      backgroundColor: header_color,
+      color: header_color
     },
     circle: {
         width: 30,
@@ -145,25 +145,25 @@ export const profileStyles = StyleSheet.create({
         backgroundColor: header_color,
         justifyContent: 'center',
         alignItems: 'center',
-        marginLeft: 10,
+        marginLeft: 10
     },
     circleText: [
-        sharedStyles.headerText,
-        { color: button_text_color, fontSize: 17 },
+        sharedStyles.headerText, 
+        {color: button_text_color, fontSize: 17}
     ],
-    trackMarkText: {
-        position: 'absolute',
-        top: -30,
-        left: 5,
-        alignItems: 'center',
-        color: text_color,
+    trackMarkText: { 
+        position: 'absolute', 
+        top: -30, 
+        left: 5, 
+        alignItems: 'center', 
+        color: text_color 
     },
     settingsButton: {
         position: 'absolute',
         top: 0,
         right: 0,
         zIndex: 2,
-    },
+    }
 });
 
 export const utilitiesStyles = StyleSheet.create({
@@ -176,7 +176,10 @@ export const utilitiesStyles = StyleSheet.create({
         shadowColor: shadow_color,
         shadowOffset: { height: 2, width: 0 },
     },
-    buttonText: [sharedStyles.headerText, { color: button_text_color }],
+    buttonText: [
+        sharedStyles.headerText, 
+        {color: button_text_color}
+    ],
     circle: {
         width: 18,
         height: 18,
@@ -203,10 +206,10 @@ export const hiddenPasswordIcon = {
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    color: text_color,
-};
+    color: text_color
+}
 
-export const availabilityItem = {
+export const availabilityItem =  {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -217,6 +220,7 @@ export const availabilityItem = {
     borderBottomWidth: 1,
     borderBottomColor: separator_color,
 };
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -230,17 +234,17 @@ export const footerStyle = {
 export const profileItemContainer = {
     flexDirection: 'column',
     paddingVertical: 11,
-    paddingLeft: 10,
+    paddingLeft: 10, 
     paddingRight: 10,
     justifyContent: 'center',
 };
 
-export const welcomeImage = {
+export const welcomeImage =  {
     width: 315,
     height: 315,
     padding: 10,
     margin: 20,
-    alignSelf: 'center',
+    alignSelf: "center",
     borderRadius: 20,
 };
 
@@ -255,13 +259,13 @@ export const staticUtilitiesStyles = {
         height: 250,
         padding: 10,
         margin: 20,
-        alignSelf: 'center',
+        alignSelf: "center"
     },
     error: {
-        color: '#CC0000',
+        color: '#CC0000', 
         textAlign: 'left',
         marginLeft: 5,
         marginTop: 5,
         fontSize: 16,
     },
-};
+}
