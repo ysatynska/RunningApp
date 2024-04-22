@@ -89,6 +89,7 @@ export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
         <Text style={sharedStyles.largeText}>{item.title}</Text>
         {isSelected && (
+          // if BouncyCheckbox is checked, circle with feedback is showing.
           <View style={profileStyles.circle}>
             <Text style={profileStyles.circleText}>
               {ratings[item.id]}
@@ -107,6 +108,7 @@ export function RenderItem ({ item, onSelect, isSelected, ratings, updateRatings
       />
       
       {!isSelected && 
+        // if BouncyCheckbox is not checked, slider is showing.
         <View style={profileStyles.card}>
           <Text tx="Range & Haptic step-mode" />
           <Slider

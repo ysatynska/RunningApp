@@ -16,28 +16,26 @@ export default function ChooseGoal ({ route, navigation }) {
   // const { theme } = useTheme();
   // const styles = getStyles(theme);
 
-  function handleDistChange (value) {
+  function handleDistChange (distance) {
     setError('');
-    if (value < 0) {
-      // disallowing negative values for distance.
-      value = '0';
-    } else if ((value > 15 && !isDistance) || (value > 30 && isDistance)) {
+    if (distance < 0) {
+      distance = '0';
+    } else if ((distance > 15 && !isDistance) || (distance > 30 && isDistance)) {
       // capping distance at 30 if Distance and 15 if Time.
-      value = isDistance ? '30' : '15';
+      distance = isDistance ? '30' : '15';
     }
-    setMiles(value);
+    setMiles(distance);
   }
 
-  function handleMinsChange (value) {
+  function handleMinsChange (minutes) {
     setError('');
-    if (value < 0) {
-      // disallowing negative values for minutes.
-      value = '0';
-    } else if (value > 60) {
+    if (minutes < 0) {
+      minutes = '0';
+    } else if (minutes > 60) {
       // capping minutes at 60.
-      value = '60';
+      minutes = '60';
     }
-    setMinutes(value);
+    setMinutes(minutes);
   }
 
   function handleNext () {
