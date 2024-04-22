@@ -1,13 +1,6 @@
 import React, { useState } from 'react';
-import {
-    View,
-    Text,
-    TouchableOpacity,
-    TouchableWithoutFeedback,
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-} from 'react-native';
+// prettier-ignore
+import { View, Text, TouchableOpacity, TouchableWithoutFeedback, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as InputFields from '../helperComponents/InputFields.js';
 import * as Utilities from '../helperComponents/Utilities.js';
@@ -77,32 +70,16 @@ export default function CreateAccount({ navigation }) {
                             invalidPassword={invalidPassword}
                             invalidName={invalidName}
                         />
-                        <Text
-                            style={[sharedStyles.largeText, { marginLeft: 5 }]}
-                        >
-                            Create Account
-                        </Text>
+                        <Text style={[sharedStyles.largeText, { marginLeft: 5 }]}>Create Account</Text>
 
-                        <InputFields.FirstName
-                            firstName={firstName}
-                            setFirstName={setFirstName}
-                        />
-                        {invalidName && (
-                            <Utilities.Error
-                                message={'Must be between 1 and 30 characters'}
-                            />
-                        )}
+                        <InputFields.FirstName firstName={firstName} setFirstName={setFirstName} />
+                        {invalidName && <Utilities.Error message={'Must be between 1 and 30 characters'} />}
 
-                        <InputFields.Username
-                            username={username}
-                            setUsername={setUsername}
-                        />
+                        <InputFields.Username username={username} setUsername={setUsername} />
                         {invalidUsername && (
                             <Utilities.Error
                                 message={
-                                    username.length < 3
-                                        ? 'Must be at least 3 characters'
-                                        : 'Username already taken'
+                                    username.length < 3 ? 'Must be at least 3 characters' : 'Username already taken'
                                 }
                             />
                         )}
@@ -113,30 +90,15 @@ export default function CreateAccount({ navigation }) {
                             password={password}
                             setPassword={setPassword}
                         />
-                        {invalidPassword && (
-                            <Utilities.Error
-                                message={'Must be at least 8 characters'}
-                            />
-                        )}
+                        {invalidPassword && <Utilities.Error message={'Must be at least 8 characters'} />}
 
-                        <Utilities.Button
-                            onPress={handleCreate}
-                            title="Sign Up"
-                            padding={8}
-                        />
+                        <Utilities.Button onPress={handleCreate} title="Sign Up" padding={8} />
 
                         <View style={{ marginTop: 10 }}>
                             <Text style={sharedStyles.subscriptText}>
                                 Already have an account?{' '}
-                                <TouchableOpacity
-                                    onPress={() => navigation.navigate('login')}
-                                >
-                                    <Text
-                                        style={[
-                                            sharedStyles.subscriptText,
-                                            { color: sharedStyles.linkColor },
-                                        ]}
-                                    >
+                                <TouchableOpacity onPress={() => navigation.navigate('login')}>
+                                    <Text style={[sharedStyles.subscriptText, { color: sharedStyles.linkColor }]}>
                                         Sign in
                                     </Text>
                                 </TouchableOpacity>

@@ -1,23 +1,10 @@
 import React, { useState } from 'react';
-import {
-    View,
-    Switch,
-    TextInput,
-    Text,
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-    TouchableWithoutFeedback,
-    Keyboard,
-} from 'react-native';
+// prettier-ignore
+import { View, Switch, TextInput, Text, KeyboardAvoidingView, Platform, ScrollView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { StepIndicator, Error, Button } from '../helperComponents/Utilities';
 import { useTheme } from '../helperComponents/ThemeContext.js';
 import { getStyles } from '../helperComponents/styles.js';
-import {
-    sharedStyles,
-    footerStyle,
-    colors,
-} from '../helperComponents/styles.js';
+import { sharedStyles, footerStyle, colors } from '../helperComponents/styles.js';
 
 export default function ChooseGoal({ route, navigation }) {
     const [isDistance, setIsDistance] = useState(false);
@@ -34,10 +21,7 @@ export default function ChooseGoal({ route, navigation }) {
         setError('');
         if (distance < 0) {
             distance = '0';
-        } else if (
-            (distance > 15 && !isDistance) ||
-            (distance > 30 && isDistance)
-        ) {
+        } else if ((distance > 15 && !isDistance) || (distance > 30 && isDistance)) {
             // capping distance at 30 if Distance and 15 if Time.
             distance = isDistance ? '30' : '15';
         }
@@ -68,11 +52,7 @@ export default function ChooseGoal({ route, navigation }) {
                     (Number(miles) / Number(minutes)).toFixed(3) +
                     ' miles/minute vs walking 0.05 miles/minute).'
             );
-        } else if (
-            miles != '0' &&
-            miles != '' &&
-            (!isDistance ? minutes != '' : true)
-        ) {
+        } else if (miles != '0' && miles != '' && (!isDistance ? minutes != '' : true)) {
             user.goal = {
                 miles: Number(miles),
                 minutes: minutes == '' ? 0 : Number(minutes),
@@ -103,18 +83,11 @@ export default function ChooseGoal({ route, navigation }) {
                     keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
                 >
                     <ScrollView
-                        contentContainerStyle={[
-                            { flexGrow: 1 },
-                            sharedStyles.alignContainer,
-                        ]}
+                        contentContainerStyle={[{ flexGrow: 1 }, sharedStyles.alignContainer]}
                         showsVerticalScrollIndicator={false}
                     >
-                        <Text style={sharedStyles.headerText}>
-                            What would you like to train for?
-                        </Text>
-                        <Text style={[sharedStyles.subscriptText]}>
-                            (Time or Distance)
-                        </Text>
+                        <Text style={sharedStyles.headerText}>What would you like to train for?</Text>
+                        <Text style={[sharedStyles.subscriptText]}>(Time or Distance)</Text>
                         <View style={{ marginVertical: 20 }}>
                             <Switch
                                 trackColor={{ true: colors.headerColor }}
@@ -125,40 +98,19 @@ export default function ChooseGoal({ route, navigation }) {
                             />
                         </View>
 
-                        <Text
-                            style={[sharedStyles.headerText, { fontSize: 26 }]}
-                        >
+                        <Text style={[sharedStyles.headerText, { fontSize: 26 }]}>
                             {isDistance ? 'Distance' : 'Time'}
                         </Text>
 
-                        <View
-                            style={{
-                                alignSelf: 'center',
-                                alignItems: 'center',
-                                marginTop: 50,
-                            }}
-                        >
+                        <View style={{ alignSelf: 'center', alignItems: 'center', marginTop: 50 }}>
                             {!isDistance && (
                                 <>
-                                    <Text
-                                        style={[
-                                            sharedStyles.headerText,
-                                            {
-                                                textAlign: 'center',
-                                                fontSize: 15,
-                                            },
-                                        ]}
-                                    >
+                                    <Text style={[sharedStyles.headerText, { textAlign: 'center', fontSize: 15 }]}>
                                         Minutes
                                     </Text>
                                     <TextInput
-                                        style={[
-                                            sharedStyles.input,
-                                            { marginBottom: 30, width: 150 },
-                                        ]}
-                                        onChangeText={(value) =>
-                                            handleMinsChange(value)
-                                        }
+                                        style={[sharedStyles.input, { marginBottom: 30, width: 150 }]}
+                                        onChangeText={(value) => handleMinsChange(value)}
                                         value={minutes}
                                         keyboardType="numeric"
                                         placeholder="Minutes"
@@ -166,25 +118,13 @@ export default function ChooseGoal({ route, navigation }) {
                                 </>
                             )}
 
-                            <Text
-                                style={[
-                                    sharedStyles.headerText,
-                                    { textAlign: 'center', fontSize: 15 },
-                                ]}
-                            >
-                                Miles
-                            </Text>
+                            <Text style={[sharedStyles.headerText, { textAlign: 'center', fontSize: 15 }]}>Miles</Text>
                             <TextInput
-                                style={[
-                                    sharedStyles.input,
-                                    { marginBottom: 30, width: 150 },
-                                ]}
+                                style={[sharedStyles.input, { marginBottom: 30, width: 150 }]}
                                 placeholder="Miles"
                                 keyboardType="numeric"
                                 value={miles}
-                                onChangeText={(value) =>
-                                    handleDistChange(value)
-                                }
+                                onChangeText={(value) => handleDistChange(value)}
                             />
 
                             {error != '' && <Error message={error} />}
@@ -194,13 +134,7 @@ export default function ChooseGoal({ route, navigation }) {
 
                 <View style={footerStyle}>
                     <StepIndicator currentStep={1} />
-                    <Button
-                        onPress={handleNext}
-                        title="Next"
-                        padding={10}
-                        marginBottom={20}
-                        marginTop={20}
-                    />
+                    <Button onPress={handleNext} title="Next" padding={10} marginBottom={20} marginTop={20} />
                 </View>
             </View>
         </TouchableWithoutFeedback>

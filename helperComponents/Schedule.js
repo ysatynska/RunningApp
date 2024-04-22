@@ -6,17 +6,11 @@ function generateDistanceSchedule(schedule, user) {
     for (let i = 0; i < schedule.length; i++) {
         if (totalRuns < 5) {
             if (isTempo) {
-                schedule[i].miles = roundToTwoDecimals(
-                    user.currentBest.milesTempo
-                );
-                schedule[i].minsPerMile = Math.round(
-                    user.currentBest.minutesTempo / user.currentBest.milesTempo
-                );
+                schedule[i].miles = roundToTwoDecimals(user.currentBest.milesTempo);
+                schedule[i].minsPerMile = Math.round(user.currentBest.minutesTempo / user.currentBest.milesTempo);
                 schedule[i].reps = schedule[i].hours < 3 ? 'three' : 'six';
             } else {
-                schedule[i].miles = roundToTwoDecimals(
-                    user.currentBest.milesDist
-                );
+                schedule[i].miles = roundToTwoDecimals(user.currentBest.milesDist);
                 schedule[i].reps = 'once';
             }
             isTempo = !isTempo;
@@ -32,15 +26,11 @@ function generateTimeScedule(schedule, user) {
         if (totalRuns < 5) {
             if (isTempo) {
                 schedule[i].miles = user.goal.miles;
-                schedule[i].minsPerMile = Math.round(
-                    user.currentBest.minutesTempo / user.goal.miles
-                );
+                schedule[i].minsPerMile = Math.round(user.currentBest.minutesTempo / user.goal.miles);
                 console.log(schedule[i].minsPerMile);
                 schedule[i].reps = schedule[i].hours < 3 ? 'three' : 'six';
             } else {
-                schedule[i].miles = roundToTwoDecimals(
-                    user.currentBest.milesDist
-                );
+                schedule[i].miles = roundToTwoDecimals(user.currentBest.milesDist);
                 schedule[i].reps = 'once';
                 schedule[i].minsPerMile = 0;
             }
@@ -70,10 +60,8 @@ export function newCurrentBest(oldCurrentBest, rateOfImprovement, goal) {
     if (goal.minutes == 0) {
         // training for distance
         const milesDist = oldCurrentBest.milesDist * rateOfImprovement;
-        let milesTempo =
-            oldCurrentBest.milesTempo * Math.pow(rateOfImprovement, 4 / 5);
-        let minutesTempo =
-            oldCurrentBest.minutesTempo / Math.pow(rateOfImprovement, 1 / 5);
+        let milesTempo = oldCurrentBest.milesTempo * Math.pow(rateOfImprovement, 4 / 5);
+        let minutesTempo = oldCurrentBest.minutesTempo / Math.pow(rateOfImprovement, 1 / 5);
         if (minutesTempo / milesTempo > 20) {
             minutesTempo = 20 * milesTempo;
         } else if (minutesTempo / milesTempo < 7) {
@@ -87,9 +75,7 @@ export function newCurrentBest(oldCurrentBest, rateOfImprovement, goal) {
     } else {
         // training for time
         const milesDist = oldCurrentBest.milesDist * rateOfImprovement;
-        let minutesTempo =
-            oldCurrentBest.minutesTempo *
-            Math.pow(2.5 - rateOfImprovement, 1 / 4);
+        let minutesTempo = oldCurrentBest.minutesTempo * Math.pow(2.5 - rateOfImprovement, 1 / 4);
         if (minutesTempo / goal.miles > 20) {
             minutesTempo = 20 * goal.miles;
         }
