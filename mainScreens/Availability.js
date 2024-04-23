@@ -6,8 +6,9 @@ import generateSchedule from '../helperComponents/Schedule';
 import { useTheme } from '../helperComponents/ThemeContext.js';
 import { getStyles } from '../helperComponents/styles.js';
 import { sharedStyles, availabilityItem, colors } from '../helperComponents/styles.js';
+import { useUser } from '../helperComponents/UserContext';
 
-export default function Availability({ route, navigation }) {
+export default function Availability({ navigation }) {
     const [availability, setAvailability] = useState([
         { day: 'Sunday', hours: 0 },
         { day: 'Monday', hours: 0 },
@@ -18,7 +19,7 @@ export default function Availability({ route, navigation }) {
         { day: 'Saturday', hours: 0 },
     ]);
     const [error, setError] = useState('');
-    const { user } = route.params;
+    const { user, updateUser } = useUser();
 
     // Grab dynamic theme
     // const { theme } = useTheme();
@@ -55,8 +56,8 @@ export default function Availability({ route, navigation }) {
                         reps: 0,
                     };
                 });
-            user.schedule = generateSchedule(user);
-            navigation.navigate('profile', { user: user });
+            updateUser({...user, schedule: generateSchedule(user)});
+            navigation.navigate('profile');
         }
     }
 

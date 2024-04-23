@@ -11,43 +11,24 @@ import CreateAccount from './mainScreens/CreateAccount.js';
 import Profile from './mainScreens/Profile.js';
 import { ThemeProvider } from './helperComponents/ThemeContext.js';
 import Settings from './mainScreens/Settings.js';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { View, StyleSheet, Dimensions, Text, FlatList, TouchableOpacity } from 'react-native';
-import { sharedStyles, profileStyles, profileItemContainer } from "./helperComponents/styles.js";
-
-const SettingsButton = ({ onPress }) => {
-  return (
-    <TouchableOpacity onPress={onPress} style={profileStyles.settingsButton}>
-      <View>
-        <Icon name="cog" size={28} color="white" />
-      </View>
-    </TouchableOpacity>
-  );
-};
-
+import { UserProvider } from './helperComponents/UserContext';
 
 const Stack = createNativeStackNavigator();
 export default function App () {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="welcome" screenOptions={screenOptionsStyles}>
-        <Stack.Screen name="welcome" options={{ title: 'Welcome'}} component={Welcome} />
-        <Stack.Screen name="createAccount" options={{ title: 'Sign Up'}} component={CreateAccount} />
-        <Stack.Screen name="login" options={{ title: 'Sign In'}} component={LoginScreen} />
-        <Stack.Screen name="chooseGoal" options={{ title: 'Choose Goal'}} component={ChooseGoal} />
-        <Stack.Screen name="skillLevel" options={{ title: 'Skill Level'}} component={SkillLevel} />
-        <Stack.Screen name="availability" options={{ title: 'Availability'}} component={Availability} />
-        <Stack.Screen name="profile" options={({ navigation, route }) => ({
-            title: 'Profile',
-            headerRight: () => (
-              <SettingsButton onPress={() => {
-                const user = route.params.user; // Get user from route params
-                navigation.navigate('settings', { user });
-              }} />
-            )
-          })} component={Profile} />
-        <Stack.Screen name="settings" options={{ title: 'Settings'}} component={Settings} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <UserProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="welcome" screenOptions={screenOptionsStyles}>
+          <Stack.Screen name="welcome" options={{ title: 'Welcome'}} component={Welcome} />
+          <Stack.Screen name="createAccount" options={{ title: 'Sign Up'}} component={CreateAccount} />
+          <Stack.Screen name="login" options={{ title: 'Sign In'}} component={LoginScreen} />
+          <Stack.Screen name="chooseGoal" options={{ title: 'Choose Goal'}} component={ChooseGoal} />
+          <Stack.Screen name="skillLevel" options={{ title: 'Skill Level'}} component={SkillLevel} />
+          <Stack.Screen name="availability" options={{ title: 'Availability'}} component={Availability} />
+          <Stack.Screen name="profile" options={{ title: 'Profile' }} component={Profile} />
+          <Stack.Screen name="settings" options={{ title: 'Settings'}} component={Settings} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </UserProvider>
   );
 }

@@ -41,6 +41,7 @@ export default function Welcome({ navigation }) {
                     title="Start"
                     padding={12}
                     alignSelf="center"
+                    width={90}
                 />
             </Animated.View>
         </View>

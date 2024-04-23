@@ -18,6 +18,7 @@ export const themes = {
     dark: {
         header_color: '#2F4550',
         primary_text_color: '#00A6ED',
+        
         secondary_text_color: '#FAFFFD',
         bg_color: '#0E1111',
         button_color: '#FE5F55',
@@ -66,11 +67,11 @@ export const sharedStyles = StyleSheet.create({
     },
     input: {
         height: 40,
-        marginTop: 12,
         borderWidth: 1,
         padding: 10,
         backgroundColor: small_bg_color,
         borderRadius: 50,
+        marginTop: 12
     },
     justifyContainer: {
         flex: 1,
@@ -170,7 +171,12 @@ export const utilitiesStyles = StyleSheet.create({
         shadowColor: shadow_color,
         shadowOffset: { height: 2, width: 0 },
     },
-    buttonText: [sharedStyles.headerText, { color: button_text_color }],
+    buttonText: { 
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: text_color,
+        color: button_text_color 
+    },
     circle: {
         width: 18,
         height: 18,
@@ -252,7 +258,6 @@ export const staticUtilitiesStyles = {
         alignSelf: 'center',
     },
     error: {
-        color: '#CC0000',
         textAlign: 'left',
         marginLeft: 5,
         marginTop: 5,

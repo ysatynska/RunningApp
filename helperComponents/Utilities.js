@@ -1,11 +1,23 @@
 import React from 'react';
-import { View, Text, Image, Pressable } from 'react-native';
+import { View, Text, Image, Pressable, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from './ThemeContext.js';
 import { getStyles } from './styles.js';
-import { utilitiesStyles, staticUtilitiesStyles } from '../helperComponents/styles.js';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { utilitiesStyles, staticUtilitiesStyles, profileStyles } from '../helperComponents/styles.js';
 
-export function Button({ onPress, title, padding, marginBottom = 0, marginTop = 15, alignSelf = 'auto' }) {
+
+export const SettingsButton = ({ onPress }) => {
+    return (
+      <TouchableOpacity onPress={onPress} style={profileStyles.settingsButton}>
+        <View>
+          <Icon name="cog" size={28} color="white" />
+        </View>
+      </TouchableOpacity>
+    );
+};
+
+export function Button({ onPress, title, padding, marginBottom = 0, marginTop = 15, alignSelf = 'auto', width = 'auto', buttonText = utilitiesStyles.buttonText }) {
     // Grab dynamic theme
     // const { theme } = useTheme();
     // const styles = getStyles(theme);
@@ -14,22 +26,22 @@ export function Button({ onPress, title, padding, marginBottom = 0, marginTop = 
         <View>
             <Pressable
                 onPress={onPress}
-                style={[utilitiesStyles.button, { padding, marginBottom, marginTop, alignSelf }]}
+                style={[utilitiesStyles.button, { padding, marginBottom, marginTop, alignSelf, width }]}
             >
-                <Text style={utilitiesStyles.buttonText}> {title} </Text>
+                <Text style={[buttonText, {color: utilitiesStyles.buttonText.color}]}>{title}</Text>
             </Pressable>
         </View>
     );
 }
 
-export function Error({ message }) {
+export function Error({ message, textAlign = 'left', color = '#CC0000' }) {
     // Grab dynamic theme
     // const { theme } = useTheme();
     // const styles = getStyles(theme);
 
     return (
         <View>
-            <Text style={staticUtilitiesStyles.error}>{message}</Text>
+            <Text style={[staticUtilitiesStyles.error, {textAlign, color: color}]}>{message}</Text>
         </View>
     );
 }
