@@ -31,14 +31,14 @@ export function Password({ isPasswordVisible, togglePasswordVisibility, password
     );
 }
 
-export function InputField({ value, onChange, placeholder, autoCap = 'sentences' }) {
+export function InputField({ value, onChange, placeholder, autoCap = 'sentences', marginBottom = 0 }) {
     // Grab dynamic theme
     // const { theme } = useTheme();
     // const styles = getStyles(theme);
 
     return (
         <TextInput
-            style={sharedStyles.input}
+            style={[sharedStyles.input, {marginBottom: marginBottom}]}
             placeholder={placeholder}
             value={value}
             onChangeText={onChange}
@@ -56,10 +56,10 @@ export function Username({ username, setUsername }) {
     return <InputField value={username} onChange={setUsername} placeholder="Username" autoCap="none" />;
 }
 
-export function FirstName({ firstName, setFirstName }) {
+export function FirstName({ firstName, setFirstName, marginBottom = 0 }) {
     // Grab dynamic theme
     // const { theme } = useTheme();
     // const styles = getStyles(theme);
 
-    return <InputField value={firstName} onChange={setFirstName} placeholder="First Name" />;
+    return <InputField value={firstName} onChange={setFirstName} placeholder="First Name" marginBottom={marginBottom}/>;
 }

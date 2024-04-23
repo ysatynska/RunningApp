@@ -11,20 +11,7 @@ import CreateAccount from './mainScreens/CreateAccount.js';
 import Profile from './mainScreens/Profile.js';
 import { ThemeProvider } from './helperComponents/ThemeContext.js';
 import Settings from './mainScreens/Settings.js';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { View, StyleSheet, Dimensions, Text, FlatList, TouchableOpacity } from 'react-native';
-import { sharedStyles, profileStyles, profileItemContainer } from "./helperComponents/styles.js";
-
-const SettingsButton = ({ onPress }) => {
-  return (
-    <TouchableOpacity onPress={onPress} style={profileStyles.settingsButton}>
-      <View>
-        <Icon name="cog" size={28} color="white" />
-      </View>
-    </TouchableOpacity>
-  );
-};
-
+import { SettingsButton } from './helperComponents/Utilities.js';
 
 const Stack = createNativeStackNavigator();
 export default function App () {
