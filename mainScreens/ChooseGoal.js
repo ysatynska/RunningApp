@@ -5,13 +5,14 @@ import { StepIndicator, Error, Button } from '../helperComponents/Utilities';
 import { useTheme } from '../helperComponents/ThemeContext.js';
 import { getStyles } from '../helperComponents/styles.js';
 import { sharedStyles, footerStyle, colors } from '../helperComponents/styles.js';
+import { useUser } from '../helperComponents/UserContext';
 
-export default function ChooseGoal({ route, navigation }) {
+export default function ChooseGoal({ navigation }) {
     const [isDistance, setIsDistance] = useState(false);
     const [minutes, setMinutes] = useState('');
     const [miles, setMiles] = useState('');
     const [error, setError] = useState('');
-    const { user } = route.params;
+    const { user, updateUser } = useUser();
 
     // Grab dynamic theme
     // const { theme } = useTheme();
@@ -57,7 +58,8 @@ export default function ChooseGoal({ route, navigation }) {
                 miles: Number(miles),
                 minutes: minutes == '' ? 0 : Number(minutes),
             };
-            navigation.navigate('skillLevel', { user: user });
+            updateUser({...user});
+            navigation.navigate('skillLevel');
         } else {
             setError('Please fill out all fields. Miles cannot be 0.');
         }

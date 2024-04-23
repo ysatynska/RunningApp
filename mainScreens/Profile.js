@@ -4,11 +4,13 @@ import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import * as Progress from 'react-native-progress';
 import { Slider } from '@miblanchard/react-native-slider';
 import generateSchedule, { newCurrentBest } from '../helperComponents/Schedule';
-import { saveUserAsync, Button } from '../helperComponents/Utilities';
+import { Button } from '../helperComponents/Utilities';
 import { useTheme } from '../helperComponents/ThemeContext.js';
 import { getStyles } from '../helperComponents/styles.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { sharedStyles, profileStyles, profileItemContainer } from '../helperComponents/styles.js';
+import { SettingsButton } from '../helperComponents/Utilities.js';
+import { useUser } from '../helperComponents/UserContext';
 
 export function UpdateButton({ ratings, user, updateUser }) {
     // Grab dynamic theme
@@ -31,16 +33,6 @@ export function UpdateButton({ ratings, user, updateUser }) {
         </View>
     );
 }
-
-const SettingsButton = ({ onPress }) => {
-    return (
-        <TouchableOpacity onPress={onPress} style={profileStyles.settingsButton}>
-            <View>
-                <Icon name="cog" size={40} color="#01CFEE" />
-            </View>
-        </TouchableOpacity>
-    );
-};
 
 export function ProgressBar({ progress, ratings, user, updateUser }) {
     // Grab dynamic theme
@@ -132,12 +124,13 @@ export function RenderItem({ item, onSelect, isSelected, ratings, updateRatings 
     );
 }
 
-export default function Profile({ route, navigation }) {
+export default function Profile({ navigation }) {
     // Grab dynamic theme
     // const { theme } = useTheme();
     // const styles = getStyles(theme);
 
-    const [user, setUser] = useState(route.params.user);
+    const { user, updateUser } = useUser();
+    // const [user, setUser] = useState(route.params.user);
     const selectedIds = user.schedule.filter((oneDay) => oneDay.completed).map((oneDay) => oneDay.id);
     const ratings = user.schedule.map((oneDay) => oneDay.rating);
     const data = user.schedule.map((oneDay, index) => ({
@@ -155,7 +148,7 @@ export default function Profile({ route, navigation }) {
         const newSchedule = user.schedule.map((item) =>
             item.id == id ? { ...item, completed: !item.completed } : { ...item }
         );
-        setUser({ ...user, schedule: newSchedule });
+        updateUser({ ...user, schedule: newSchedule });
     }
 
     function updateUserRatings(newRatings) {
@@ -163,7 +156,7 @@ export default function Profile({ route, navigation }) {
             ...item,
             rating: newRatings[index],
         }));
-        setUser({ ...user, schedule: newSchedule });
+        updateUser({ ...user, schedule: newSchedule });
     }
 
     React.useEffect(() => {
@@ -173,8 +166,16 @@ export default function Profile({ route, navigation }) {
     }, [user.name, navigation]);
 
     useEffect(() => {
-        saveUserAsync(user);
+        updateUser(user);
     }, [user]);
+
+    useEffect(() => {
+        navigation.setOptions({
+            headerRight: () => (
+                <SettingsButton onPress={() => navigation.navigate('settings')} />
+            ),
+        });
+    }, [navigation, user]);
 
     return (
         <View style={sharedStyles.justifyContainer}>
@@ -182,7 +183,7 @@ export default function Profile({ route, navigation }) {
                 progress={selectedIds.length / data.length}
                 ratings={ratings}
                 user={user}
-                updateUser={setUser}
+                updateUser={updateUser}
             />
             <FlatList
                 ItemSeparatorComponent={({ highlighted }) => (

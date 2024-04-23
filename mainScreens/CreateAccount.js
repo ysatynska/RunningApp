@@ -7,6 +7,7 @@ import * as Utilities from '../helperComponents/Utilities.js';
 import { sharedStyles } from '../helperComponents/styles.js';
 import { useTheme } from '../helperComponents/ThemeContext.js';
 import { getStyles } from '../helperComponents/styles.js';
+import { useUser } from '../helperComponents/UserContext';
 
 export default function CreateAccount({ navigation }) {
     const [username, setUsername] = useState('');
@@ -16,6 +17,7 @@ export default function CreateAccount({ navigation }) {
     const [invalidPassword, setInvalidPassword] = useState(false);
     const [invalidName, setInvalidName] = useState(false);
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const { updateUser } = useUser();
 
     // Grab dynamic theme
     // const { theme } = useTheme();
@@ -42,7 +44,8 @@ export default function CreateAccount({ navigation }) {
                 username: username,
                 password: password,
             };
-            navigation.navigate('chooseGoal', { user: newUser });
+            updateUser(newUser);
+            navigation.navigate('chooseGoal');
         } catch (e) {}
     };
 

@@ -1,86 +1,59 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, Switch, Keyboard, TouchableWithoutFeedback, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
-import { hiddenPasswordIcon, sharedStyles, footerStyle } from '../helperComponents/styles.js';
+import { hiddenPasswordIcon, sharedStyles, footerStyle, availabilityItem } from '../helperComponents/styles.js';
 import { MaterialIcons } from '@expo/vector-icons';
-import * as Utilities from '../helperComponents/Utilities.js';
+import { Button, Error} from '../helperComponents/Utilities.js';
 import * as InputFields from '../helperComponents/InputFields.js';
 import { useTheme } from '../helperComponents/ThemeContext.js';
 import { getStyles } from '../helperComponents/styles.js';
 import { Dropdown } from 'react-native-element-dropdown';
-import AntDesign from '@expo/vector-icons/AntDesign';
+import { useUser } from '../helperComponents/UserContext';
+import generateSchedule, { newCurrentBest } from '../helperComponents/Schedule';
+import { currentBest } from '../helperComponents/Schedule';
 
-const DropdownComponent = ({data}) => {
-    const [value, setValue] = useState(null);
-    const [isFocus, setIsFocus] = useState(false);
-
-    const renderLabel = () => {
-      if (value || isFocus) {
-        return (
-          <Text style={[styles.label, isFocus && { color: 'blue' }]}>
-            Dropdown label
-          </Text>
-        );
-      }
-      return null;
-    };
-
+const DropdownComponent = ({data, value, setValue}) => {
     return (
-      <View style={styles.container}>
-        {renderLabel()}
+      <View>
         <Dropdown
-          style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
-          placeholderStyle={styles.placeholderStyle}
-          selectedTextStyle={styles.selectedTextStyle}
-          inputSearchStyle={styles.inputSearchStyle}
-          iconStyle={styles.iconStyle}
+          style={[sharedStyles.input, {height: 35, marginTop: 0, width: 130}]}
           data={data}
-          search
-          maxHeight={300}
-          labelField="label"
-          valueField="value"
-          placeholder={!isFocus ? 'Select item' : '...'}
-          searchPlaceholder="Search..."
+          labelField="title"
+          valueField="_index"
           value={value}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
           onChange={item => {
-            setValue(item.value);
-            setIsFocus(false);
+            setValue(item);
           }}
-          renderLeftIcon={() => (
-            <AntDesign
-              style={styles.icon}
-              color={isFocus ? 'blue' : 'black'}
-              name="Safety"
-              size={20}
-            />
-          )}
         />
       </View>
     );
-  };
+};
 
 export default function Settings ({ route, navigation }) {
-    const [firstName, setFirstName] = useState('');
-    const [password, setPassword] = useState('');
-    const [theme, setTheme] = useState('light');
+    const { user, updateUser } = useUser();
+    console.log(user);
+    const [firstName, setFirstName] = useState(user.name);
+    const [password, setPassword] = useState(user.password);
+
+    const themes = [
+        { "_index": 0, id: '0', title: 'Dark' },
+        { "_index": 1, id: '1', title: 'Light' },
+        { "_index": 2, id: '2', title: 'Blue' },
+    ];
+    const [theme, setTheme] = useState(themes[user.theme]);
+
+    const skillLevels = [
+        { "_index": 0, title: 'Beginner'}, 
+        { "_index": 1, title: 'Intermediate'}, 
+        { "_index": 2, title: 'Advanced'}
+    ];
+    const [skillLevel, setSkillLevel] = useState(skillLevels[user.skillLevel]);
+
     const [error, setError] = useState('');
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-    const [selectedItem, setSelectedItem] = useState(null)
-    let user = route.params.user;
+    const [success, setSuccess] = useState(false);
     // Grab dynamic theme
     // const { theme } = useTheme();
     // const styles = getStyles(theme);
-
-    const handleGoalUpdate = () => {
-        navigation.navigate('chooseGoal', { user: user });
-    };
-
-    const handleSaveSettings = async () => {
-        user.name = firstName;
-        user.password = password;
-        navigation.navigate('profile', { user: user });
-    };
 
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
@@ -89,97 +62,98 @@ export default function Settings ({ route, navigation }) {
     function handlePress() {
         Keyboard.dismiss();
         setError('');
+        setSuccess(false);
     }
 
-    const data = [
-        { label: 'Item 1', value: '1' },
-        { label: 'Item 2', value: '2' },
-        { label: 'Item 3', value: '3' },
-        { label: 'Item 4', value: '4' },
-        { label: 'Item 5', value: '5' },
-        { label: 'Item 6', value: '6' },
-        { label: 'Item 7', value: '7' },
-        { label: 'Item 8', value: '8' },
-      ];
+    function changeFirstName () {
+        if (firstName.length > 30 || firstName.length == 0) {
+            setError('Name must be beteween 1 and 30 characters.');
+        } else {
+            updateUser({...user, name: firstName});
+            setSuccess(true);
+        }
+    }
+
+    function changePassword () {
+        if (password.length < 8) {
+            setError('Password must be at least 8 characters');
+        } else {
+            updateUser({...user, password: password});
+            setSuccess(true);
+        }
+    }
+
+    function changeTheme () {
+        updateUser({...user, theme: theme._index});
+        setSuccess(true);
+    }
+
+    function changeSkillLevel () {
+        const newUser = {...user, skillLevel: skillLevel._index, currentBest: currentBest(user, skillLevel._index)};
+        updateUser({...newUser, schedule: generateSchedule(newUser)});
+        console.log(user);
+        setSuccess(true);
+    }
 
     return (
         <TouchableWithoutFeedback onPress={handlePress} accesible={false}>
             <View style={[sharedStyles.alignContainer, { flex: 1 }]}>
-                <KeyboardAvoidingView
-                    style={{ flex: 1, alignItems: 'center', flexGrow: 1 }}
-                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                    keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
-                >
-                    <ScrollView
-                        contentContainerStyle={[{ flexGrow: 1 }, sharedStyles.alignContainer]}
-                        showsVerticalScrollIndicator={false}
-                    >
+                <View style={availabilityItem}>
+                    <Text style={[sharedStyles.subscriptText, {width: 80, textAlign: 'left'}]}>
+                        First Name
+                    </Text>
+                    <InputFields.FirstName firstName={firstName} setFirstName={setFirstName} marginTop={0} width={130} height={34}/>
+                    <Button onPress={changeFirstName} title="Update" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
+                </View>
 
-                        <View style={{ alignSelf: 'center', alignItems: 'center'}}>
-                            <Text style={[sharedStyles.headerText, { textAlign: 'center', fontSize: 15 }]}>First Name</Text>
-                            <InputFields.FirstName value={firstName} onChange={setFirstName} placeholder='First Name' marginBottom={40}/>
+                <View style={availabilityItem}>
+                    <Text style={[sharedStyles.subscriptText, {width: 80, textAlign: 'left'}]}>
+                        Password
+                    </Text>
+                    <InputFields.Password password={password} setPassword={setPassword} isPasswordVisible={isPasswordVisible} togglePasswordVisibility={togglePasswordVisibility} marginTop={0} width={130} height={35} iconTop={0}/>
+                    <Button onPress={changePassword} title="Update" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
+                </View>
 
-                            <Text style={[sharedStyles.headerText, { textAlign: 'center', fontSize: 15 }]}>New Password</Text>
-                            <InputFields.Password
-                                isPasswordVisible={isPasswordVisible}
-                                togglePasswordVisibility={togglePasswordVisibility}
-                                password={password}
-                                setPassword={setPassword}
-                                marginBottom={40}
-                            />
-                        </View>
-                        
-                        <View style={{ alignSelf: 'center', alignItems: 'center', marginTop: 50 }}>
-                            <Text style={[sharedStyles.headerText, { textAlign: 'center', fontSize: 15 }]}>Theme:</Text>
-                            <DropdownComponent data={data}/>
-                        </View>
-                    </ScrollView>
-                </KeyboardAvoidingView>
+                <View style={availabilityItem}>
+                    <Text style={[sharedStyles.subscriptText, {width: 80, textAlign: 'left'}]}>
+                        Theme
+                    </Text>
+                    <DropdownComponent data={themes} selected={1} value={theme} setValue={setTheme}/> 
+                    {/* change 1 to the current theme's index selected by the user. */}
+                    <Button onPress={changeTheme} title="Update" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
+                </View>
+
+                <View style={availabilityItem}>
+                    <Text style={[sharedStyles.subscriptText, {width: 80, textAlign: 'left'}]}>
+                        Skill Level
+                    </Text>
+                    <DropdownComponent data={skillLevels} selected={user.skillLevel} value={skillLevel} setValue={setSkillLevel}/>
+                    <Button onPress={changeSkillLevel} title="Update" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
+                </View>
+
+                <View style={availabilityItem}>
+                    <Text style={[sharedStyles.subscriptText, {textAlign: 'left'}]}>
+                        Goal - click Update to edit
+                    </Text>
+                    <Button onPress={changeFirstName} title="Update Goal" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
+                </View>
+
+                <View style={availabilityItem}>
+                    <Text style={[sharedStyles.subscriptText, {textAlign: 'left'}]}>
+                        Availability
+                    </Text>
+                    <Button onPress={changeFirstName} title="Update Availability" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
+                </View>
+
+                {success != '' && <Error message="Successfully saved" />}
+                {error != '' && <Error message={error} />}
+
                 <View style={footerStyle}>
-                    <Utilities.Button title="Save Settings" onPress={handleSaveSettings} padding={8} />
-                    <Utilities.Button title="Edit Goal" onPress={handleGoalUpdate} padding={8} />
+                    <Text style={[sharedStyles.subscriptText, {textAlign: 'center'}]}>
+                        Note that if the Skill Level, Goal, or Availability update, the schedule with change.
+                    </Text>
                 </View>
             </View>
         </TouchableWithoutFeedback>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-      backgroundColor: 'white',
-      padding: 16,
-    },
-    dropdown: {
-      height: 50,
-      borderColor: 'gray',
-      borderWidth: 0.5,
-      borderRadius: 8,
-      paddingHorizontal: 8,
-    },
-    icon: {
-      marginRight: 5,
-    },
-    label: {
-      position: 'absolute',
-      backgroundColor: 'white',
-      left: 22,
-      top: 8,
-      zIndex: 999,
-      paddingHorizontal: 8,
-      fontSize: 14,
-    },
-    placeholderStyle: {
-      fontSize: 16,
-    },
-    selectedTextStyle: {
-      fontSize: 16,
-    },
-    iconStyle: {
-      width: 20,
-      height: 20,
-    },
-    inputSearchStyle: {
-      height: 40,
-      fontSize: 16,
-    },
-  });

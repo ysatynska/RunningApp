@@ -27,7 +27,6 @@ function generateTimeScedule(schedule, user) {
             if (isTempo) {
                 schedule[i].miles = user.goal.miles;
                 schedule[i].minsPerMile = Math.round(user.currentBest.minutesTempo / user.goal.miles);
-                console.log(schedule[i].minsPerMile);
                 schedule[i].reps = schedule[i].hours < 3 ? 'three' : 'six';
             } else {
                 schedule[i].miles = roundToTwoDecimals(user.currentBest.milesDist);
@@ -80,5 +79,33 @@ export function newCurrentBest(oldCurrentBest, rateOfImprovement, goal) {
             minutesTempo = 20 * goal.miles;
         }
         return { milesDist: milesDist, minutesTempo: minutesTempo };
+    }
+}
+
+export function currentBest (user, selected) {
+    if (user.goal.minutes == 0) {
+        //training for distance
+        let milesDist = selected == 0 ? 1 : selected == 1 ? 3 : 5;
+        let milesTempo = selected == 0 ? 0.5 : selected == 1 ? 1.5 : 3;
+        if (milesTempo > user.goal.miles) {
+            milesTempo = user.goal.miles;
+        }
+        let minutesTempo = selected == 0 ? 6 : selected == 1 ? 15 : 24;
+        return {
+            milesDist: milesDist,
+            milesTempo: milesTempo,
+            minutesTempo: minutesTempo,
+        };
+    } else {
+        // training for time
+        let milesDist = selected == 0 ? 1 : selected == 1 ? 3 : 5;
+
+        const paceTempo = selected == 0 ? 14 : selected == 1 ? 12 : 9;
+        const minutesTempo = user.goal.miles * paceTempo;
+
+        return {
+            milesDist: milesDist,
+            minutesTempo: minutesTempo,
+        };
     }
 }

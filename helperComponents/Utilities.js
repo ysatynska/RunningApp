@@ -17,7 +17,7 @@ export const SettingsButton = ({ onPress }) => {
     );
 };
 
-export function Button({ onPress, title, padding, marginBottom = 0, marginTop = 15, alignSelf = 'auto' }) {
+export function Button({ onPress, title, padding, marginBottom = 0, marginTop = 15, alignSelf = 'auto', width = 'auto', buttonText = utilitiesStyles.buttonText }) {
     // Grab dynamic theme
     // const { theme } = useTheme();
     // const styles = getStyles(theme);
@@ -26,22 +26,22 @@ export function Button({ onPress, title, padding, marginBottom = 0, marginTop = 
         <View>
             <Pressable
                 onPress={onPress}
-                style={[utilitiesStyles.button, { padding, marginBottom, marginTop, alignSelf }]}
+                style={[utilitiesStyles.button, { padding, marginBottom, marginTop, alignSelf, width }]}
             >
-                <Text style={utilitiesStyles.buttonText}> {title} </Text>
+                <Text style={[buttonText, {color: utilitiesStyles.buttonText.color}]}>{title}</Text>
             </Pressable>
         </View>
     );
 }
 
-export function Error({ message }) {
+export function Error({ message, textAlign = 'left', color = '#CC0000' }) {
     // Grab dynamic theme
     // const { theme } = useTheme();
     // const styles = getStyles(theme);
 
     return (
         <View>
-            <Text style={staticUtilitiesStyles.error}>{message}</Text>
+            <Text style={[staticUtilitiesStyles.error, {textAlign, color: color}]}>{message}</Text>
         </View>
     );
 }

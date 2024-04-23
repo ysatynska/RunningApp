@@ -4,10 +4,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as InputFields from '../helperComponents/InputFields.js';
 import * as Utilities from '../helperComponents/Utilities.js';
 import { sharedStyles } from '../helperComponents/styles.js';
+import { useUser } from '../helperComponents/UserContext';
 import { useTheme } from '../helperComponents/ThemeContext.js';
 import { getStyles } from '../helperComponents/styles.js';
 
 export default function LoginScreen({ navigation }) {
+    const { updateUser } = useUser();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [invalidUsername, setInvalidUsername] = useState(false);
@@ -26,7 +28,8 @@ export default function LoginScreen({ navigation }) {
             }
             const user = JSON.parse(jsonUser);
             if (user.password == password) {
-                navigation.navigate('profile', { user: user });
+                updateUser(user);
+                navigation.navigate('profile');
             } else {
                 setInvalidPassword(true);
             }
