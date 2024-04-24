@@ -19,6 +19,7 @@ export function Password({ isPasswordVisible, togglePasswordVisibility, password
                 value={password}
                 onChangeText={setPassword}
                 color={hiddenPasswordIcon.color}
+                placeholderTextColor={hiddenPasswordIcon.color}
             />
             <TouchableOpacity onPressIn={togglePasswordVisibility} style={[hiddenPasswordIcon, {top: iconTop}]}>
                 <MaterialIcons
@@ -45,6 +46,7 @@ export function InputField({ value, onChange, placeholder, autoCap = 'sentences'
             onChangeText={onChange}
             autoCapitalize={autoCap}
             color={hiddenPasswordIcon.color}
+            placeholderTextColor={hiddenPasswordIcon.color}
             editable={editable}
         />
     );
