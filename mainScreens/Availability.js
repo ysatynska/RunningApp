@@ -64,50 +64,52 @@ export default function Availability({ navigation }) {
     }
 
     return (
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-            <View style={sharedStyles.alignContainer}>
-                <Text style={sharedStyles.headerText}>How many hours are you available for?</Text>
-                <Text style={[sharedStyles.subscriptText, { marginBottom: 20 }]}>
-                    (Tap day to select/deselect as available)
-                </Text>
-                <View>
-                    {availability.map((item, index) => (
-                        <View key={index} style={availabilityItem}>
-                            <TouchableOpacity onPress={() => handleDaySelection(index)}>
-                                <Text
-                                    style={[sharedStyles.largeText,
-                                        {
-                                            textDecorationLine: item.hours != 0 ? 'none' : 'line-through',
-                                            color: item.hours != 0 ? colors.textColor : colors.headerColor,
-                                        },
-                                    ]}
-                                >
-                                    {item.day}
-                                </Text>
-                            </TouchableOpacity>
-                            <InputSpinner
-                                max={9}
-                                min={0}
-                                step={1}
-                                value={item.hours}
-                                onChange={(hours) => handleHoursChange(index, hours)}
-                                width={150}
-                                color={item.hours != 0 ? colors.headerColor : colors.inputSpinnerColor}
-                                editable={false}
-                                disabled={item.hours != 0 ? false : true}
-                                inputStyle={sharedStyles.headerText}
-                            />
-                        </View>
-                    ))}
+        <View style={{ flex: 1, backgroundColor: colors.bgColor }}>
+            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                <View style={sharedStyles.alignContainer}>
+                    <Text style={sharedStyles.headerText}>How many hours are you available for?</Text>
+                    <Text style={[sharedStyles.subscriptText, { marginBottom: 20 }]}>
+                        (Tap day to select/deselect as available)
+                    </Text>
+                    <View>
+                        {availability.map((item, index) => (
+                            <View key={index} style={availabilityItem}>
+                                <TouchableOpacity onPress={() => handleDaySelection(index)}>
+                                    <Text
+                                        style={[sharedStyles.largeText,
+                                            {
+                                                textDecorationLine: item.hours != 0 ? 'none' : 'line-through',
+                                                color: item.hours != 0 ? colors.textColor : colors.headerColor,
+                                            },
+                                        ]}
+                                    >
+                                        {item.day}
+                                    </Text>
+                                </TouchableOpacity>
+                                <InputSpinner
+                                    max={9}
+                                    min={0}
+                                    step={1}
+                                    value={item.hours}
+                                    onChange={(hours) => handleHoursChange(index, hours)}
+                                    width={150}
+                                    color={item.hours != 0 ? colors.headerColor : colors.inputSpinnerColor}
+                                    editable={false}
+                                    disabled={item.hours != 0 ? false : true}
+                                    inputStyle={sharedStyles.headerText}
+                                />
+                            </View>
+                        ))}
+                    </View>
+                    <View>{error != '' && <Error message={error} />}</View>
+                    <View>
+                        {!user.availability && 
+                            <StepIndicator currentStep={3} 
+                        />}
+                        <Button onPress={handleNext} title="Get Schedule!" padding={10} marginBottom={20} marginTop={15} />
+                    </View>
                 </View>
-                <View>{error != '' && <Error message={error} />}</View>
-                <View>
-                    {!user.availability && 
-                        <StepIndicator currentStep={3} 
-                    />}
-                    <Button onPress={handleNext} title="Get Schedule!" padding={10} marginBottom={20} marginTop={15} />
-                </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </View>
     );
 }

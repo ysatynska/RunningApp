@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { View, Switch, TextInput, Text, KeyboardAvoidingView, Platform, ScrollView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { StepIndicator, Error, Button } from '../helperComponents/Utilities';
 import { useTheme } from '../helperComponents/ThemeContext.js';
-import { getSharedStyles, footerStyle, getColors } from '../helperComponents/styles.js';
+import { getSharedStyles, footerStyle, getColors, getHiddenPasswordIcon } from '../helperComponents/styles.js';
 import { useUser } from '../helperComponents/UserContext';
 import generateSchedule, { currentBest } from '../helperComponents/Schedule';
 
@@ -18,6 +18,7 @@ export default function ChooseGoal({ navigation }) {
     const { theme } = useTheme();
     const sharedStyles = getSharedStyles(theme);
     const colors = getColors(theme);
+    const hiddenPasswordIcon = getHiddenPasswordIcon(theme);
 
     function handleDistChange(distance) {
         setError('');
@@ -143,10 +144,12 @@ export default function ChooseGoal({ navigation }) {
                                     </Text>
                                     <TextInput
                                         style={[sharedStyles.input, { marginBottom: 30, width: 150 }]}
+                                        color={hiddenPasswordIcon.color}
                                         onChangeText={(value) => handleMinsChange(value)}
                                         value={minutes}
                                         keyboardType="numeric"
                                         placeholder="Minutes"
+                                        placeholderTextColor={hiddenPasswordIcon.color}
                                     />
                                 </>
                             )}
@@ -154,7 +157,9 @@ export default function ChooseGoal({ navigation }) {
                             <Text style={[sharedStyles.headerText, { textAlign: 'center', fontSize: 15 }]}>Miles</Text>
                             <TextInput
                                 style={[sharedStyles.input, { marginBottom: 30, width: 150 }]}
+                                color={hiddenPasswordIcon.color}
                                 placeholder="Miles"
+                                placeholderTextColor={hiddenPasswordIcon.color}
                                 keyboardType="numeric"
                                 value={miles}
                                 onChangeText={(value) => handleDistChange(value)}
