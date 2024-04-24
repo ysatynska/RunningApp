@@ -14,7 +14,7 @@ export const themes = {
         error_color: '#CC0000', // Error message color
     },
     neon: {
-        header_color: '#9b5de5',  
+        header_color: '#9b5de5',  // Used for header color, placeholder text in InputFields, and input spinner when ACTIVE
         text_color: '#411462', // Instructions, text color
         bg_color: '#41ead4', // Background screen color
         small_bg_color: '#fbff12', // Backrgound object color (input fields and progress container)
