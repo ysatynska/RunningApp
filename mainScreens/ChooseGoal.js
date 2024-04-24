@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 import { View, Switch, TextInput, Text, KeyboardAvoidingView, Platform, ScrollView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { StepIndicator, Error, Button } from '../helperComponents/Utilities';
 import { useTheme } from '../helperComponents/ThemeContext.js';
-import { getStyles } from '../helperComponents/styles.js';
-import { sharedStyles, footerStyle, colors } from '../helperComponents/styles.js';
+import { getSharedStyles, footerStyle, getColors } from '../helperComponents/styles.js';
 import { useUser } from '../helperComponents/UserContext';
 import generateSchedule, { currentBest } from '../helperComponents/Schedule';
 
@@ -16,8 +15,9 @@ export default function ChooseGoal({ navigation }) {
     const [error, setError] = useState('');
 
     // Grab dynamic theme
-    // const { theme } = useTheme();
-    // const styles = getStyles(theme);
+    const { theme } = useTheme();
+    const sharedStyles = getSharedStyles(theme);
+    const colors = getColors(theme);
 
     function handleDistChange(distance) {
         setError('');

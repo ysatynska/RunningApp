@@ -6,17 +6,12 @@ import { Slider } from '@miblanchard/react-native-slider';
 import generateSchedule, { newCurrentBest } from '../helperComponents/Schedule';
 import { Button } from '../helperComponents/Utilities';
 import { useTheme } from '../helperComponents/ThemeContext.js';
-import { getStyles } from '../helperComponents/styles.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { sharedStyles, profileStyles, profileItemContainer } from '../helperComponents/styles.js';
+import { getSharedStyles, getProfileStyles, profileItemContainer } from '../helperComponents/styles.js';
 import { SettingsButton } from '../helperComponents/Utilities.js';
 import { useUser } from '../helperComponents/UserContext';
 
 export function UpdateButton({ ratings, user, updateUser }) {
-    // Grab dynamic theme
-    // const { theme } = useTheme();
-    // const styles = getStyles(theme);
-
     function handleUpdate() {
         const average = ratings.reduce((accumulator, currentValue) => accumulator + currentValue, 0) / ratings.length;
         // 1 = .5, 10 = 2 rateOfImprovement
@@ -36,8 +31,9 @@ export function UpdateButton({ ratings, user, updateUser }) {
 
 export function ProgressBar({ progress, ratings, user, updateUser }) {
     // Grab dynamic theme
-    // const { theme } = useTheme();
-    // const styles = getStyles(theme);
+    const { theme } = useTheme();
+    const sharedStyles = getSharedStyles(theme);
+    const profileStyles = getProfileStyles(theme);
 
     return (
         <View style={profileStyles.progressContainer}>
@@ -59,16 +55,17 @@ export function ProgressBar({ progress, ratings, user, updateUser }) {
 
 export function TrackMark({ index }) {
     // Grab dynamic theme
-    // const { theme } = useTheme();
-    // const styles = getStyles(theme);
+    const { theme } = useTheme();
+    const profileStyles = getProfileStyles(theme);
 
     return <Text style={profileStyles.trackMarkText}>{index + 1}</Text>;
 }
 
 export function RenderItem({ item, onSelect, isSelected, ratings, updateRatings }) {
     // Grab dynamic theme
-    // const { theme } = useTheme();
-    // const styles = getStyles(theme);
+    const { theme } = useTheme();
+    const sharedStyles = getSharedStyles(theme);
+    const profileStyles = getProfileStyles(theme);
 
     function changeRatings(value) {
         const newRatings = ratings.map((rating, index) => (index === item.id ? value[0] : rating));
@@ -126,8 +123,9 @@ export function RenderItem({ item, onSelect, isSelected, ratings, updateRatings 
 
 export default function Profile({ navigation }) {
     // Grab dynamic theme
-    // const { theme } = useTheme();
-    // const styles = getStyles(theme);
+    const { theme } = useTheme();
+    const sharedStyles = getSharedStyles(theme);
+    const profileStyles = getProfileStyles(theme);
 
     const { user, updateUser } = useUser();
     // const [user, setUser] = useState(route.params.user);
