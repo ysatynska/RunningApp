@@ -112,7 +112,8 @@ export function getSharedStyles (theme) {
             paddingTop: 20,
             backgroundColor: theme.bg_color,
         },
-        linkColor: theme.link_color
+        linkColor: theme.link_color,
+        headerColor: theme.header_color
     });
 };
 // export const sharedStyles = StyleSheet.create({

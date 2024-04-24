@@ -1,43 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, TextInput, Switch, Keyboard, Dimensions, TouchableWithoutFeedback, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
-import { getSharedStyles, footerStyle, getAvailabilityItem, getColors } from '../helperComponents/styles.js';
-import { MaterialIcons } from '@expo/vector-icons';
-import { Button, Error} from '../helperComponents/Utilities.js';
+import { View, Text, Keyboard, Dimensions, TouchableWithoutFeedback, ScrollView } from 'react-native';
+import { getSharedStyles, footerStyle, getAvailabilityItem } from '../helperComponents/styles.js';
+import { Button, Error, DropdownComponent } from '../helperComponents/Utilities.js';
 import * as InputFields from '../helperComponents/InputFields.js';
 import { useTheme } from '../helperComponents/ThemeContext.js';
-import { Dropdown } from 'react-native-element-dropdown';
 import { useUser } from '../helperComponents/UserContext';
 import generateSchedule from '../helperComponents/Schedule';
 import { currentBest } from '../helperComponents/Schedule';
 
-const DropdownComponent = ({data, value, setValue}) => {
-    // Grab dynamic theme
-    const { theme } = useTheme();
-    const sharedStyles = getSharedStyles(theme);
-    const colors = getColors(theme);
-    
-    return (
-      <View>
-        <Dropdown
-          style={[sharedStyles.input, {height: 35, marginTop: 0, width: 130}]}
-          itemTextStyle={[sharedStyles.subscriptText, {textAlign: 'left'}]}
-          selectedTextStyle={[sharedStyles.subscriptText, {textAlign: 'left'}]}
-          containerStyle={{borderRadius: 15, backgroundColor: colors.smallBgColor}}
-          activeColor={colors.headerColor}
-          placeholderStyle={{color: colors.textColor}}
-          data={data}
-          labelField="title"
-          valueField="_index"
-          value={value}
-          onChange={item => {
-            setValue(item);
-          }}
-        />
-      </View>
-    );
-};
-
-export default function Settings ({ route, navigation }) {
+export default function Settings ({ navigation }) {
     const { user, updateUser } = useUser();
     const [firstName, setFirstName] = useState(user.name);
     const [password, setPassword] = useState(user.password);
