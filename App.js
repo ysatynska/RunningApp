@@ -25,7 +25,7 @@ export default function App () {
           <Stack.Screen name="chooseGoal" options={{ title: 'Choose Goal'}} component={ChooseGoal} />
           <Stack.Screen name="skillLevel" options={{ title: 'Skill Level'}} component={SkillLevel} />
           <Stack.Screen name="availability" options={{ title: 'Availability'}} component={Availability} />
-          <Stack.Screen name="profile" options={{ title: 'Profile' }} component={Profile} />
+          <Stack.Screen name="profile" options={{ title: 'Profile', headerLeft: () => '' }} component={Profile} />
           <Stack.Screen name="settings" options={{ title: 'Settings'}} component={Settings} />
         </Stack.Navigator>
       </NavigationContainer>

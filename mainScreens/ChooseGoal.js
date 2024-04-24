@@ -6,13 +6,14 @@ import { useTheme } from '../helperComponents/ThemeContext.js';
 import { getStyles } from '../helperComponents/styles.js';
 import { sharedStyles, footerStyle, colors } from '../helperComponents/styles.js';
 import { useUser } from '../helperComponents/UserContext';
+import generateSchedule from '../helperComponents/Schedule';
 
 export default function ChooseGoal({ navigation }) {
-    const [isDistance, setIsDistance] = useState(false);
-    const [minutes, setMinutes] = useState('');
-    const [miles, setMiles] = useState('');
-    const [error, setError] = useState('');
     const { user, updateUser } = useUser();
+    const [isDistance, setIsDistance] = useState(user.goal ? (user.goal.minutes == 0) : false);
+    const [minutes, setMinutes] = useState(user.goal ? String(user.goal.minutes) : '');
+    const [miles, setMiles] = useState(user.goal ? String(user.goal.miles) : '');
+    const [error, setError] = useState('');
 
     // Grab dynamic theme
     // const { theme } = useTheme();
@@ -54,20 +55,49 @@ export default function ChooseGoal({ navigation }) {
                     ' miles/minute vs walking 0.05 miles/minute).'
             );
         } else if (miles != '0' && miles != '' && (!isDistance ? minutes != '' : true)) {
+            const areUpdating = user.goal;
             user.goal = {
                 miles: Number(miles),
                 minutes: minutes == '' ? 0 : Number(minutes),
             };
             updateUser({...user});
-            navigation.navigate('skillLevel');
+            if (!areUpdating) {
+                navigation.navigate('skillLevel');
+            } else {
+                updateUser({...user, schedule: generateSchedule(user)});
+                navigation.navigate('profile');
+            }
         } else {
             setError('Please fill out all fields. Miles cannot be 0.');
         }
     }
     function toggleSwitch() {
         setIsDistance((previousState) => !previousState);
-        setMiles('');
-        setMinutes('');
+        if (isDistance && user.goal){
+            // in time now
+            if (user.goal.minutes == 0) {
+                // training for distance
+                setMiles('');
+                setMinutes('');
+            } else {
+                // training for time
+                setMiles(String(user.goal.miles));
+                setMinutes(String(user.goal.minutes));
+            }
+        } else if (user.goal) {
+            // in distance
+            if (user.goal.minutes == 0) {
+                // training for distance
+                setMiles(String(user.goal.miles));
+            } else {
+                // training for time
+                setMiles('');
+                setMinutes('');
+            }
+        } else {
+            setMiles('');
+            setMinutes('');
+        }
         setError('');
     }
 

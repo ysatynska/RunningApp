@@ -30,7 +30,6 @@ const DropdownComponent = ({data, value, setValue}) => {
 
 export default function Settings ({ route, navigation }) {
     const { user, updateUser } = useUser();
-    console.log(user);
     const [firstName, setFirstName] = useState(user.name);
     const [password, setPassword] = useState(user.password);
 
@@ -135,14 +134,14 @@ export default function Settings ({ route, navigation }) {
                     <Text style={[sharedStyles.subscriptText, {textAlign: 'left'}]}>
                         Goal - click Update to edit
                     </Text>
-                    <Button onPress={changeFirstName} title="Update Goal" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
+                    <Button onPress={() => navigation.push('chooseGoal')} title="Update Goal" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
                 </View>
 
                 <View style={availabilityItem}>
                     <Text style={[sharedStyles.subscriptText, {textAlign: 'left'}]}>
                         Availability
                     </Text>
-                    <Button onPress={changeFirstName} title="Update Availability" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
+                    <Button onPress={() => navigation.push('availability')} title="Update Availability" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
                 </View>
 
                 {success != '' && <Error message="Successfully saved" />}

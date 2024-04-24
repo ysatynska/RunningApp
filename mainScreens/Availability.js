@@ -9,17 +9,18 @@ import { sharedStyles, availabilityItem, colors } from '../helperComponents/styl
 import { useUser } from '../helperComponents/UserContext';
 
 export default function Availability({ navigation }) {
-    const [availability, setAvailability] = useState([
-        { day: 'Sunday', hours: 0 },
+    const [error, setError] = useState('');
+    const { user, updateUser } = useUser();
+    const [availability, setAvailability] = useState(
+        user.availability ? user.availability :
+        [{ day: 'Sunday', hours: 0 },
         { day: 'Monday', hours: 0 },
         { day: 'Tuesday', hours: 0 },
         { day: 'Wednesday', hours: 0 },
         { day: 'Thursday', hours: 0 },
         { day: 'Friday', hours: 0 },
-        { day: 'Saturday', hours: 0 },
-    ]);
-    const [error, setError] = useState('');
-    const { user, updateUser } = useUser();
+        { day: 'Saturday', hours: 0 }]
+    );
 
     // Grab dynamic theme
     // const { theme } = useTheme();
@@ -56,7 +57,7 @@ export default function Availability({ navigation }) {
                         reps: 0,
                     };
                 });
-            updateUser({...user, schedule: generateSchedule(user)});
+            updateUser({...user, availability: availability, schedule: generateSchedule(user)});
             navigation.navigate('profile');
         }
     }
@@ -100,7 +101,9 @@ export default function Availability({ navigation }) {
                 </View>
                 <View>{error != '' && <Error message={error} />}</View>
                 <View>
-                    <StepIndicator currentStep={3} />
+                    {!user.availability && 
+                        <StepIndicator currentStep={3} 
+                    />}
                     <Button onPress={handleNext} title="Get Schedule!" padding={10} marginBottom={20} marginTop={15} />
                 </View>
             </View>
