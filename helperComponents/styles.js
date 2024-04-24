@@ -143,7 +143,8 @@ export function getColors (theme) {
         headerColor: theme.header_color,
         textColor: theme.text_color,
         inputSpinnerColor: theme.input_spinner_color,
-        smallBgColor: theme.small_bg_color
+        smallBgColor: theme.small_bg_color,
+        errorColor: theme.error_color,
     });
 };
 
