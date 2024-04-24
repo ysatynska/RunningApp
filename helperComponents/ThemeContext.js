@@ -7,7 +7,7 @@ const ThemeContext = createContext(); // Declare the context variable
 
 // Define the useTheme function that will be used in component files to
 //   render different themes dynamically
-export const useTheme = () => useContext(useTheme);
+export const useTheme = () => useContext(ThemeContext);
 
 // Define the ThemeProvider that will wrap all components using dynamic theme
 export const ThemeProvider = ({ children }) => {

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { useTheme } from './ThemeContext';
 
 export const themes = {
     light: {
@@ -28,16 +28,6 @@ export const themes = {
         error_color: '#CC0000', // Error message color
     },
 };
-const header_color = '#01CFEE';
-const text_color = '#1C5253';
-const bg_color = '#F0F0F0';
-const small_bg_color = 'white'; // for input fields and progress container
-const separator_color = '#CED0CE';
-const shadow_color = 'gray';
-const button_text_color = 'white';
-const button_color = '#FF5953';
-const input_spinner_color = '#DCDCDC';
-const link_color = '#0645AD';
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -152,6 +142,9 @@ export function getColors (theme) {
 // };
 
 export function getProfileStyles (theme) {
+    // Grab dynamic theme
+    const sharedStyles = getSharedStyles(theme);
+
     return ({
         separator: {
             height: 1,

@@ -6,7 +6,6 @@ import { Slider } from '@miblanchard/react-native-slider';
 import generateSchedule, { newCurrentBest } from '../helperComponents/Schedule';
 import { Button } from '../helperComponents/Utilities';
 import { useTheme } from '../helperComponents/ThemeContext.js';
-import { getProfileStyles } from '../helperComponents/styles.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { getSharedStyles, getProfileStyles, profileItemContainer } from '../helperComponents/styles.js';
 import { SettingsButton } from '../helperComponents/Utilities.js';
