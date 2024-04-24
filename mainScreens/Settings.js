@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, Switch, Keyboard, TouchableWithoutFeedback, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
-import { hiddenPasswordIcon, sharedStyles, footerStyle, availabilityItem } from '../helperComponents/styles.js';
-import { MaterialIcons } from '@expo/vector-icons';
+import React, { useState, useEffect } from 'react';
+import { View, Text, Keyboard, TouchableWithoutFeedback, Dimensions, ScrollView } from 'react-native';
+import { sharedStyles, footerStyle, availabilityItem } from '../helperComponents/styles.js';
 import { Button, Error} from '../helperComponents/Utilities.js';
 import * as InputFields from '../helperComponents/InputFields.js';
 import { useTheme } from '../helperComponents/ThemeContext.js';
 import { getStyles } from '../helperComponents/styles.js';
 import { Dropdown } from 'react-native-element-dropdown';
 import { useUser } from '../helperComponents/UserContext';
-import generateSchedule, { newCurrentBest } from '../helperComponents/Schedule';
+import generateSchedule from '../helperComponents/Schedule';
 import { currentBest } from '../helperComponents/Schedule';
 
 const DropdownComponent = ({data, value, setValue}) => {
@@ -16,6 +15,10 @@ const DropdownComponent = ({data, value, setValue}) => {
       <View>
         <Dropdown
           style={[sharedStyles.input, {height: 35, marginTop: 0, width: 130}]}
+          itemTextStyle={[sharedStyles.subscriptText, {textAlign: 'left'}]}
+          selectedTextStyle={[sharedStyles.subscriptText, {textAlign: 'left'}]}
+          containerStyle={{borderRadius: 15}}
+          activeColor={sharedStyles.alignContainer.backgroundColor}
           data={data}
           labelField="title"
           valueField="_index"
@@ -32,6 +35,7 @@ export default function Settings ({ route, navigation }) {
     const { user, updateUser } = useUser();
     const [firstName, setFirstName] = useState(user.name);
     const [password, setPassword] = useState(user.password);
+    const screenHeight = Dimensions.get('window').height;
 
     const themes = [
         { "_index": 0, id: '0', title: 'Dark' },
@@ -83,21 +87,32 @@ export default function Settings ({ route, navigation }) {
     }
 
     function changeTheme () {
-        updateUser({...user, theme: theme._index});
+        // updateUser({...user, theme: theme._index});
         setSuccess(true);
     }
 
     function changeSkillLevel () {
         const newUser = {...user, skillLevel: skillLevel._index, currentBest: currentBest(user, skillLevel._index)};
         updateUser({...newUser, schedule: generateSchedule(newUser)});
-        console.log(user);
         setSuccess(true);
     }
 
+    useEffect(() => {
+        let timer;
+        if (success) {
+          // Set a timer that lasts for 5 seconds
+          timer = setTimeout(() => {
+            setSuccess(false);
+          }, 3000);
+        }
+        // Clean up the timer if the component unmounts or if success changes again before the timer fires
+        return () => clearTimeout(timer);
+      }, [success]);
+
     return (
         <TouchableWithoutFeedback onPress={handlePress} accesible={false}>
-            <View style={[sharedStyles.alignContainer, { flex: 1 }]}>
-                <View style={availabilityItem}>
+            <ScrollView contentContainerStyle={[sharedStyles.alignContainer, { flex: 1 }]}>
+                <View style={[availabilityItem, {height: screenHeight/10}]}>
                     <Text style={[sharedStyles.subscriptText, {width: 80, textAlign: 'left'}]}>
                         First Name
                     </Text>
@@ -105,7 +120,7 @@ export default function Settings ({ route, navigation }) {
                     <Button onPress={changeFirstName} title="Update" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
                 </View>
 
-                <View style={availabilityItem}>
+                <View style={[availabilityItem, {height: screenHeight/10}]}>
                     <Text style={[sharedStyles.subscriptText, {width: 80, textAlign: 'left'}]}>
                         Password
                     </Text>
@@ -113,7 +128,7 @@ export default function Settings ({ route, navigation }) {
                     <Button onPress={changePassword} title="Update" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
                 </View>
 
-                <View style={availabilityItem}>
+                <View style={[availabilityItem, {height: screenHeight/10}]}>
                     <Text style={[sharedStyles.subscriptText, {width: 80, textAlign: 'left'}]}>
                         Theme
                     </Text>
@@ -122,7 +137,7 @@ export default function Settings ({ route, navigation }) {
                     <Button onPress={changeTheme} title="Update" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
                 </View>
 
-                <View style={availabilityItem}>
+                <View style={[availabilityItem, {height: screenHeight/10}]}>
                     <Text style={[sharedStyles.subscriptText, {width: 80, textAlign: 'left'}]}>
                         Skill Level
                     </Text>
@@ -130,14 +145,14 @@ export default function Settings ({ route, navigation }) {
                     <Button onPress={changeSkillLevel} title="Update" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
                 </View>
 
-                <View style={availabilityItem}>
+                <View style={[availabilityItem, {height: screenHeight/10}]}>
                     <Text style={[sharedStyles.subscriptText, {textAlign: 'left'}]}>
                         Goal - click Update to edit
                     </Text>
                     <Button onPress={() => navigation.push('chooseGoal')} title="Update Goal" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
                 </View>
 
-                <View style={availabilityItem}>
+                <View style={[availabilityItem, {height: screenHeight/10}]}>
                     <Text style={[sharedStyles.subscriptText, {textAlign: 'left'}]}>
                         Availability
                     </Text>
@@ -146,13 +161,12 @@ export default function Settings ({ route, navigation }) {
 
                 {success != '' && <Error message="Successfully saved" />}
                 {error != '' && <Error message={error} />}
-
                 <View style={footerStyle}>
                     <Text style={[sharedStyles.subscriptText, {textAlign: 'center'}]}>
                         Note that if the Skill Level, Goal, or Availability update, the schedule with change.
                     </Text>
                 </View>
-            </View>
+            </ScrollView>
         </TouchableWithoutFeedback>
     );
 };

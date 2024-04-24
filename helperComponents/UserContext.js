@@ -1,6 +1,13 @@
 import React, { createContext, useContext, useState } from 'react';
-import { saveUserAsync } from '../helperComponents/Utilities';
 
+async function saveUserAsync(user) {
+  try {
+      const jsonValue = JSON.stringify(user);
+      await AsyncStorage.setItem(user.username, jsonValue);
+  } catch (e) {
+      console.log(e);
+  }
+}
 const UserContext = createContext();
 
 export const useUser = () => useContext(UserContext);

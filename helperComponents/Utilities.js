@@ -65,15 +65,6 @@ export function LoginImage({ invalidUsername, invalidPassword, invalidName = fal
     );
 }
 
-export async function saveUserAsync(user) {
-    try {
-        const jsonValue = JSON.stringify(user);
-        await AsyncStorage.setItem(user.username, jsonValue);
-    } catch (e) {
-        console.log(e);
-    }
-}
-
 export function roundToTwoDecimals(num) {
     const rounded = Number(num.toFixed(2));
     // Check if the rounded value is an integer by comparing it to its integer part
