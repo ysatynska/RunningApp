@@ -4,7 +4,6 @@ import InputSpinner from 'react-native-input-spinner';
 import { StepIndicator, Error, Button } from '../helperComponents/Utilities';
 import generateSchedule from '../helperComponents/Schedule';
 import { useTheme } from '../helperComponents/ThemeContext.js';
-import { getStyles } from '../helperComponents/styles.js';
 import { getSharedStyles, getAvailabilityItem, getColors } from '../helperComponents/styles.js';
 import { useUser } from '../helperComponents/UserContext';
 

@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Dimensions, Text, FlatList, TouchableOpacity } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Dimensions, Text, FlatList, TouchableOpacity } from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import * as Progress from 'react-native-progress';
 import { Slider } from '@miblanchard/react-native-slider';
 import generateSchedule, { newCurrentBest } from '../helperComponents/Schedule';
 import { Button } from '../helperComponents/Utilities';
 import { useTheme } from '../helperComponents/ThemeContext.js';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { getSharedStyles, getProfileStyles, profileItemContainer } from '../helperComponents/styles.js';
 import { SettingsButton } from '../helperComponents/Utilities.js';
 import { useUser } from '../helperComponents/UserContext';

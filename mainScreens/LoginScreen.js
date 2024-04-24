@@ -6,7 +6,6 @@ import * as Utilities from '../helperComponents/Utilities.js';
 import { getSharedStyles } from '../helperComponents/styles.js';
 import { useUser } from '../helperComponents/UserContext';
 import { useTheme } from '../helperComponents/ThemeContext.js';
-import { getStyles } from '../helperComponents/styles.js';
 
 export default function LoginScreen({ navigation }) {
     const { updateUser } = useUser();

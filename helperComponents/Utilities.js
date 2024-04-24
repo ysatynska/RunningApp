@@ -2,8 +2,8 @@ import React from 'react';
 import { View, Text, Image, Pressable, TouchableOpacity } from 'react-native';
 import { useTheme } from './ThemeContext.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { getUtilitiesStyles, staticUtilitiesStyles, getProfileStyles } from '../helperComponents/styles.js';
-
+import { Dropdown } from 'react-native-element-dropdown';
+import { getUtilitiesStyles, staticUtilitiesStyles, getProfileStyles, getColors, getSharedStyles } from '../helperComponents/styles.js';
 
 export const SettingsButton = ({ onPress }) => {
     // Grab dynamic theme
@@ -82,5 +82,33 @@ export const StepIndicator = ({ currentStep }) => {
                 />
             ))}
         </View>
+    );
+};
+
+export const DropdownComponent = ({data, value, setValue}) => {
+    // Grab dynamic theme
+    const { theme } = useTheme();
+    const sharedStyles = getSharedStyles(theme);
+    const colors = getColors(theme);
+    
+    return (
+      <View>
+        <Dropdown
+          style={[sharedStyles.input, {height: 35, marginTop: 0, width: 130}]}
+          itemTextStyle={[sharedStyles.subscriptText, {textAlign: 'left'}]}
+          itemContainerStyle={{borderRadius: 15}}
+          selectedTextStyle={[sharedStyles.subscriptText, {textAlign: 'left'}]}
+          containerStyle={{borderRadius: 15, backgroundColor: colors.smallBgColor}}
+          activeColor={colors.headerColor}
+          placeholderStyle={{color: colors.textColor}}
+          data={data}
+          labelField="title"
+          valueField="_index"
+          value={value}
+          onChange={item => {
+            setValue(item);
+          }}
+        />
+      </View>
     );
 };

@@ -1,54 +1,53 @@
 import React, { useState } from 'react';
-import { Text, View, TouchableWithoutFeedback } from 'react-native';
+import { View, TouchableWithoutFeedback } from 'react-native';
 import { StepIndicator, Error, Button } from '../helperComponents/Utilities';
-import RadioGroup from 'react-native-radio-buttons-group';
-import { useTheme } from '../helperComponents/ThemeContext.js';
+import { useTheme,  } from '../helperComponents/ThemeContext.js';
 import { getSharedStyles, footerStyle } from '../helperComponents/styles.js';
 import { useUser } from '../helperComponents/UserContext';
 import { currentBest } from '../helperComponents/Schedule';
+import SkillLevel from '../helperComponents/SkillLevel.js';
+import ChooseTheme from '../helperComponents/ChooseTheme.js';
 
-export default function SkillLevel({ navigation }) {
-    const [selected, setSelected] = useState(null);
-    const skillLevels = ['Beginner', 'Intermediate', 'Advanced'];
+export default function SkillTheme({ navigation }) {
+    const [selectedSkillLevel, setSelectedSkillLevel] = useState(null);
     const [error, setError] = useState('');
     const { user, updateUser } = useUser();
 
     // Grab dynamic theme
-    const { theme } = useTheme();
+    const { theme, toggleTheme } = useTheme();
     const sharedStyles = getSharedStyles(theme);
 
-    const radioButtons = skillLevels.map((level, index) => ({
-        id: index,
-        label: skillLevels[index],
-        value: skillLevels[index],
-    }));
-
     function handleNext() {
-        if (selected != null) {
-            updateUser({...user, skillLevel: selected, currentBest: currentBest(user, selected)});
+        if (selectedSkillLevel != null) {
+            updateUser({...user, skillLevel: selectedSkillLevel, theme: theme, currentBest: currentBest(user, selectedSkillLevel)});
             navigation.navigate('availability');
         } else {
             setError('Please choose one of the options.');
         }
     }
 
-    function handlePress(index) {
-        setSelected(index);
+    function handleSelectSkill(index) {
+        setSelectedSkillLevel(index);
+        setError('');
+    }
+
+    function handleToggleTheme(theme) {
+        toggleTheme(theme.title)
         setError('');
     }
 
     return (
         <TouchableWithoutFeedback onPress={() => setError('')} accesible={false}>
             <View style={[sharedStyles.alignContainer, sharedStyles.justifyContainer]}>
-                <Text style={[sharedStyles.headerText, { position: 'absolute', top: 50, fontSize: 25 }]}>
-                    {' '}
-                    What is your skill level?{' '}
-                </Text>
-                <RadioGroup
-                    radioButtons={radioButtons}
-                    onPress={(index) => handlePress(index)}
-                    selectedId={selected}
-                    labelStyle={[sharedStyles.largeText, { marginVertical: 5 }]}
+                <SkillLevel 
+                    selectedSkillLevel={selectedSkillLevel}
+                    handleSelectSkill={handleSelectSkill}
+                    sharedStyles={sharedStyles}
+                />
+                <ChooseTheme
+                    selectedSkillLevel={theme}
+                    handleToggleTheme={handleToggleTheme}
+                    sharedStyles={sharedStyles}
                 />
                 {error != '' && <Error message={error} />}
                 <View style={footerStyle}>
