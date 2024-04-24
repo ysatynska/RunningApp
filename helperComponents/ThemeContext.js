@@ -1,8 +1,8 @@
 // File to create the themeContext used for rendering
 //   different themes across the app
-import { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext, useEffect } from 'react';
 import { themes } from './styles';
-import { useUser } from '../helperComponents/UserContext';
+import { useUser } from './UserContext';
 
 const ThemeContext = createContext(); // Declare the context variable
 
@@ -21,8 +21,10 @@ export const ThemeProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        setTheme(user.theme)
-    }, [user.theme]);
+        if (user && user.theme) {
+            setTheme(themes[user.theme] || themes.light)
+        }
+    }, [user ? user.theme : null]);
 
     // Wrap all components requiring access to the theme
     return <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>;
