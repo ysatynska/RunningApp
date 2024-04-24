@@ -13,7 +13,7 @@ export const useTheme = () => useContext(ThemeContext);
 // Define the ThemeProvider that will wrap all components using dynamic theme
 export const ThemeProvider = ({ children }) => {
     const { user } = useUser();
-    const [theme, setTheme] = useState(themes.light); // Default theme
+    const [theme, setTheme] = useState(themes.default); // Default theme
 
     // Function to update theme when changed
     const toggleTheme = (themeName) => {
@@ -22,7 +22,7 @@ export const ThemeProvider = ({ children }) => {
 
     useEffect(() => {
         if (user && user.theme) {
-            setTheme(themes[user.theme] || themes.light)
+            setTheme(themes[user.theme] || themes.default)
         }
     }, [user ? user.theme : null]);
 

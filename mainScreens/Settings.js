@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TextInput, Switch, Keyboard, Dimensions, TouchableWithoutFeedback, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { getSharedStyles, footerStyle, getAvailabilityItem } from '../helperComponents/styles.js';
 import { MaterialIcons } from '@expo/vector-icons';
