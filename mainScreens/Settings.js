@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TextInput, Switch, Keyboard, Dimensions, TouchableWithoutFeedback, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
-import { getSharedStyles, footerStyle, getAvailabilityItem } from '../helperComponents/styles.js';
+import { getSharedStyles, footerStyle, getAvailabilityItem, getColors } from '../helperComponents/styles.js';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Button, Error} from '../helperComponents/Utilities.js';
 import * as InputFields from '../helperComponents/InputFields.js';
@@ -14,6 +14,7 @@ const DropdownComponent = ({data, value, setValue}) => {
     // Grab dynamic theme
     const { theme } = useTheme();
     const sharedStyles = getSharedStyles(theme);
+    const colors = getColors(theme);
     
     return (
       <View>
@@ -21,8 +22,9 @@ const DropdownComponent = ({data, value, setValue}) => {
           style={[sharedStyles.input, {height: 35, marginTop: 0, width: 130}]}
           itemTextStyle={[sharedStyles.subscriptText, {textAlign: 'left'}]}
           selectedTextStyle={[sharedStyles.subscriptText, {textAlign: 'left'}]}
-          containerStyle={{borderRadius: 15}}
-          activeColor={sharedStyles.alignContainer.backgroundColor}
+          containerStyle={{borderRadius: 15, backgroundColor: colors.smallBgColor}}
+          activeColor={colors.headerColor}
+          placeholderStyle={{color: colors.textColor}}
           data={data}
           labelField="title"
           valueField="_index"
