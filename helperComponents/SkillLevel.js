@@ -7,16 +7,16 @@ export default function SkillLevel({ selectedSkillLevel, handleSelectSkill, shar
     const radioButtons = skillLevels.map((level, index) => ({
         id: index,
         label: skillLevels[index],
-        value: skillLevels[index],
+        color: sharedStyles.headerColor,
     }));
 
     return (
         <>
-            <Text style={[sharedStyles.headerText, { fontSize: 25 }]}>
-                {' '}
+            <Text style={[sharedStyles.headerText, { fontSize: 25, marginBottom: 25 }]}>
                 What is your skill level?{' '}
             </Text>
             <RadioGroup
+                key={selectedSkillLevel}
                 radioButtons={radioButtons}
                 onPress={(index) => handleSelectSkill(index)}
                 selectedId={selectedSkillLevel}
