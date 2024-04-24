@@ -304,7 +304,6 @@ export function getHiddenPasswordIcon (theme) {
     return ({
         position: 'absolute',
         right: 10,
-        top: 6,
         height: '100%',
         justifyContent: 'center',
         alignItems: 'center',
