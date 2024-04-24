@@ -5,11 +5,11 @@ import ChooseGoal from './mainScreens/ChooseGoal.js';
 import Welcome from './mainScreens/Welcome.js';
 import SkillLevel from './mainScreens/SkillLevel.js';
 import Availability from './mainScreens/Availability.js';
-import { screenOptionsStyles } from './helperComponents/styles.js';
+import { getScreenOptionsStyles } from './helperComponents/styles.js';
 import LoginScreen from './mainScreens/LoginScreen.js';
 import CreateAccount from './mainScreens/CreateAccount.js';
 import Profile from './mainScreens/Profile.js';
-import { ThemeProvider } from './helperComponents/ThemeContext.js';
+import { useTheme, ThemeProvider } from './helperComponents/ThemeContext.js';
 import Settings from './mainScreens/Settings.js';
 import { UserProvider } from './helperComponents/UserContext';
 
@@ -33,4 +33,5 @@ export default function App () {
       </ThemeProvider>
     </UserProvider>
   );
+
 }

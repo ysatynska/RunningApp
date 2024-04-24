@@ -3,8 +3,7 @@ import { Text, View, TouchableWithoutFeedback } from 'react-native';
 import { StepIndicator, Error, Button } from '../helperComponents/Utilities';
 import RadioGroup from 'react-native-radio-buttons-group';
 import { useTheme } from '../helperComponents/ThemeContext.js';
-import { getStyles } from '../helperComponents/styles.js';
-import { sharedStyles, footerStyle } from '../helperComponents/styles.js';
+import { getSharedStyles, footerStyle } from '../helperComponents/styles.js';
 import { useUser } from '../helperComponents/UserContext';
 import { currentBest } from '../helperComponents/Schedule';
 
@@ -15,8 +14,8 @@ export default function SkillLevel({ navigation }) {
     const { user, updateUser } = useUser();
 
     // Grab dynamic theme
-    // const { theme } = useTheme();
-    // const styles = getStyles(theme);
+    const { theme } = useTheme();
+    const sharedStyles = getSharedStyles(theme);
 
     const radioButtons = skillLevels.map((level, index) => ({
         id: index,

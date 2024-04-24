@@ -4,9 +4,8 @@ import { View, Text, TouchableOpacity, TouchableWithoutFeedback, KeyboardAvoidin
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as InputFields from '../helperComponents/InputFields.js';
 import * as Utilities from '../helperComponents/Utilities.js';
-import { sharedStyles } from '../helperComponents/styles.js';
+import { getSharedStyles } from '../helperComponents/styles.js';
 import { useTheme } from '../helperComponents/ThemeContext.js';
-import { getStyles } from '../helperComponents/styles.js';
 import { useUser } from '../helperComponents/UserContext';
 
 export default function CreateAccount({ navigation }) {
@@ -20,8 +19,8 @@ export default function CreateAccount({ navigation }) {
     const { updateUser } = useUser();
 
     // Grab dynamic theme
-    // const { theme } = useTheme();
-    // const styles = getStyles(theme);
+    const { theme } = useTheme();
+    const sharedStyles = getSharedStyles(theme);
 
     const handleCreate = async () => {
         handlePress();

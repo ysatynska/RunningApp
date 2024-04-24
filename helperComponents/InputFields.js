@@ -1,14 +1,14 @@
 import React from 'react';
 import { View, TextInput, TouchableOpacity } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import { hiddenPasswordIcon, sharedStyles } from '../helperComponents/styles.js';
 import { useTheme } from './ThemeContext.js';
-import { getStyles } from './styles.js';
+import { getSharedStyles, getHiddenPasswordIcon } from './styles.js';
 
 export function Password({ isPasswordVisible, togglePasswordVisibility, password, setPassword, marginTop = 12, width = 'auto', height = 40, iconTop = 6 }) {
     // Grab dynamic theme
-    // const { theme } = useTheme();
-    // const styles = getStyles(theme);
+    const { theme } = useTheme();
+    const sharedStyles = getSharedStyles(theme);
+    const hiddenPasswordIcon = getHiddenPasswordIcon(theme);
 
     return (
         <View>
@@ -33,8 +33,9 @@ export function Password({ isPasswordVisible, togglePasswordVisibility, password
 
 export function InputField({ value, onChange, placeholder, autoCap = 'sentences', marginBottom = 0, marginTop = 12, height = 40, width = 'auto', editable = true }) {
     // Grab dynamic theme
-    // const { theme } = useTheme();
-    // const styles = getStyles(theme);
+    const { theme } = useTheme();
+    const sharedStyles = getSharedStyles(theme);
+    const hiddenPasswordIcon = getHiddenPasswordIcon(theme);
 
     return (
         <TextInput
@@ -50,17 +51,9 @@ export function InputField({ value, onChange, placeholder, autoCap = 'sentences'
 }
 
 export function Username({ username, setUsername }) {
-    // Grab dynamic theme
-    // const { theme } = useTheme();
-    // const styles = getStyles(theme);
-
     return <InputField value={username} onChange={setUsername} placeholder="Username" autoCap="none" />;
 }
 
 export function FirstName({ firstName, setFirstName, marginBottom = 0, placeholder = 'First Name', marginTop = 12, width = 'auto', height = 40 }) {
-    // Grab dynamic theme
-    // const { theme } = useTheme();
-    // const styles = getStyles(theme);
-
     return <InputField value={firstName} onChange={setFirstName} marginBottom={marginBottom} placeholder={placeholder} marginTop={marginTop} width={width} height={height}/>;
 }
