@@ -9,17 +9,18 @@ import { sharedStyles, availabilityItem, colors } from '../helperComponents/styl
 import { useUser } from '../helperComponents/UserContext';
 
 export default function Availability({ navigation }) {
-    const [availability, setAvailability] = useState([
-        { day: 'Sunday', hours: 0 },
+    const [error, setError] = useState('');
+    const { user, updateUser } = useUser();
+    const [availability, setAvailability] = useState(
+        user.availability ? user.availability :
+        [{ day: 'Sunday', hours: 0 },
         { day: 'Monday', hours: 0 },
         { day: 'Tuesday', hours: 0 },
         { day: 'Wednesday', hours: 0 },
         { day: 'Thursday', hours: 0 },
         { day: 'Friday', hours: 0 },
-        { day: 'Saturday', hours: 0 },
-    ]);
-    const [error, setError] = useState('');
-    const { user, updateUser } = useUser();
+        { day: 'Saturday', hours: 0 }]
+    );
 
     // Grab dynamic theme
     // const { theme } = useTheme();
@@ -56,7 +57,7 @@ export default function Availability({ navigation }) {
                         reps: 0,
                     };
                 });
-            updateUser({...user, schedule: generateSchedule(user)});
+            updateUser({...user, availability: availability, schedule: generateSchedule(user)});
             navigation.navigate('profile');
         }
     }

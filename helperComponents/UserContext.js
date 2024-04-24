@@ -9,7 +9,6 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   const updateUser = (userData) => {
-    console.log("updating user context")
     setUser(userData);
     saveUserAsync(userData);
   };
