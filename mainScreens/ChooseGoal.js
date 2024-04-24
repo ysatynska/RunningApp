@@ -6,7 +6,7 @@ import { useTheme } from '../helperComponents/ThemeContext.js';
 import { getStyles } from '../helperComponents/styles.js';
 import { sharedStyles, footerStyle, colors } from '../helperComponents/styles.js';
 import { useUser } from '../helperComponents/UserContext';
-import generateSchedule from '../helperComponents/Schedule';
+import generateSchedule, { currentBest } from '../helperComponents/Schedule';
 
 export default function ChooseGoal({ navigation }) {
     const { user, updateUser } = useUser();
@@ -64,7 +64,8 @@ export default function ChooseGoal({ navigation }) {
             if (!areUpdating) {
                 navigation.navigate('skillLevel');
             } else {
-                updateUser({...user, schedule: generateSchedule(user)});
+                const newUser = {...user, currentBest: currentBest(user, user.skillLevel)};
+                updateUser({...newUser, schedule: generateSchedule(newUser)});
                 navigation.navigate('profile');
             }
         } else {
