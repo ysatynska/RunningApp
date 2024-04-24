@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, Switch, Keyboard, TouchableWithoutFeedback, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
-import { hiddenPasswordIcon, sharedStyles, footerStyle, availabilityItem } from '../helperComponents/styles.js';
+import { getSharedStyles, footerStyle, getAvailabilityItem } from '../helperComponents/styles.js';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Button, Error} from '../helperComponents/Utilities.js';
 import * as InputFields from '../helperComponents/InputFields.js';
 import { useTheme } from '../helperComponents/ThemeContext.js';
-import { getStyles } from '../helperComponents/styles.js';
 import { Dropdown } from 'react-native-element-dropdown';
 import { useUser } from '../helperComponents/UserContext';
 import generateSchedule, { newCurrentBest } from '../helperComponents/Schedule';
 import { currentBest } from '../helperComponents/Schedule';
 
 const DropdownComponent = ({data, value, setValue}) => {
+    // Grab dynamic theme
+    const { theme } = useTheme();
+    const sharedStyles = getSharedStyles(theme);
+    
     return (
       <View>
         <Dropdown
@@ -38,7 +41,7 @@ export default function Settings ({ route, navigation }) {
         { "_index": 1, id: '1', title: 'Light' },
         { "_index": 2, id: '2', title: 'Blue' },
     ];
-    const [theme, setTheme] = useState(themes[user.theme]);
+    const [currTheme, setTheme] = useState(themes[user.theme]);
 
     const skillLevels = [
         { "_index": 0, title: 'Beginner'}, 
@@ -50,9 +53,11 @@ export default function Settings ({ route, navigation }) {
     const [error, setError] = useState('');
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [success, setSuccess] = useState(false);
+
     // Grab dynamic theme
-    // const { theme } = useTheme();
-    // const styles = getStyles(theme);
+    const { theme } = useTheme();
+    const sharedStyles = getSharedStyles(theme);
+    const availabilityItem = getAvailabilityItem(theme);
 
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
@@ -117,7 +122,7 @@ export default function Settings ({ route, navigation }) {
                     <Text style={[sharedStyles.subscriptText, {width: 80, textAlign: 'left'}]}>
                         Theme
                     </Text>
-                    <DropdownComponent data={themes} selected={1} value={theme} setValue={setTheme}/> 
+                    <DropdownComponent data={themes} selected={1} value={currTheme} setValue={setTheme}/> 
                     {/* change 1 to the current theme's index selected by the user. */}
                     <Button onPress={changeTheme} title="Update" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
                 </View>
