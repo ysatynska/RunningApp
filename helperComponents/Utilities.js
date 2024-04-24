@@ -2,13 +2,14 @@ import React from 'react';
 import { View, Text, Image, Pressable, TouchableOpacity } from 'react-native';
 import { useTheme } from './ThemeContext.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { getUtilitiesStyles, staticUtilitiesStyles, getProfileStyles } from '../helperComponents/styles.js';
+import { getUtilitiesStyles, staticUtilitiesStyles, getProfileStyles, getColors } from '../helperComponents/styles.js';
 
 
 export const SettingsButton = ({ onPress }) => {
     // Grab dynamic theme
     const { theme } = useTheme();
     const profileStyles = getProfileStyles(theme);
+
     return (
       <TouchableOpacity onPress={onPress} style={profileStyles.settingsButton}>
         <View>
@@ -35,10 +36,14 @@ export function Button({ onPress, title, padding, marginBottom = 0, marginTop = 
     );
 }
 
-export function Error({ message, textAlign = 'left', color = '#CC0000' }) {
+export function Error({ message, textAlign = 'left' }) {
+    // Grab dynamic theme
+    const { theme } = useTheme();
+    const colors = getColors(theme);
+
     return (
         <View>
-            <Text style={[staticUtilitiesStyles.error, {textAlign, color: color}]}>{message}</Text>
+            <Text style={[staticUtilitiesStyles.error, {textAlign: textAlign, color: colors.errorColor}]}>{message}</Text>
         </View>
     );
 }
