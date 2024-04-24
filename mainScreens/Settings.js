@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Keyboard, Dimensions, TouchableWithoutFeedback, ScrollView } from 'react-native';
-import { getSharedStyles, footerStyle, getAvailabilityItem } from '../helperComponents/styles.js';
+import { getSharedStyles, footerStyle, getAvailabilityItem, getColors } from '../helperComponents/styles.js';
 import { Button, Error, DropdownComponent } from '../helperComponents/Utilities.js';
 import * as InputFields from '../helperComponents/InputFields.js';
 import { useTheme } from '../helperComponents/ThemeContext.js';
