@@ -50,7 +50,7 @@ export default function Settings ({ navigation }) {
 
     function changeFirstName () {
         if (firstName.length > 30 || firstName.length == 0) {
-            setError('Name must be beteween 1 and 30 characters.');
+            setError('First name must be beteween 1 and 30 characters.');
         } else {
             updateUser({...user, name: firstName});
             setSuccess(true);
@@ -105,7 +105,7 @@ export default function Settings ({ navigation }) {
                         <Text style={[sharedStyles.subscriptText, {width: 80, textAlign: 'left', fontWeight: 'bold'}]}>
                             Password
                         </Text>
-                        <InputFields.Password password={password} setPassword={setPassword} isPasswordVisible={isPasswordVisible} togglePasswordVisibility={togglePasswordVisibility} marginTop={0} width={130} height={35} iconTop={-8}/>
+                        <InputFields.Password password={password} setPassword={setPassword} isPasswordVisible={isPasswordVisible} togglePasswordVisibility={togglePasswordVisibility} marginTop={0} width={130} height={35} iconTop={-screenHeight/45}/>
                         <Button onPress={changePassword} title="Update" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
                     </View>
 
