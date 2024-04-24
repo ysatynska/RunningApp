@@ -14,7 +14,7 @@ export const themes = {
         error_color: '#CC0000', // Error message color
     },
     neon: {
-        header_color: '#9b5de5',  
+        header_color: '#9b5de5',  // Used for header color, placeholder text in InputFields, and input spinner when ACTIVE
         text_color: '#411462', // Instructions, text color
         bg_color: '#41ead4', // Background screen color
         small_bg_color: '#fbff12', // Backrgound object color (input fields and progress container)
@@ -26,13 +26,26 @@ export const themes = {
         link_color: '#0645AD', // Link color for sign in/create account links
         error_color: '#CC0000', // Error message color
     },
+    roanoke: {
+        header_color: '#800000',  // Used for header color, placeholder text in InputFields, and input spinner when ACTIVE
+        text_color: '#222222', // Instructions, text color
+        bg_color: '#F0F0F0', // Background screen color
+        small_bg_color: '#FFFFFF', // Backrgound object color (input fields and progress container)
+        separator_color: '#2F0909', // Separating lines for Availability and Profile screens
+        shadow_color: '#3F1414', // Shadow used in Profile and for buttons
+        button_color: '#800000', // Button color
+        button_text_color: '#FFFFFF', // Button text color
+        input_spinner_color: '#DCDCDC', // Used for incrementing buttons in Availability (when OFF)
+        link_color: '#6BAFC3', // Link color for sign in/create account links
+        error_color: '#CF6679', // Error message color
+    },
     dark: {
         header_color: '#BED754',  // Used for header color, placeholder text in InputFields, and input spinner when ACTIVE
         text_color: '#F0FFF0', // Instructions, text color
         bg_color: '#191919', // Background screen color
         small_bg_color: '#3E403D', // Backrgound object color (input fields and progress container)
         separator_color: '#33F53E', // Separating lines for Availability and Profile screens
-        shadow_color: '#D7FFD9', // Shadow used in Profile and for buttons
+        shadow_color: '#546954', // Shadow used in Profile and for buttons
         button_color: '#BED754', // Button color
         button_text_color: '#F0FFF0', // Button text color
         input_spinner_color: '#11110D', // Used for incrementing buttons in Availability (when OFF)
@@ -52,9 +65,7 @@ export function getScreenOptionsStyles (theme) {
             backgroundColor: theme.header_color
         },
         headerTintColor: theme.small_bg_color,
-        cardStyle: {
-            backgroundColor: theme.bg_color
-        },
+        statusBarColor: 'auto',
     });
 };
 // export const screenOptionsStyles = StyleSheet.create({
