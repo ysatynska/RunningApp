@@ -12,7 +12,7 @@ export const SettingsButton = ({ onPress }) => {
     return (
       <TouchableOpacity onPress={onPress} style={profileStyles.settingsButton}>
         <View>
-          <Icon name="cog" size={28} color="white" />
+          <Icon name="cog" size={28} color={profileStyles.maximumTrackStyle.color} />
         </View>
       </TouchableOpacity>
     );

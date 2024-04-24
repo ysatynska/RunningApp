@@ -18,8 +18,8 @@ export const themes = {
         text_color: '#411462', // Instructions, text color
         bg_color: '#41ead4', // Background screen color
         small_bg_color: '#fbff12', // Backrgound object color (input fields and progress container)
-        separator_color: '#CED0CE', // Separating lines for Availability and Profile screens
-        shadow_color: 'gray', // Shadow used in Profile and for buttons
+        separator_color: '#9b5de5', // Separating lines for Availability and Profile screens
+        shadow_color: '9b5de5', // Shadow used in Profile and for buttons
         button_color: '#fbff12', // Button color
         button_text_color: '#411462', // Button text color
         input_spinner_color: '#DCDCDC', // Used for incrementing buttons in Availability
