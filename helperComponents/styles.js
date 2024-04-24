@@ -64,7 +64,10 @@ export function getScreenOptionsStyles (theme) {
         headerStyle: {
             backgroundColor: theme.header_color
         },
-        headerTintColor: theme.small_bg_color
+        headerTintColor: theme.small_bg_color,
+        cardStyle: {
+            backgroundColor: theme.bg_color
+        },
     });
 };
 // export const screenOptionsStyles = StyleSheet.create({
@@ -157,6 +160,7 @@ export function getColors (theme) {
         textColor: theme.text_color,
         inputSpinnerColor: theme.input_spinner_color,
         smallBgColor: theme.small_bg_color,
+        bgColor: theme.bg_color,
         errorColor: theme.error_color,
     });
 };

@@ -3,10 +3,9 @@ import { View, Text, TouchableWithoutFeedback, KeyboardAvoidingView, Platform, S
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as InputFields from '../helperComponents/InputFields.js';
 import * as Utilities from '../helperComponents/Utilities.js';
-import { getSharedStyles } from '../helperComponents/styles.js';
+import { getSharedStyles, getColors } from '../helperComponents/styles.js';
 import { useUser } from '../helperComponents/UserContext';
 import { useTheme } from '../helperComponents/ThemeContext.js';
-import { getStyles } from '../helperComponents/styles.js';
 
 export default function LoginScreen({ navigation }) {
     const { updateUser } = useUser();
@@ -19,6 +18,7 @@ export default function LoginScreen({ navigation }) {
     // Grab dynamic theme
     const { theme } = useTheme();
     const sharedStyles = getSharedStyles(theme);
+    const colors = getColors(theme);
 
     const handleLogin = async () => {
         try {
@@ -48,32 +48,34 @@ export default function LoginScreen({ navigation }) {
     };
 
     return (
-        <TouchableWithoutFeedback onPress={handlePress}>
-            <KeyboardAvoidingView
-                style={{ flex: 1 }}
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
-            >
-                <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                    <View style={sharedStyles.justifyContainer}>
-                        <Utilities.LoginImage invalidUsername={invalidUsername} invalidPassword={invalidPassword} />
-                        <Text style={[sharedStyles.largeText, { marginLeft: 5 }]}>Login Details</Text>
+        <View style={{ flex: 1, backgroundColor: colors.bgColor }}>
+            <TouchableWithoutFeedback onPress={handlePress}>
+                <KeyboardAvoidingView
+                    style={{ flex: 1 }}
+                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                    keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
+                >
+                    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                        <View style={sharedStyles.justifyContainer}>
+                            <Utilities.LoginImage invalidUsername={invalidUsername} invalidPassword={invalidPassword} />
+                            <Text style={[sharedStyles.largeText, { marginLeft: 5 }]}>Login Details</Text>
 
-                        <InputFields.Username username={username} setUsername={setUsername} />
-                        {invalidUsername && <Utilities.Error message={'Invalid Username'} />}
+                            <InputFields.Username username={username} setUsername={setUsername} />
+                            {invalidUsername && <Utilities.Error message={'Invalid Username'} />}
 
-                        <InputFields.Password
-                            isPasswordVisible={isPasswordVisible}
-                            togglePasswordVisibility={togglePasswordVisibility}
-                            password={password}
-                            setPassword={setPassword}
-                        />
-                        {invalidPassword && <Utilities.Error message={'Invalid Password'} />}
+                            <InputFields.Password
+                                isPasswordVisible={isPasswordVisible}
+                                togglePasswordVisibility={togglePasswordVisibility}
+                                password={password}
+                                setPassword={setPassword}
+                            />
+                            {invalidPassword && <Utilities.Error message={'Invalid Password'} />}
 
-                        <Utilities.Button onPress={handleLogin} title="Sign In" padding={8} />
-                    </View>
-                </ScrollView>
-            </KeyboardAvoidingView>
-        </TouchableWithoutFeedback>
+                            <Utilities.Button onPress={handleLogin} title="Sign In" padding={8} />
+                        </View>
+                    </ScrollView>
+                </KeyboardAvoidingView>
+            </TouchableWithoutFeedback>
+        </View>
     );
 }
