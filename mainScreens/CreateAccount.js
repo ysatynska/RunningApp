@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, TouchableWithoutFeedback, KeyboardAvoidin
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as InputFields from '../helperComponents/InputFields.js';
 import * as Utilities from '../helperComponents/Utilities.js';
-import { getSharedStyles } from '../helperComponents/styles.js';
+import { getSharedStyles, getColors } from '../helperComponents/styles.js';
 import { useTheme } from '../helperComponents/ThemeContext.js';
 import { useUser } from '../helperComponents/UserContext';
 
@@ -21,6 +21,7 @@ export default function CreateAccount({ navigation }) {
     // Grab dynamic theme
     const { theme } = useTheme();
     const sharedStyles = getSharedStyles(theme);
+    const colors = getColors(theme);
 
     const handleCreate = async () => {
         handlePress();
@@ -59,56 +60,58 @@ export default function CreateAccount({ navigation }) {
     };
 
     return (
-        <TouchableWithoutFeedback onPress={handlePress}>
-            <KeyboardAvoidingView
-                style={{ flex: 1 }}
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
-            >
-                <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                    <View style={sharedStyles.justifyContainer}>
-                        <Utilities.LoginImage
-                            invalidUsername={invalidUsername}
-                            invalidPassword={invalidPassword}
-                            invalidName={invalidName}
-                        />
-                        <Text style={[sharedStyles.largeText, { marginLeft: 5 }]}>Create Account</Text>
-
-                        <InputFields.FirstName firstName={firstName} setFirstName={setFirstName} />
-                        {invalidName && <Utilities.Error message={'Must be between 1 and 30 characters'} />}
-
-                        <InputFields.Username username={username} setUsername={setUsername} />
-                        {invalidUsername && (
-                            <Utilities.Error
-                                message={
-                                    username.length < 3 ? 'Must be at least 3 characters' : 'Username already taken'
-                                }
+        <View style={{ flex: 1, backgroundColor: colors.bgColor }}>
+            <TouchableWithoutFeedback onPress={handlePress}>
+                <KeyboardAvoidingView
+                    style={{ flex: 1 }}
+                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                    keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}
+                >
+                    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                        <View style={sharedStyles.justifyContainer}>
+                            <Utilities.LoginImage
+                                invalidUsername={invalidUsername}
+                                invalidPassword={invalidPassword}
+                                invalidName={invalidName}
                             />
-                        )}
+                            <Text style={[sharedStyles.largeText, { marginLeft: 5 }]}>Create Account</Text>
 
-                        <InputFields.Password
-                            isPasswordVisible={isPasswordVisible}
-                            togglePasswordVisibility={togglePasswordVisibility}
-                            password={password}
-                            setPassword={setPassword}
-                        />
-                        {invalidPassword && <Utilities.Error message={'Must be at least 8 characters'} />}
+                            <InputFields.FirstName firstName={firstName} setFirstName={setFirstName} />
+                            {invalidName && <Utilities.Error message={'Must be between 1 and 30 characters'} />}
 
-                        <Utilities.Button onPress={handleCreate} title="Sign Up" padding={8} />
+                            <InputFields.Username username={username} setUsername={setUsername} />
+                            {invalidUsername && (
+                                <Utilities.Error
+                                    message={
+                                        username.length < 3 ? 'Must be at least 3 characters' : 'Username already taken'
+                                    }
+                                />
+                            )}
 
-                        <View style={{ marginTop: 10 }}>
-                            <Text style={sharedStyles.subscriptText}>
-                                Already have an account?{' '}
-                                <TouchableOpacity onPress={() => navigation.navigate('login')}>
-                                    <Text style={[sharedStyles.subscriptText, { color: sharedStyles.linkColor }]}>
-                                        Sign in
-                                    </Text>
-                                </TouchableOpacity>
-                            </Text>
+                            <InputFields.Password
+                                isPasswordVisible={isPasswordVisible}
+                                togglePasswordVisibility={togglePasswordVisibility}
+                                password={password}
+                                setPassword={setPassword}
+                            />
+                            {invalidPassword && <Utilities.Error message={'Must be at least 8 characters'} />}
+
+                            <Utilities.Button onPress={handleCreate} title="Sign Up" padding={8} />
+
+                            <View style={{ marginTop: 10 }}>
+                                <Text style={sharedStyles.subscriptText}>
+                                    Already have an account?{' '}
+                                    <TouchableOpacity onPress={() => navigation.navigate('login')}>
+                                        <Text style={[sharedStyles.subscriptText, { color: sharedStyles.linkColor }]}>
+                                            Sign in
+                                        </Text>
+                                    </TouchableOpacity>
+                                </Text>
+                            </View>
                         </View>
-                    </View>
-                </ScrollView>
-            </KeyboardAvoidingView>
-        </TouchableWithoutFeedback>
+                    </ScrollView>
+                </KeyboardAvoidingView>
+            </TouchableWithoutFeedback>
+        </View>
     );
 }
