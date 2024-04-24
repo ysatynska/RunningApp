@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Keyboard, Dimensions, TouchableWithoutFeedback, ScrollView } from 'react-native';
-import { getSharedStyles, footerStyle, getAvailabilityItem } from '../helperComponents/styles.js';
+import { getSharedStyles, footerStyle, getAvailabilityItem, getColors, themes } from '../helperComponents/styles.js';
 import { Button, Error, DropdownComponent } from '../helperComponents/Utilities.js';
 import * as InputFields from '../helperComponents/InputFields.js';
 import { useTheme } from '../helperComponents/ThemeContext.js';
@@ -14,19 +14,16 @@ export default function Settings ({ navigation }) {
     const [password, setPassword] = useState(user.password);
     const screenHeight = Dimensions.get('window').height;
 
-    const themes = [
-        { "_index": 0, id: '0', title: 'Dark' },
-        { "_index": 1, id: '1', title: 'Light' },
-        { "_index": 2, id: '2', title: 'Blue' },
-    ];
-    const [currTheme, setTheme] = useState(themes[user.theme]);
+    const themesData = Object.keys(themes).map((themeKey) => ({
+        _index: themeKey,
+        title: themeKey,
+    }));
 
     const skillLevels = [
         { "_index": 0, title: 'Beginner'}, 
         { "_index": 1, title: 'Intermediate'}, 
         { "_index": 2, title: 'Advanced'}
     ];
-    const [skillLevel, setSkillLevel] = useState(skillLevels[user.skillLevel]);
 
     const [error, setError] = useState('');
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -66,15 +63,15 @@ export default function Settings ({ navigation }) {
         }
     }
 
-    function changeTheme () {
-        // updateUser({...user, theme: theme._index});
-        setSuccess(true);
-    }
-
-    function changeSkillLevel () {
+    function changeSkillLevel (skillLevel) {
         const newUser = {...user, skillLevel: skillLevel._index, currentBest: currentBest(user, skillLevel._index)};
         updateUser({...newUser, schedule: generateSchedule(newUser)});
         setSuccess(true);
+    }
+
+    function handleToggleTheme(theme) {
+        updateUser({...user, theme: theme.title})
+        setError('');
     }
 
     useEffect(() => {
@@ -93,7 +90,7 @@ export default function Settings ({ navigation }) {
         <View style={{ flex: 1, backgroundColor: colors.bgColor }}>
             <TouchableWithoutFeedback onPress={handlePress} accesible={false}>
                 <ScrollView contentContainerStyle={[sharedStyles.alignContainer, { flex: 1 }]}>
-                    <View style={[availabilityItem, {height: screenHeight/10}]}>
+                    <View style={[availabilityItem, {height: screenHeight/11}]}>
                         <Text style={[sharedStyles.subscriptText, {width: 80, textAlign: 'left', fontWeight: 'bold'}]}>
                             First Name
                         </Text>
@@ -101,7 +98,7 @@ export default function Settings ({ navigation }) {
                         <Button onPress={changeFirstName} title="Update" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
                     </View>
 
-                    <View style={[availabilityItem, {height: screenHeight/10}]}>
+                    <View style={[availabilityItem, {height: screenHeight/11}]}>
                         <Text style={[sharedStyles.subscriptText, {width: 80, textAlign: 'left', fontWeight: 'bold'}]}>
                             Password
                         </Text>
@@ -109,35 +106,32 @@ export default function Settings ({ navigation }) {
                         <Button onPress={changePassword} title="Update" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
                     </View>
 
-                    <View style={[availabilityItem, {height: screenHeight/10}]}>
-                        <Text style={[sharedStyles.subscriptText, {width: 80, textAlign: 'left', fontWeight: 'bold'}]}>
-                            Theme
-                        </Text>
-                        <DropdownComponent data={themes} selected={1} value={currTheme} setValue={setTheme}/> 
-                        {/* change 1 to the current theme's index selected by the user. */}
-                        <Button onPress={changeTheme} title="Update" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
-                    </View>
-
-                    <View style={[availabilityItem, {height: screenHeight/10}]}>
-                        <Text style={[sharedStyles.subscriptText, {width: 80, textAlign: 'left', fontWeight: 'bold'}]}>
-                            Skill Level
-                        </Text>
-                        <DropdownComponent data={skillLevels} selected={user.skillLevel} value={skillLevel} setValue={setSkillLevel}/>
-                        <Button onPress={changeSkillLevel} title="Update" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
-                    </View>
-
-                    <View style={[availabilityItem, {height: screenHeight/10}]}>
+                    <View style={[availabilityItem, {height: screenHeight/11}]}>
                         <Text style={[sharedStyles.subscriptText, {textAlign: 'left', fontWeight: 'bold'}]}>
                             Goal
                         </Text>
                         <Button onPress={() => navigation.push('chooseGoal')} title="Update Goal" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
                     </View>
 
-                    <View style={[availabilityItem, {height: screenHeight/10}]}>
+                    <View style={[availabilityItem, {height: screenHeight/11}]}>
                         <Text style={[sharedStyles.subscriptText, {textAlign: 'left', fontWeight: 'bold'}]}>
                             Availability
                         </Text>
                         <Button onPress={() => navigation.push('availability')} title="Update Availability" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
+                    </View>
+
+                    <View style={[availabilityItem, {height: screenHeight/11}]}>
+                        <Text style={[sharedStyles.subscriptText, {width: 80, textAlign: 'left', fontWeight: 'bold'}]}>
+                            Skill Level
+                        </Text>
+                        <DropdownComponent data={skillLevels} value={user.skillLevel} setValue={changeSkillLevel}/>
+                    </View>
+
+                    <View style={[availabilityItem, {height: screenHeight/11}]}>
+                        <Text style={[sharedStyles.subscriptText, {width: 80, textAlign: 'left', fontWeight: 'bold'}]}>
+                            Theme
+                        </Text>
+                        <DropdownComponent data={themesData} value={themesData.filter(item => item._index === user.theme)[0]} setValue={handleToggleTheme}/> 
                     </View>
 
                     {success != '' && <Error message="Successfully saved" />}

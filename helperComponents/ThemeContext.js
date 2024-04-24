@@ -22,7 +22,7 @@ export const ThemeProvider = ({ children }) => {
 
     useEffect(() => {
         if (user && user.theme) {
-            setTheme(themes[user.theme] || themes.neon)
+            setTheme(themes[user.theme])
         }
     }, [user ? user.theme : null]);
 

@@ -1,8 +1,9 @@
 import React from 'react';
 import { Text } from 'react-native';
 import RadioGroup from 'react-native-radio-buttons-group';
+import { Error } from '../helperComponents/Utilities';
 
-export default function SkillLevel({ selectedSkillLevel, handleSelectSkill, sharedStyles }) {
+export default function SkillLevel({ selectedSkillLevel, handleSelectSkill, sharedStyles, error }) {
     const skillLevels = ['Beginner', 'Intermediate', 'Advanced'];
     const radioButtons = skillLevels.map((level, index) => ({
         id: index,
@@ -22,6 +23,7 @@ export default function SkillLevel({ selectedSkillLevel, handleSelectSkill, shar
                 selectedId={selectedSkillLevel}
                 labelStyle={[sharedStyles.largeText, { marginVertical: 5 }]}
             />
+            {error != '' && <Error message={error} />}
         </>
     );
 }

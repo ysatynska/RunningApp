@@ -10,7 +10,6 @@ import { useUser } from '../helperComponents/UserContext';
 export default function Availability({ navigation }) {
     const [error, setError] = useState('');
     const { user, updateUser } = useUser();
-    console.log(JSON.strignify(user, null, 2))
     const [availability, setAvailability] = useState(
         user.availability ? user.availability :
         [{ day: 'Sunday', hours: 0 },
@@ -107,7 +106,7 @@ export default function Availability({ navigation }) {
                         {!user.availability && 
                             <StepIndicator currentStep={3} 
                         />}
-                        <Button onPress={handleNext} title="Get Schedule!" padding={10} marginBottom={20} marginTop={15} />
+                        <Button onPress={handleNext} title={user.availability? "Update Availability" : "Get Schedule!"} padding={10} marginBottom={20} marginTop={15} />
                     </View>
                 </View>
             </ScrollView>

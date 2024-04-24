@@ -7,7 +7,6 @@ export default function ChooseTheme({ sharedStyles, handleToggleTheme, selectedT
     const data = Object.keys(themes).map((themeKey) => ({
         _index: themeKey,
         title: themeKey,
-        selected: themes[themeKey] === selectedTheme
     }));
 
     return (
@@ -15,7 +14,7 @@ export default function ChooseTheme({ sharedStyles, handleToggleTheme, selectedT
             <Text style={[sharedStyles.headerText, { fontSize: 25, marginBottom: 25, marginTop: 15 }]}>
                 Choose the theme for your app{' '}
             </Text>
-            <DropdownComponent data={data} selected={1} value={data.find(item => item.selected)} setValue={handleToggleTheme}/> 
+            <DropdownComponent data={data} value={data.filter(item => item._index === selectedTheme)[0]} setValue={handleToggleTheme}/> 
         </>
     );
 }

@@ -25,7 +25,7 @@ function AppNavigator() {
         <Stack.Screen name="welcome" options={{ title: 'Welcome'}} component={Welcome} />
         <Stack.Screen name="createAccount" options={{ title: 'Sign Up'}} component={CreateAccount} />
         <Stack.Screen name="login" options={{ title: 'Sign In'}} component={LoginScreen} />
-        <Stack.Screen name="chooseGoal" options={{ title: 'Choose Goal'}} component={ChooseGoal} />
+        <Stack.Screen name="chooseGoal" options={{ title: 'Choose Goal' }} component={ChooseGoal} />
         <Stack.Screen name="skillLevel" options={{ title: 'Profile Setup'}} component={SkillTheme} />
         <Stack.Screen name="availability" options={{ title: 'Availability'}} component={Availability} />
         <Stack.Screen name="profile" options={{ title: 'Profile', headerLeft: () => '' }} component={Profile} />

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 // prettier-ignore
 import { View, Switch, TextInput, Text, KeyboardAvoidingView, Platform, ScrollView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { StepIndicator, Error, Button } from '../helperComponents/Utilities';
 import { useTheme } from '../helperComponents/ThemeContext.js';
+import { useNavigation } from '@react-navigation/native';
 import { getSharedStyles, footerStyle, getColors, getHiddenPasswordIcon } from '../helperComponents/styles.js';
 import { useUser } from '../helperComponents/UserContext';
 import generateSchedule, { currentBest } from '../helperComponents/Schedule';
@@ -56,7 +57,7 @@ export default function ChooseGoal({ navigation }) {
                     ' miles/minute vs walking 0.05 miles/minute).'
             );
         } else if (miles != '0' && miles != '' && (!isDistance ? minutes != '' : true)) {
-            const areUpdating = user.goal;
+            const areUpdating = user.schedule;
             user.goal = {
                 miles: Number(miles),
                 minutes: minutes == '' ? 0 : Number(minutes),
@@ -107,6 +108,14 @@ export default function ChooseGoal({ navigation }) {
         Keyboard.dismiss();
         setError('');
     }
+
+    useLayoutEffect(() => {
+        if (!user.schedule) {
+            navigation.setOptions({
+                headerLeft: () => null,  // This removes the back button
+            });
+        }
+    }, [navigation]);
 
     return (
         <TouchableWithoutFeedback onPress={handlePress} accesible={false}>
@@ -171,8 +180,8 @@ export default function ChooseGoal({ navigation }) {
                 </KeyboardAvoidingView>
 
                 <View style={footerStyle}>
-                    <StepIndicator currentStep={1} />
-                    <Button onPress={handleNext} title="Next" padding={10} marginBottom={20} marginTop={20} />
+                    {!user.schedule && <StepIndicator currentStep={1} />}
+                    <Button onPress={handleNext} title={user.schedule ? "Update Goal" : "Next"} padding={10} marginBottom={20} marginTop={20} />
                 </View>
             </View>
         </TouchableWithoutFeedback>
