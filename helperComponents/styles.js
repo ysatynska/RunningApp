@@ -65,9 +65,7 @@ export function getScreenOptionsStyles (theme) {
             backgroundColor: theme.header_color
         },
         headerTintColor: theme.small_bg_color,
-        cardStyle: {
-            backgroundColor: theme.bg_color
-        },
+        statusBarColor: 'auto',
     });
 };
 // export const screenOptionsStyles = StyleSheet.create({
