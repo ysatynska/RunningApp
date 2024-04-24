@@ -16,7 +16,7 @@ export function Password({ isPasswordVisible, togglePasswordVisibility, password
             <TextInput
                 style={[sharedStyles.input, {marginTop, width, height}]}
                 placeholder="Password"
-                placeholderTextColor={colors.textColor}
+                placeholderTextColor={colors.headerColor}
                 secureTextEntry={!isPasswordVisible}
                 value={password}
                 onChangeText={setPassword}
@@ -44,7 +44,7 @@ export function InputField({ value, onChange, placeholder, autoCap = 'sentences'
         <TextInput
             style={[sharedStyles.input, {marginBottom, marginTop, height, width, height}]}
             placeholder={placeholder}
-            placeholderTextColor={colors.textColor}
+            placeholderTextColor={colors.headerColor}
             value={value}
             onChangeText={onChange}
             autoCapitalize={autoCap}
