@@ -132,7 +132,7 @@ export default function Settings ({ route, navigation }) {
                     <Text style={[sharedStyles.subscriptText, {width: 80, textAlign: 'left'}]}>
                         Password
                     </Text>
-                    <InputFields.Password password={password} setPassword={setPassword} isPasswordVisible={isPasswordVisible} togglePasswordVisibility={togglePasswordVisibility} marginTop={0} width={130} height={35} iconTop={0}/>
+                    <InputFields.Password password={password} setPassword={setPassword} isPasswordVisible={isPasswordVisible} togglePasswordVisibility={togglePasswordVisibility} marginTop={0} width={130} height={35} iconTop={-8}/>
                     <Button onPress={changePassword} title="Update" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
                 </View>
 
