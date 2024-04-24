@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, Image, Pressable, TouchableOpacity } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from './ThemeContext.js';
 import { getStyles } from './styles.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
