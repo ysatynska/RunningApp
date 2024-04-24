@@ -1,6 +1,19 @@
 
 export const themes = {
-    light: {
+    default: {
+        header_color: '#01CFEE',  
+        text_color: '#1C5253', // Instructions, text color
+        bg_color: '#F0F0F0', // Background screen color
+        small_bg_color: '#FFFFFF', // Backrgound object color (input fields and progress container)
+        separator_color: '#CED0CE', // Separating lines for Availability and Profile screens
+        shadow_color: 'gray', // Shadow used in Profile and for buttons
+        button_color: '#FF5953', // Button color
+        button_text_color: '#FFFFFF', // Button text color
+        input_spinner_color: '#DCDCDC', // Used for incrementing buttons in Availability
+        link_color: '#0645AD', // Link color for sign in/create account links
+        error_color: '#CC0000', // Error message color
+    },
+    lightGreen: {
         header_color: '#01CFEE',  
         text_color: '#1C5253', // Instructions, text color
         bg_color: '#F0F0F0', // Background screen color
@@ -14,16 +27,16 @@ export const themes = {
         error_color: '#CC0000', // Error message color
     },
     dark: {
-        header_color: '#2F4550',  
-        text_color: '#00A6ED', // Instructions, text color
-        bg_color: '#0E1111', // Background screen color
-        small_bg_color: '#000000', // Backrgound object color (input fields and progress container)
-        separator_color: '#CED0CE', // Separating lines for Availability and Profile screens
-        shadow_color: 'gray', // Shadow used in Profile and for buttons
-        button_color: '#FE5F55', // Button color
-        button_text_color: '#FFFFFF', // Button text color
-        input_spinner_color: '#DCDCDC', // Used for incrementing buttons in Availability
-        link_color: '#0645AD', // Link color for sign in/create account links
+        header_color: '#BED754',  
+        text_color: '#F0FFF0', // Instructions, text color
+        bg_color: '#191919', // Background screen color
+        small_bg_color: '#3E403D', // Backrgound object color (input fields and progress container)
+        separator_color: '#33F53E', // Separating lines for Availability and Profile screens
+        shadow_color: '#D7FFD9', // Shadow used in Profile and for buttons
+        button_color: '#BED754', // Button color
+        button_text_color: '#F0FFF0', // Button text color
+        input_spinner_color: '#11110D', // Used for incrementing buttons in Availability
+        link_color: '#E3651D', // Link color for sign in/create account links
         error_color: '#CC0000', // Error message color
     },
 };
@@ -133,12 +146,6 @@ export function getColors (theme) {
         smallBgColor: theme.small_bg_color
     });
 };
-// export const colors = {
-//     headerColor: header_color,
-//     textColor: text_color,
-//     inputSpinnerColor: input_spinner_color,
-//     smallBgColor: small_bg_color
-// };
 
 export function getProfileStyles (theme) {
     return ({
@@ -209,72 +216,6 @@ export function getProfileStyles (theme) {
         }
     });
 };
-// export const profileStyles = StyleSheet.create({
-//     separator: {
-//       height: 1,
-//       width: "100%",
-//       backgroundColor: separator_color,
-//     },
-//     progressContainer: {
-//       padding: 15,
-//       backgroundColor: small_bg_color,
-//       borderRadius: 20,
-//       shadowColor: shadow_color,
-//       shadowOffset: {width: 0, height: 2},
-//       shadowOpacity: 0.1,
-//       shadowRadius: 6,
-//       elevation: 3,
-//       marginBottom: 15
-//     },
-//     progressText: [
-//         sharedStyles.subscriptText,
-//         {
-//             textAlign: 'left',
-//             marginLeft: 5,
-//             fontWeight: 'bold',
-//         }
-//     ],
-//     card: {
-//       borderRadius: 16,
-//       paddingLeft: 12,
-//       paddingRight: 12,
-//       shadowColor: shadow_color,
-//       shadowOffset: {
-//         width: -2,
-//         height: 1,
-//       },
-//       shadowOpacity: 0.7,
-//       marginTop: 12
-//     },
-//     maximumTrackStyle: {
-//       backgroundColor: small_bg_color,
-//       color: small_bg_color
-//     },
-//     minimumTrackStyle: {
-//       backgroundColor: header_color,
-//       color: header_color
-//     },
-//     circle: {
-//         width: 30,
-//         height: 30,
-//         borderRadius: 15,
-//         backgroundColor: header_color,
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//         marginLeft: 10
-//     },
-//     circleText: [
-//         sharedStyles.headerText, 
-//         {color: button_text_color, fontSize: 17}
-//     ],
-//     trackMarkText: { 
-//         position: 'absolute', 
-//         top: -30, 
-//         left: 5, 
-//         alignItems: 'center', 
-//         color: text_color 
-//     }
-// });
 
 export function getUtilitiesStyles (theme) {
     return ({
