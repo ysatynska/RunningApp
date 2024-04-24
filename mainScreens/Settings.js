@@ -14,6 +14,7 @@ const DropdownComponent = ({data, value, setValue}) => {
     // Grab dynamic theme
     const { theme } = useTheme();
     const sharedStyles = getSharedStyles(theme);
+    
     return (
       <View>
         <Dropdown

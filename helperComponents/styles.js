@@ -1,4 +1,3 @@
-import { useTheme } from './ThemeContext';
 
 export const themes = {
     light: {
@@ -142,9 +141,6 @@ export function getColors (theme) {
 // };
 
 export function getProfileStyles (theme) {
-    // Grab dynamic theme
-    const sharedStyles = getSharedStyles(theme);
-
     return ({
         separator: {
             height: 1,
@@ -162,14 +158,13 @@ export function getProfileStyles (theme) {
             elevation: 3,
             marginBottom: 15
         },
-        progressText: [
-            sharedStyles.subscriptText,
-            {
-                textAlign: 'left',
-                marginLeft: 5,
-                fontWeight: 'bold',
-            }
-        ],
+        progressText: {
+            fontSize: 16,
+            color: theme.text_color,
+            textAlign: 'left',
+            marginLeft: 5,
+            fontWeight: 'bold',
+        },
         card: {
             borderRadius: 16,
             paddingLeft: 12,
@@ -199,10 +194,12 @@ export function getProfileStyles (theme) {
             alignItems: 'center',
             marginLeft: 10
         },
-        circleText: [
-            sharedStyles.headerText, 
-            {color: theme.button_text_color, fontSize: 17}
-        ],
+        circleText: {
+            fontSize: 20,
+            fontWeight: 'bold',
+            color: theme.button_text_color, 
+            fontSize: 17
+        },
         trackMarkText: { 
             position: 'absolute', 
             top: -30, 
@@ -399,7 +396,7 @@ export function getAvailabilityItem (theme) {
 // static styles
 export const footerStyle = {
     position: 'absolute',
-    bottom: 0,
+    bottom: 10,
     padding: 10,
 };
 
