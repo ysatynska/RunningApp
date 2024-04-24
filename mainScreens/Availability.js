@@ -101,7 +101,9 @@ export default function Availability({ navigation }) {
                 </View>
                 <View>{error != '' && <Error message={error} />}</View>
                 <View>
-                    <StepIndicator currentStep={3} />
+                    {!user.availability && 
+                        <StepIndicator currentStep={3} 
+                    />}
                     <Button onPress={handleNext} title="Get Schedule!" padding={10} marginBottom={20} marginTop={15} />
                 </View>
             </View>

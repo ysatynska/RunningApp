@@ -134,7 +134,7 @@ export default function Settings ({ route, navigation }) {
                     <Text style={[sharedStyles.subscriptText, {textAlign: 'left'}]}>
                         Goal - click Update to edit
                     </Text>
-                    <Button onPress={changeFirstName} title="Update Goal" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
+                    <Button onPress={() => navigation.push('chooseGoal')} title="Update Goal" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
                 </View>
 
                 <View style={availabilityItem}>
