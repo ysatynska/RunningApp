@@ -2,12 +2,14 @@ import React from 'react';
 import { View, Text, Image, Pressable, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from './ThemeContext.js';
-import { getStyles } from './styles.js';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { utilitiesStyles, staticUtilitiesStyles, profileStyles } from '../helperComponents/styles.js';
+import { getUtilitiesStyles, staticUtilitiesStyles, getProfileStyles } from '../helperComponents/styles.js';
 
 
 export const SettingsButton = ({ onPress }) => {
+    // Grab dynamic theme
+    const { theme } = useTheme();
+    const profileStyles = getProfileStyles(theme);
     return (
       <TouchableOpacity onPress={onPress} style={profileStyles.settingsButton}>
         <View>
@@ -17,10 +19,10 @@ export const SettingsButton = ({ onPress }) => {
     );
 };
 
-export function Button({ onPress, title, padding, marginBottom = 0, marginTop = 15, alignSelf = 'auto', width = 'auto', buttonText = utilitiesStyles.buttonText }) {
+export function Button({ onPress, title, padding, marginBottom = 0, marginTop = 15, alignSelf = 'auto', width = 'auto' }) {
     // Grab dynamic theme
-    // const { theme } = useTheme();
-    // const styles = getStyles(theme);
+    const { theme } = useTheme();
+    const utilitiesStyles = getUtilitiesStyles(theme);
 
     return (
         <View>
@@ -28,17 +30,13 @@ export function Button({ onPress, title, padding, marginBottom = 0, marginTop = 
                 onPress={onPress}
                 style={[utilitiesStyles.button, { padding, marginBottom, marginTop, alignSelf, width }]}
             >
-                <Text style={[buttonText, {color: utilitiesStyles.buttonText.color}]}>{title}</Text>
+                <Text style={utilitiesStyles.buttonText}>{title}</Text>
             </Pressable>
         </View>
     );
 }
 
 export function Error({ message, textAlign = 'left', color = '#CC0000' }) {
-    // Grab dynamic theme
-    // const { theme } = useTheme();
-    // const styles = getStyles(theme);
-
     return (
         <View>
             <Text style={[staticUtilitiesStyles.error, {textAlign, color: color}]}>{message}</Text>
@@ -47,10 +45,6 @@ export function Error({ message, textAlign = 'left', color = '#CC0000' }) {
 }
 
 export function LoginImage({ invalidUsername, invalidPassword, invalidName = false }) {
-    // Grab dynamic theme
-    // const { theme } = useTheme();
-    // const styles = getStyles(theme);
-
     return (
         <View>
             <Image
@@ -86,8 +80,8 @@ export function roundToTwoDecimals(num) {
 
 export const StepIndicator = ({ currentStep }) => {
     // Grab dynamic theme
-    // const { theme } = useTheme();
-    // const styles = getStyles(theme);
+    const { theme } = useTheme();
+    const utilitiesStyles = getUtilitiesStyles(theme);
 
     return (
         <View style={staticUtilitiesStyles.stepIndContainer}>

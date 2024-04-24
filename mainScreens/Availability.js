@@ -5,7 +5,7 @@ import { StepIndicator, Error, Button } from '../helperComponents/Utilities';
 import generateSchedule from '../helperComponents/Schedule';
 import { useTheme } from '../helperComponents/ThemeContext.js';
 import { getStyles } from '../helperComponents/styles.js';
-import { sharedStyles, availabilityItem, colors } from '../helperComponents/styles.js';
+import { getSharedStyles, getAvailabilityItem, getColors } from '../helperComponents/styles.js';
 import { useUser } from '../helperComponents/UserContext';
 
 export default function Availability({ navigation }) {
@@ -23,8 +23,10 @@ export default function Availability({ navigation }) {
     );
 
     // Grab dynamic theme
-    // const { theme } = useTheme();
-    // const styles = getStyles(theme);
+    const { theme } = useTheme();
+    const sharedStyles = getSharedStyles(theme);
+    const colors = getColors(theme);
+    const availabilityItem = getAvailabilityItem(theme);
 
     // Function to update 'available' state of a weekday
     function handleDaySelection(index) {
