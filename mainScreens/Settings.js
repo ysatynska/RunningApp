@@ -123,7 +123,7 @@ export default function Settings ({ route, navigation }) {
             <TouchableWithoutFeedback onPress={handlePress} accesible={false}>
                 <ScrollView contentContainerStyle={[sharedStyles.alignContainer, { flex: 1 }]}>
                     <View style={[availabilityItem, {height: screenHeight/10}]}>
-                        <Text style={[sharedStyles.subscriptText, {width: 80, textAlign: 'left'}]}>
+                        <Text style={[sharedStyles.subscriptText, {width: 80, textAlign: 'left', fontWeight: 'bold'}]}>
                             First Name
                         </Text>
                         <InputFields.FirstName firstName={firstName} setFirstName={setFirstName} marginTop={0} width={130} height={34}/>
@@ -131,7 +131,7 @@ export default function Settings ({ route, navigation }) {
                     </View>
 
                     <View style={[availabilityItem, {height: screenHeight/10}]}>
-                        <Text style={[sharedStyles.subscriptText, {width: 80, textAlign: 'left'}]}>
+                        <Text style={[sharedStyles.subscriptText, {width: 80, textAlign: 'left', fontWeight: 'bold'}]}>
                             Password
                         </Text>
                         <InputFields.Password password={password} setPassword={setPassword} isPasswordVisible={isPasswordVisible} togglePasswordVisibility={togglePasswordVisibility} marginTop={0} width={130} height={35} iconTop={-8}/>
@@ -139,7 +139,7 @@ export default function Settings ({ route, navigation }) {
                     </View>
 
                     <View style={[availabilityItem, {height: screenHeight/10}]}>
-                        <Text style={[sharedStyles.subscriptText, {width: 80, textAlign: 'left'}]}>
+                        <Text style={[sharedStyles.subscriptText, {width: 80, textAlign: 'left', fontWeight: 'bold'}]}>
                             Theme
                         </Text>
                         <DropdownComponent data={themes} selected={1} value={currTheme} setValue={setTheme}/> 
@@ -148,7 +148,7 @@ export default function Settings ({ route, navigation }) {
                     </View>
 
                     <View style={[availabilityItem, {height: screenHeight/10}]}>
-                        <Text style={[sharedStyles.subscriptText, {width: 80, textAlign: 'left'}]}>
+                        <Text style={[sharedStyles.subscriptText, {width: 80, textAlign: 'left', fontWeight: 'bold'}]}>
                             Skill Level
                         </Text>
                         <DropdownComponent data={skillLevels} selected={user.skillLevel} value={skillLevel} setValue={setSkillLevel}/>
@@ -156,14 +156,14 @@ export default function Settings ({ route, navigation }) {
                     </View>
 
                     <View style={[availabilityItem, {height: screenHeight/10}]}>
-                        <Text style={[sharedStyles.subscriptText, {textAlign: 'left'}]}>
-                            Goal - click Update to edit
+                        <Text style={[sharedStyles.subscriptText, {textAlign: 'left', fontWeight: 'bold'}]}>
+                            Goal
                         </Text>
                         <Button onPress={() => navigation.push('chooseGoal')} title="Update Goal" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
                     </View>
 
                     <View style={[availabilityItem, {height: screenHeight/10}]}>
-                        <Text style={[sharedStyles.subscriptText, {textAlign: 'left'}]}>
+                        <Text style={[sharedStyles.subscriptText, {textAlign: 'left', fontWeight: 'bold'}]}>
                             Availability
                         </Text>
                         <Button onPress={() => navigation.push('availability')} title="Update Availability" padding={8} marginTop={0} buttonText={[sharedStyles.subscriptText, {fontWeight: 'bold'}]}/>
@@ -172,8 +172,11 @@ export default function Settings ({ route, navigation }) {
                     {success != '' && <Error message="Successfully saved" />}
                     {error != '' && <Error message={error} />}
                     <View style={footerStyle}>
+                        <Text style={[sharedStyles.headerText, {textAlign: 'center', color: colors.errorColor, marginBottom: 10}]}>
+                            NOTE
+                        </Text>
                         <Text style={[sharedStyles.subscriptText, {textAlign: 'center'}]}>
-                            Note that if the Skill Level, Goal, or Availability update, the schedule with change.
+                            Note that if 'Skill Level', 'Goal', or 'Availability' are updated, then the schedule will change.
                         </Text>
                     </View>
                 </ScrollView>
