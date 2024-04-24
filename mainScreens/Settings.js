@@ -22,8 +22,9 @@ const DropdownComponent = ({data, value, setValue}) => {
           style={[sharedStyles.input, {height: 35, marginTop: 0, width: 130}]}
           itemTextStyle={[sharedStyles.subscriptText, {textAlign: 'left'}]}
           selectedTextStyle={[sharedStyles.subscriptText, {textAlign: 'left'}]}
-          containerStyle={{borderRadius: 15}}
-          activeColor={sharedStyles.alignContainer.backgroundColor}
+          containerStyle={{borderRadius: 15, backgroundColor: colors.smallBgColor}}
+          activeColor={colors.headerColor}
+          placeholderStyle={{color: colors.textColor}}
           data={data}
           labelField="title"
           valueField="_index"
