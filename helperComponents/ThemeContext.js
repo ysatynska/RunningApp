@@ -13,7 +13,7 @@ export const useTheme = () => useContext(ThemeContext);
 // Define the ThemeProvider that will wrap all components using dynamic theme
 export const ThemeProvider = ({ children }) => {
     const { user } = useUser();
-    const [theme, setTheme] = useState(themes.dark); // Default theme
+    const [theme, setTheme] = useState(themes.roanoke); // Default theme
 
     // Function to update theme when changed
     const toggleTheme = (themeName) => {
