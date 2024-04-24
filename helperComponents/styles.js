@@ -13,6 +13,19 @@ export const themes = {
         link_color: '#0645AD', // Link color for sign in/create account links
         error_color: '#CC0000', // Error message color
     },
+    neon: {
+        header_color: '#9b5de5',  
+        text_color: '#411462', // Instructions, text color
+        bg_color: '#41ead4', // Background screen color
+        small_bg_color: '#fbff12', // Backrgound object color (input fields and progress container)
+        separator_color: '#9b5de5', // Separating lines for Availability and Profile screens
+        shadow_color: '9b5de5', // Shadow used in Profile and for buttons
+        button_color: '#fbff12', // Button color
+        button_text_color: '#411462', // Button text color
+        input_spinner_color: '#DCDCDC', // Used for incrementing buttons in Availability
+        link_color: '#0645AD', // Link color for sign in/create account links
+        error_color: '#CC0000', // Error message color
+    },
     lightGreen: {
         header_color: '#01CFEE',  // Used for header color, placeholder text in InputFields, and input spinner when ACTIVE
         text_color: '#1C5253', // Instructions, text color
