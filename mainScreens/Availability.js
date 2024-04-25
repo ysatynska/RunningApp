@@ -80,7 +80,7 @@ export default function Availability({ navigation }) {
                                         style={[sharedStyles.largeText,
                                             {
                                                 textDecorationLine: item.hours != 0 ? 'none' : 'line-through',
-                                                color: item.hours != 0 ? colors.textColor : colors.headerColor,
+                                                color: item.hours != 0 ? colors.textColor : colors.errorColor,
                                             },
                                         ]}
                                     >

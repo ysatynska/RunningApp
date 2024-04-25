@@ -68,14 +68,6 @@ export function getScreenOptionsStyles (theme) {
         statusBarColor: 'auto',
     });
 };
-// export const screenOptionsStyles = StyleSheet.create({
-//     headerBackTitleVisible: false,
-//     headerBackTitleStyle: { color: '#01CFEE' },
-//     headerStyle: {
-//       backgroundColor: '#01CFEE'
-//     },
-//     headerTintColor: 'white'
-// });
 
 export function getSharedStyles (theme) {
     return ({
@@ -116,42 +108,6 @@ export function getSharedStyles (theme) {
         headerColor: theme.header_color
     });
 };
-// export const sharedStyles = StyleSheet.create({
-//     headerText: {
-//         fontSize: 20,
-//         fontWeight: 'bold',
-//         color: text_color,
-//     },
-//     largeText: {
-//         fontSize: 25,
-//         color: text_color,
-//     },
-//     subscriptText: {
-//         fontSize: 16,
-//         color: text_color,
-//         textAlign: 'center'
-//     },
-//     input: {
-//         height: 40,
-//         marginTop: 12,
-//         borderWidth: 1,
-//         padding: 10,
-//         backgroundColor: small_bg_color,
-//         borderRadius: 50,
-//     },
-//     justifyContainer: {
-//         flex: 1,
-//         justifyContent: 'center',
-//         padding: 20,
-//         backgroundColor: bg_color,
-//     },
-//     alignContainer: {
-//         alignItems: 'center',
-//         paddingTop: 20,
-//         backgroundColor: bg_color,
-//     },
-//     linkColor: link_color
-// });
 
 export function getColors (theme) {
     return ({
@@ -262,31 +218,6 @@ export function getUtilitiesStyles (theme) {
         },
     });
 };
-// export const utilitiesStyles = StyleSheet.create({
-//     button: {
-//         backgroundColor: button_color,
-//         borderRadius: 50,
-//         alignItems: 'center',
-//         shadowOpacity: 0.5,
-//         shadowRadius: 5,
-//         shadowColor: shadow_color,
-//         shadowOffset: { height: 2, width: 0 },
-//     },
-//     buttonText: [
-//         sharedStyles.headerText, 
-//         {color: button_text_color}
-//     ],
-//     circle: {
-//         width: 18,
-//         height: 18,
-//         borderRadius: 9,
-//         backgroundColor: input_spinner_color,
-//         margin: 5,
-//     },
-//     highlightedCircle: {
-//         backgroundColor: button_color,
-//     },
-// });
 
 export function getWelcomeText (theme) {
     return ({
@@ -296,12 +227,6 @@ export function getWelcomeText (theme) {
         textAlign: 'center',
     });
 };
-// export const welcomeText = {
-//     fontSize: 32,
-//     color: header_color,
-//     fontWeight: 'bold',
-//     textAlign: 'center',
-// };
 
 export function getHiddenPasswordIcon (theme) {
     return ({
@@ -313,15 +238,6 @@ export function getHiddenPasswordIcon (theme) {
         color: theme.text_color
     });
 };
-// export const hiddenPasswordIcon = {
-//     position: 'absolute',
-//     right: 10,
-//     top: 6,
-//     height: '100%',
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     color: text_color
-// }
 
 export function getAvailabilityItem (theme) {
     return ({
@@ -336,17 +252,6 @@ export function getAvailabilityItem (theme) {
         borderBottomColor: theme.separator_color,
     });
 };
-// export const availabilityItem =  {
-//     flexDirection: 'row',
-//     justifyContent: 'space-between',
-//     alignItems: 'center',
-//     width: '100%',
-//     paddingBottom: 15,
-//     paddingHorizontal: 20,
-//     marginBottom: 15,
-//     borderBottomWidth: 1,
-//     borderBottomColor: separator_color,
-// };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
