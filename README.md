@@ -2,8 +2,6 @@
 
 Unlock your potential with StrideSmart, the innovative running companion designed to revolutionize your training. Whether you're a beginner or an avid runner, our app tailors a weekly running schedule based on your goals, skill level, and availability. Experience the transformative benefits of running: enhanced cardiovascular health, improved mood and mental clarity, and increased overall physical strength. As you progress, StrideSmart adapts your training plan in response to your feedback, ensuring that each run is optimized for maximum benefit. Start your journey today and let us help you run further, faster, and happier.
 
-Check out this [demo video]() to see the app in action!
-
 ## Features
 
 ### Profile Page
