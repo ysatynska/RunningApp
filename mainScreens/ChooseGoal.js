@@ -42,7 +42,7 @@ export default function ChooseGoal({ navigation }) {
         setMinutes(minutes);
     }
 
-    function handleNext() {
+    function handleNextButtonPress() {
         if (!isDistance && Number(miles) / Number(minutes) >= 0.5) {
             setError(
                 'With the given parameters, you speed would exceed the fastest someone ever ran (' +
@@ -172,7 +172,7 @@ export default function ChooseGoal({ navigation }) {
 
                 <View style={footerStyle}>
                     <StepIndicator currentStep={1} />
-                    <Button onPress={handleNext} title="Next" padding={10} marginBottom={20} marginTop={20} />
+                    <Button onPress={handleNextButtonPress} title="Next" padding={10} marginBottom={20} marginTop={20} />
                 </View>
             </View>
         </TouchableWithoutFeedback>
