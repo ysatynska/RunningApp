@@ -10,7 +10,6 @@ import { useUser } from '../helperComponents/UserContext';
 export default function Availability({ navigation }) {
     const [error, setError] = useState('');
     const { user, updateUser } = useUser();
-    console.log(JSON.stringify(user, null, 2))
     const [availability, setAvailability] = useState(
         user.availability ? user.availability :
         [{ day: 'Sunday', hours: 0 },
