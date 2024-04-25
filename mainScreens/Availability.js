@@ -42,7 +42,7 @@ export default function Availability({ navigation }) {
         setAvailability(updatedAvailability);
     }
 
-    function handleNext() {
+    function handleNextButtonPress() {
         const totalHours = availability.reduce((total, current) => total + current.hours, 0);
         if (totalHours == 0) {
             setError('Please select at least 1 hour when you are available.');
@@ -79,7 +79,7 @@ export default function Availability({ navigation }) {
                                         style={[sharedStyles.largeText,
                                             {
                                                 textDecorationLine: item.hours != 0 ? 'none' : 'line-through',
-                                                color: item.hours != 0 ? colors.textColor : colors.headerColor,
+                                                color: item.hours != 0 ? colors.textColor : colors.errorColor,
                                             },
                                         ]}
                                     >
@@ -106,7 +106,7 @@ export default function Availability({ navigation }) {
                         {!user.availability && 
                             <StepIndicator currentStep={3} 
                         />}
-                        <Button onPress={handleNext} title={user.availability? "Update Availability" : "Get Schedule!"} padding={10} marginBottom={20} marginTop={15} />
+                        <Button onPress={handleNextButtonPress} title="Get Schedule!" padding={10} marginBottom={20} marginTop={15} />
                     </View>
                 </View>
             </ScrollView>

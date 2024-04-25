@@ -16,7 +16,7 @@ export default function SkillTheme({ navigation }) {
     const { theme } = useTheme();
     const sharedStyles = getSharedStyles(theme);
 
-    function handleNext() {
+    function handleNextButtonPress() {
         if (user.skillLevel != null) {
             updateUser({...user, theme: theme.title, currentBest: currentBest(user, user.skillLevel)});
             navigation.navigate('availability');
@@ -55,7 +55,7 @@ export default function SkillTheme({ navigation }) {
                 </View>
                 <View style={footerStyle}>
                     <StepIndicator currentStep={2} />
-                    <Button onPress={handleNext} title="Next" padding={10} marginBottom={20} />
+                    <Button onPress={handleNextButtonPress} title="Next" padding={10} marginBottom={20} />
                 </View>
             </View>
         </TouchableWithoutFeedback>
